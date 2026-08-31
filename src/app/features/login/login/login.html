@@ -1,1 +1,36 @@
-<p>login works!</p>
+<section class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <h3>Login</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="emailFormControl" type="email" placeholder="seu@email.com" required>
+            @if ((emailFormControl.hasError('email') && !emailFormControl.hasError('required')) || emailFormControl.hasError("pattern")) {
+              <mat-error>Informe um email válido</mat-error>
+            }
+            @if (emailFormControl.hasError('required')) {
+              <mat-error>Email é <strong>obrigatório</strong></mat-error>
+            }
+        </mat-form-field>
+
+        <label>
+          Senha
+          <input type="password" placeholder="Senha" required>
+        </label>
+        
+        <a href="">Esqueci minha senha</a>
+
+        <mat-checkbox>Lembrar- Me</mat-checkbox>
+
+        <mat-card-actions>
+          <button mat-flat-button type="submit">Entrar</button>
+          <button mat-raised-button>Cadastrar-se</button>
+  
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>
