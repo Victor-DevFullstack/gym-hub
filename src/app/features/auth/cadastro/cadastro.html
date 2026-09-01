@@ -4,21 +4,34 @@
       <mat-card-title>Cadastrar-se</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form [formGroup]="form">
         <mat-form-field>
           <mat-label>Nome completo</mat-label>
-          <input matInput type="text" placeholder="Seu nome completo" required />
+          <input
+            formControlName="nome"
+            matInput
+            type="text"
+            placeholder="Ex: João Silva Lima"
+            required
+          />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Nome da academia</mat-label>
-          <input matInput type="text" placeholder="SmartFit" required />
+          <input
+            formControlName="nomeAcademia"
+            matInput
+            type="text"
+            placeholder="Ex: SmartFit"
+            required
+          />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input
             matInput
+            formControlName="email"
             [formControl]="emailFormControl"
             type="email"
             placeholder="seu@email.com"
@@ -36,6 +49,7 @@
           <mat-label>Senha</mat-label>
           <input
             matInput
+            formControlName="senha"
             [formControl]="passwordFormControl"
             type="password"
             placeholder="********"
@@ -52,7 +66,7 @@
         </mat-form-field>
 
         <mat-card-actions>
-          <button mat-flat-button type="submit">Cadastrar</button>
+          <button (click)="cadastrar()" mat-flat-button type="submit">Cadastrar</button>
         </mat-card-actions>
       </form>
     </mat-card-content>
