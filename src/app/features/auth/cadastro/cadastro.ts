@@ -1,18 +1,53 @@
-import { Component } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardActions, MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ProprietarioService } from '../../../core/services/proprietario.service';
+import { ProprietarioFormControls } from '../../../shared/types/proprietario';
 
 @Component({
   selector: 'app-cadastro',
-  imports: [MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule,MatCheckboxModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css',
 })
 export class Cadastro {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  emailFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.email],
+  });
+  passwordFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.minLength(6)],
+  });
+
+  form = new FormGroup<ProprietarioFormControls>({
+    nome: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    nomeAcademia: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    email: this.emailFormControl,
+    senha: this.passwordFormControl,
+  });
+
+  proprietarioService = inject(ProprietarioService);
+
+  cadastrar() {
+    this.proprietarioService.cadastrar(this.form.getRawValue());
+  }
 }

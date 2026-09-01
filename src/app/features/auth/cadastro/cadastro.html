@@ -4,30 +4,40 @@
       <mat-card-title>Cadastrar-se</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form [formGroup]="form">
         <mat-form-field>
           <mat-label>Nome completo</mat-label>
-          <input matInput type="text" placeholder="Ex: João Silva Lima" required />
+          <input
+            formControlName="nome"
+            matInput
+            type="text"
+            placeholder="Ex: João Silva Lima"
+            required
+          />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Nome da academia</mat-label>
-          <input matInput type="text" placeholder="Ex: SmartFit" required />
+          <input
+            formControlName="nomeAcademia"
+            matInput
+            type="text"
+            placeholder="Ex: SmartFit"
+            required
+          />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input
             matInput
+            formControlName="email"
             [formControl]="emailFormControl"
             type="email"
             placeholder="seu@email.com"
             required
           />
-          @if (
-            (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) ||
-            emailFormControl.hasError('pattern')
-          ) {
+          @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
             <mat-error>Informe um email válido</mat-error>
           }
           @if (emailFormControl.hasError('required')) {
@@ -39,6 +49,7 @@
           <mat-label>Senha</mat-label>
           <input
             matInput
+            formControlName="senha"
             [formControl]="passwordFormControl"
             type="password"
             placeholder="********"
@@ -55,7 +66,7 @@
         </mat-form-field>
 
         <mat-card-actions>
-          <button mat-flat-button type="submit">Cadastrar</button>
+          <button (click)="cadastrar()" mat-flat-button type="submit">Cadastrar</button>
         </mat-card-actions>
       </form>
     </mat-card-content>
