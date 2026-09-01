@@ -14,10 +14,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })  
 export class Login {
   emailFormControl = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
   constructor() {
     console.log(this.emailFormControl);
-    
+    console.log(this.passwordFormControl);
   }
   // matcher = new
 }
