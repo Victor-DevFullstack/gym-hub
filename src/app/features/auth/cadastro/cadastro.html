@@ -24,10 +24,7 @@
             placeholder="seu@email.com"
             required
           />
-          @if (
-            (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) ||
-            emailFormControl.hasError('pattern')
-          ) {
+          @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
             <mat-error>Informe um email válido</mat-error>
           }
           @if (emailFormControl.hasError('required')) {

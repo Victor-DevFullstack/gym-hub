@@ -8,11 +8,19 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-cadastro',
-  imports: [MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule,MatCheckboxModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css',
 })
 export class Cadastro {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 }
