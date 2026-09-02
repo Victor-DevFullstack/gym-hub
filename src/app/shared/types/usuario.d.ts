@@ -1,6 +1,20 @@
+import { FormControl } from '@angular/forms';
+
+type Role = 'proprietario' | 'recepcionista' | 'professor' | 'cliente';
+
 type UsuarioType = {
-  nome?: string;
+  id: string;
+  nome: string;
   email: string;
   senha: string;
-  cargo?: Cargos;
+  role: Role;
+  academiaId: string;
+  nomeAcademia?: string;
+  criadoPor?: string;
+};
+
+type UsuarioFormControls = {
+  nome: FormControl<string>;
+  email: FormControl<string>;
+  senha: FormControl<string>;
 };

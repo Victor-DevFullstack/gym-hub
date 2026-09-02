@@ -1,4 +1,3 @@
-<!--<app-proprietario></app-proprietario>-->
 <app-sidebar></app-sidebar>
 
 <div class="main">
@@ -6,8 +5,15 @@
   <app-header></app-header>
 
   <main class="content">
-    <app-proprietario></app-proprietario>
+    @if (usuarioLogado?.role === 'proprietario') {
+      <app-recepcao></app-recepcao>
+    } @else if (usuarioLogado?.role === 'recepcionista') {
+      <app-recepcao></app-recepcao>
+    } @else if (usuarioLogado?.role === 'professor') {
+      <app-professor></app-professor>
+    } @else if (usuarioLogado?.role === 'cliente') {
+      <app-aluno></app-aluno>
+    }
   </main>
 
 </div>
-
