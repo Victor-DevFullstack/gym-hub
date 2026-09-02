@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (data.confirmDialog) {
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Sim</button>
+  }
+  <button mat-button [mat-dialog-close]="false">Fechar</button>
+</mat-dialog-actions>

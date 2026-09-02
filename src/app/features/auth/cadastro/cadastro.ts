@@ -11,8 +11,11 @@ import { MatCardActions, MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+
 import { ProprietarioService } from '../../../core/services/proprietario.service';
 import { ProprietarioFormControls } from '../../../shared/types/proprietario';
+import { Dialog } from '../../../shared/components/dialog/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -46,8 +49,22 @@ export class Cadastro {
   });
 
   proprietarioService = inject(ProprietarioService);
+  dialog = inject(Dialog);
+  private router = inject(Router);
 
   cadastrar() {
-    this.proprietarioService.cadastrar(this.form.getRawValue());
+    const { cadastrou, message } = this.proprietarioService.cadastrar(this.form.getRawValue());
+
+    if (!cadastrou) {
+      this.dialog.openDialog({ title: 'Erro no cadastro', message });
+    } else {
+      this.dialog
+        .openDialog({ title: 'Sucesso', message, confirmDialog: true })
+        .subscribe((irParaLogin) => {
+          if (irParaLogin) {
+            this.router.navigate(['/']);
+          }
+        });
+    }
   }
 }

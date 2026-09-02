@@ -1,26 +1,32 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, runInInjectionContext } from '@angular/core';
 import { ProprietarioType } from '../../shared/types/proprietario';
+import { Dialog } from '../../shared/components/dialog/dialog';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProprietarioService {
-  cadastrar(proprietario: ProprietarioType) {
+  private dialog = inject(Dialog)
+  cadastrar(proprietario: ProprietarioType): { cadastrou: boolean, message: string } {
     console.log(proprietario);
 
     const dadosSalvos = localStorage.getItem('proprietarios');
     const listaProprietarios: ProprietarioType[] = dadosSalvos ? JSON.parse(dadosSalvos) : [];
 
-    const emailJaExiste = listaProprietarios.some(p => p.email === proprietario.email);
+    const emailJaExiste = listaProprietarios.some((p) => p.email === proprietario.email);
 
     if (emailJaExiste) {
-      alert('Já existe um usuário com esse email');
+      return { cadastrou: false, message: 'Já existe um usuário com esse email' };
+
     } else {
       listaProprietarios.push(proprietario);
 
       localStorage.setItem('proprietarios', JSON.stringify(listaProprietarios));
 
-      confirm("Cadastrado com sucesso\nDeseja ir para página de login?")
+      return {
+        cadastrou: true,
+        message: 'Cadastrado com sucesso\nDeseja ir para página de login?',
+      };
     }
   }
 }
