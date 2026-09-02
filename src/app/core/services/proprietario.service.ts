@@ -6,8 +6,9 @@ import { Dialog } from '../../shared/components/dialog/dialog';
   providedIn: 'root',
 })
 export class ProprietarioService {
-  private dialog = inject(Dialog)
-  cadastrar(proprietario: ProprietarioType): { cadastrou: boolean, message: string } {
+  private dialog = inject(Dialog);
+
+  cadastrar(proprietario: ProprietarioType): { cadastrou: boolean; message: string } {
     console.log(proprietario);
 
     const dadosSalvos = localStorage.getItem('proprietarios');
@@ -17,7 +18,6 @@ export class ProprietarioService {
 
     if (emailJaExiste) {
       return { cadastrou: false, message: 'Já existe um usuário com esse email' };
-
     } else {
       listaProprietarios.push(proprietario);
 
@@ -27,6 +27,21 @@ export class ProprietarioService {
         cadastrou: true,
         message: 'Cadastrado com sucesso\nDeseja ir para página de login?',
       };
+    }
+  }
+
+  logar(proprietario: ProprietarioType): { user?: object } {
+    const dadosSalvos = localStorage.getItem('proprietarios');
+    const listaProprietarios: ProprietarioType[] = dadosSalvos ? JSON.parse(dadosSalvos) : [];
+
+    const user = listaProprietarios.find(
+      (p) => p.email === proprietario.email && p.senha === proprietario.senha,
+    );
+
+    if (user) {
+      return { user };
+    } else {
+      return {};
     }
   }
 }

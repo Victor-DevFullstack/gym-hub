@@ -1,25 +1,65 @@
-import { Component } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ProprietarioService } from '../../../core/services/proprietario.service';
+import { Dialog } from '../../../shared/components/dialog/dialog';
 
 @Component({
   selector: 'app-login',
-  imports: [MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule,MatCheckboxModule, RouterLink],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    RouterLink,
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css',
-})  
+})
 export class Login {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[^\s@]+@[^\s@]+\.[^\s@]+$")]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  emailFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.email],
+  });
+  passwordFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.minLength(6)],
+  });
 
-  constructor() {
-    console.log(this.emailFormControl);
-    console.log(this.passwordFormControl);
+  proprietarioService = inject(ProprietarioService);
+  dialog = inject(Dialog);
+  readonly router = inject(Router)
+
+  form = new FormGroup({
+    email: this.emailFormControl,
+    senha: this.passwordFormControl,
+  });
+
+  login() {
+    const { user } = this.proprietarioService.logar(this.form.getRawValue());
+
+    if (user) {
+      this.dialog
+        .openDialog({ title: 'Logado com sucesso', message: 'Deseja ir para a dashboard?', confirmDialog: true })
+        .subscribe((irParaDashboard) => {
+          irParaDashboard && this.router.navigate(["/dashboard"])
+        });
+    } else {
+      this.dialog.openDialog({ title: "Falha", message: "Email ou senha estão incorretos."})
+    }
   }
-  // matcher = new
 }
