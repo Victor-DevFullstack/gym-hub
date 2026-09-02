@@ -14,6 +14,8 @@
       Dashboard
     </a>
 
+
+    @if (usuarioLogado?.role === 'proprietario'){
     <a routerLink="/alunos">
       <span class="material-symbols-outlined">
         group
@@ -21,6 +23,8 @@
 
       Alunos
     </a>
+    }
+
 
     <a routerLink="/pagamentos">
       <span class="material-symbols-outlined">
