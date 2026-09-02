@@ -1,3 +1,4 @@
+/*
 import { FormControl } from "@angular/forms"
 
 type ProprietarioType = {
@@ -13,3 +14,4 @@ type ProprietarioFormControls = {
   email: FormControl<string>
   senha: FormControl<string>
 }
+*/

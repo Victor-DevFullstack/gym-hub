@@ -1,3 +1,4 @@
+/*
 import { inject, Injectable, runInInjectionContext } from '@angular/core';
 import { ProprietarioType } from '../../shared/types/proprietario';
 import { Dialog } from '../../shared/components/dialog/dialog';
@@ -45,3 +46,4 @@ export class ProprietarioService {
     }
   }
 }
+*/

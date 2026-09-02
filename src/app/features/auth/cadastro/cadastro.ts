@@ -12,8 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { ProprietarioService } from '../../../core/services/proprietario.service';
-import { ProprietarioFormControls } from '../../../shared/types/proprietario';
+import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 import { Router } from '@angular/router';
 
@@ -41,19 +40,32 @@ export class Cadastro {
     validators: [Validators.required, Validators.minLength(6)],
   });
 
-  form = new FormGroup<ProprietarioFormControls>({
+  form = new FormGroup({
     nome: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     nomeAcademia: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     email: this.emailFormControl,
     senha: this.passwordFormControl,
   });
 
-  proprietarioService = inject(ProprietarioService);
+  usuarioService = inject(UsuarioService);
   dialog = inject(Dialog);
   private router = inject(Router);
 
   cadastrar() {
-    const { cadastrou, message } = this.proprietarioService.cadastrar(this.form.getRawValue());
+    const dadosForm = this.form.getRawValue();
+    const id = crypto.randomUUID();
+
+    // Cadastro público sempre cria o usuário como "proprietario",
+    // dono da própria academia (academiaId = o próprio id dele).
+    const { cadastrou, message } = this.usuarioService.cadastrar({
+      id,
+      nome: dadosForm.nome,
+      email: dadosForm.email,
+      senha: dadosForm.senha,
+      nomeAcademia: dadosForm.nomeAcademia,
+      role: 'proprietario',
+      academiaId: id,
+    });
 
     if (!cadastrou) {
       this.dialog.openDialog({ title: 'Erro no cadastro', message });
