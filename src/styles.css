@@ -8,4 +8,6 @@
   font-family: "Roboto", sans-serif;
   --background-color-card: #F4F3F6;
   --text-color: #000000;
+  --radius10: 10px;
+  --radius15: 15px
 }

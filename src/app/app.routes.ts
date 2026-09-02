@@ -10,6 +10,6 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/cadastro/cadastro').then((m) => m.Cadastro),
   },
   {
-    path: 'dashboard', loadComponent: () => import('./features/dashboard/proprietario/proprietario').then((m) => m.Proprietario),
+    path: 'dashboard', loadComponent: () => import('./shared/components/page-layout/page-layout').then((m) => m.PageLayout),
   }
 ];
