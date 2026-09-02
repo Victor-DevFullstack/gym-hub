@@ -1,5 +1,5 @@
 /*
-import { inject, Injectable, runInInjectionContext } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { ProprietarioType } from '../../shared/types/proprietario';
 import { Dialog } from '../../shared/components/dialog/dialog';
 
@@ -8,6 +8,7 @@ import { Dialog } from '../../shared/components/dialog/dialog';
 })
 export class ProprietarioService {
   private dialog = inject(Dialog);
+  private usuarioLogado = signal<ProprietarioType | null>(null)
 
   cadastrar(proprietario: ProprietarioType): { cadastrou: boolean; message: string } {
     console.log(proprietario);
@@ -40,6 +41,7 @@ export class ProprietarioService {
     );
 
     if (user) {
+      this.usuarioLogado.set(user)
       return { user };
     } else {
       return {};
