@@ -26,4 +26,10 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     route: '/usuarios',
     roles: ['recepcionista', 'proprietario'],
   },
+  {
+    label: 'Carteira',
+    icon: 'account_balance_wallet',
+    route: '/usuarios',
+    roles: ['proprietario'],
+  },
 ];

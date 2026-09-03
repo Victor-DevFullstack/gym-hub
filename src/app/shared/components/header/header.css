@@ -1,8 +1,10 @@
 .header {
-    height: 60px;
+    height: 80px;
     width: 100%;
 
-    background-color: #b8b8b8;
+    background-color: var(--background-white2);
+
+    border-bottom: 1px solid var(--border-black);
 
     display: flex;
     align-items: center;
@@ -26,7 +28,7 @@
 
 .search-icon {
     font-size: 48px;
-    color: #000;
+    color: var(--blue3);
 }
 
 .header-search input {
@@ -34,10 +36,10 @@
     height: 43px;
 
     border-radius: var(--radius15);
-    border: none;
+    border: 2px solid var(--border);
     outline: none;
 
-    background-color: #eeeeee;
+    background-color: var(--background-white1);
     padding: 0 12px;
 
     box-sizing: border-box;
@@ -66,7 +68,7 @@
 
 .notification .material-symbols-outlined {
     font-size: 45px;
-    color: #000;
+    color: var(--blue3);
 }
 
 
@@ -101,8 +103,10 @@
 .profile-name {
     font-size: 25px;
     font-weight: bold;
+    color: var(--text-black)
 }
 
 .arrow {
     font-size: 35px;
+    color: var(--text-black);
 }

@@ -1,0 +1,39 @@
+section {
+    display: grid;
+    grid-template-columns: repeat(2, 400px);   
+    background-color: var(--background-color);
+    gap: 50px;
+    justify-self:end;
+    justify-content: center;   
+
+    max-width: fit-content;
+    margin: 0 auto;
+    position: relative;
+}
+
+mat-card {
+    display: flex;
+    top: 30px;
+    left: 150px;
+    width: 400px;
+    height: 150px;
+    background-color: #D3D3D3;
+    border: 2px solid #5E5E5E;
+    color: #fff;
+    position: relative;
+}
+
+mat-card-title {
+    top: 20px;
+    left: 30px;
+    font-size: 20px;
+    position: relative;
+}
+
+mat-card-subtitle {
+    top: 40px;
+    left: 30px;
+    font-size: 30px;
+    position: relative;
+    color: var(--blue2);
+}

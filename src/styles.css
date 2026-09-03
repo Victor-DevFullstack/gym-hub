@@ -5,10 +5,36 @@
 }
 
 :root {
+
   --font-family: "Roboto", sans-serif;
-  --background-color: #1F1F1F;
+
+  /*COLORS*/
+  --white1: #FFFFFF;
+  --white2: #F8F8F8;
+  --blue1: #C3DCFF;
+  --blue2: #0151E9;
+  --blue3: #02123C;
+  
+  /*BACKGROUND COLOR*/
+  --background-white1: #FFFFFF;
+  --background-white2: #F8F8F8;
+  --background-blue1: #C3DCFF;
+  --background-blue2: #0151E9;
+  --background-blue3: #02123C;
+
   --background-color-card: #F4F3F6;
-  --text-color: #000000;
+  
+  /*RADIUS*/
   --radius10: 10px;
-  --radius15: 15px
+  --radius15: 15px;
+
+  /*TEXTO*/
+  --text-black: #000000;
+  --text-white: #ffffff;
+  --text-off-white: #F2F0EF;
+  
+  /*BORDER*/
+  --border: #878787;
+  --border-black: #000000;
+
 }

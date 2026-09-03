@@ -1,7 +1,7 @@
 <aside class="sidebar">
 
   <div class="logo">
-    GYM HUB
+    <img src="/icons/name-site.svg" alt="Notificações" class="logo-icon" />
   </div>
 
   <nav>
@@ -14,35 +14,6 @@
       Dashboard
     </a>
 
-<<<<<<< HEAD
-
-    @if (usuarioLogado?.role === 'proprietario'){
-    <a routerLink="/alunos">
-      <span class="material-symbols-outlined">
-        group
-      </span>
-
-      Alunos
-    </a>
-    }
-
-
-    <a routerLink="/pagamentos">
-      <span class="material-symbols-outlined">
-        payments
-      </span>
-
-      Pagamentos
-    </a>
-
-    <a routerLink="/usuarios">
-      <span class="material-symbols-outlined">
-        person
-      </span>
-
-      Usuários
-    </a>
-=======
     @for (label of visibleItems; track $index) {
       <a routerLink="{{label.route}}">
         <span class="material-symbols-outlined">
@@ -52,8 +23,6 @@
         {{label.label}}
       </a>
     }
->>>>>>> 51f4c8ba3764039a7db3a51d2d798390ee3d24a6
-
   </nav>
 
 </aside>
