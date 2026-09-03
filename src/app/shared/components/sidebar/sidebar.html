@@ -14,6 +14,7 @@
       Dashboard
     </a>
 
+<<<<<<< HEAD
 
     @if (usuarioLogado?.role === 'proprietario'){
     <a routerLink="/alunos">
@@ -41,6 +42,17 @@
 
       Usuários
     </a>
+=======
+    @for (label of visibleItems; track $index) {
+      <a routerLink="{{label.route}}">
+        <span class="material-symbols-outlined">
+          {{label.icon}}
+        </span>
+
+        {{label.label}}
+      </a>
+    }
+>>>>>>> 51f4c8ba3764039a7db3a51d2d798390ee3d24a6
 
   </nav>
 

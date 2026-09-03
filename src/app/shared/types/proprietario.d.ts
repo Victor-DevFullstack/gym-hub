@@ -1,11 +1,8 @@
 /*
 import { FormControl } from "@angular/forms"
 
-type ProprietarioType = {
-  nome?: string,
+type ProprietarioType = UsuarioType & {
   nomeAcademia?: string,
-  email: string,
-  senha: string
 }
 
 type ProprietarioFormControls = {
