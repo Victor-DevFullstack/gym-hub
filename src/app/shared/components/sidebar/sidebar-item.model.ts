@@ -1,8 +1,10 @@
+import { Role } from '../../types/usuario';
+
 export interface SidebarItem {
   label: string;
   icon: string;
   route: string;
-  roles: Cargos[];
+  roles: Role[];
 }
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
@@ -10,18 +12,18 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     label: 'Alunos',
     icon: 'group',
     route: '/alunos',
-    roles: [Cargos.RECEPCIONISTA],
+    roles: ['recepcionista'],
   },
   {
     label: 'Pagamentos',
     icon: 'payments',
     route: '/pagamentos',
-    roles: [Cargos.RECEPCIONISTA, Cargos.ALUNOS],
+    roles: ['recepcionista', 'cliente'],
   },
   {
     label: 'Usuários',
     icon: 'person',
     route: '/usuarios',
-    roles: [Cargos.RECEPCIONISTA, Cargos.PROPRIETARIO],
+    roles: ['recepcionista', 'proprietario'],
   },
 ];

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SIDEBAR_ITEMS, SidebarItem } from './sidebar-item.model';
-import { UsuarioService } from '../../../core/services/usuarioLogado.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,10 +12,10 @@ import { UsuarioService } from '../../../core/services/usuarioLogado.service';
 export class Sidebar {
   visibleItems: SidebarItem[] = [];
 
-  private userService = inject(UsuarioService);
+  private userService = inject(AuthService);
 
   constructor() {
-    const cargo = this.userService.usuarioLogado()?.cargo ?? Cargos.ALUNOS;
+    const cargo = this.userService.getUsuarioLogado()?.role ?? "proprietario";
     this.visibleItems = SIDEBAR_ITEMS.filter((item) => item.roles.includes(cargo))
   }
 }
