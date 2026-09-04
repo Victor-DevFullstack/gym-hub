@@ -16,22 +16,26 @@
     height: 100%;
     display: grid;
 
-    grid-template: 
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
         "sidebar header"
-        "sidebar main"
         "sidebar main"
     ;
 
     .sidebar {
         grid-area: sidebar;
+        height: 100%;
     }
 
     .header {
         grid-area: header;
+        height: 100%;
 
     }
 
     .main {
         grid-area: main;
+        padding: 2rem;
     }
 }
