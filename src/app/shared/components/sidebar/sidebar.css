@@ -6,8 +6,6 @@
 
   border-right: 1px solid var(--border-black);
 
-  /*background-color: var(--background-color);*/
-
   position: fixed;
   left: 0;
   top: 0;
@@ -58,11 +56,13 @@ nav a {
   font-weight: 600;
 
   border-radius: 8px;
+
+  transition: all .15s ease-in-out;
 }
 
 
 nav a:hover {
-  background-color: #c5c5c5;
+  background-color: #c5c5c584;
 }
 
 
