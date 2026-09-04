@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/cadastro/cadastro').then((m) => m.Cadastro),
   },
   {
-    path: 'dashboard', loadComponent: () => import('./shared/components/page-layout/page-layout').then((m) => m.PageLayout),
+    path: 'dashboard', 
+    canActivate: [authGuard],
+    loadComponent: () => import('./shared/components/page-layout/page-layout').then((m) => m.PageLayout),
   }
 ];
