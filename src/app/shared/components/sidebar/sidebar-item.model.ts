@@ -5,31 +5,36 @@ export interface SidebarItem {
   icon: string;
   route: string;
   roles: Role[];
+  class: string;
 }
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: 'Alunos',
-    icon: 'group',
+    icon: '/icons/people.svg',
     route: '/alunos',
     roles: ['recepcionista'],
+    class: 'icons-sidebar',
   },
   {
     label: 'Pagamentos',
     icon: 'payments',
     route: '/pagamentos',
     roles: ['recepcionista', 'cliente'],
+    class: 'icons-sidebar',
   },
   {
     label: 'Usuários',
-    icon: 'person',
+    icon: '/icons/person.svg',
     route: '/usuarios',
     roles: ['recepcionista', 'proprietario'],
+    class: 'icons-sidebar',
   },
   {
     label: 'Carteira',
-    icon: 'account_balance_wallet',
+    icon: '/icons/wallet.svg',
     route: '/usuarios',
     roles: ['proprietario'],
+    class: 'icons-sidebar',
   },
 ];

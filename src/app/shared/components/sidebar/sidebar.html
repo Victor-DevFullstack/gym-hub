@@ -7,18 +7,14 @@
   <nav>
 
     <a routerLink="/dashboard">
-      <span class="material-symbols-outlined">
-        dashboard
-      </span>
+      <img src="/icons/dashboard.svg" alt="Notificações" class="icon-dashboard" />
 
       Dashboard
     </a>
 
     @for (label of visibleItems; track $index) {
       <a routerLink="{{label.route}}">
-        <span class="material-symbols-outlined">
-          {{label.icon}}
-        </span>
+        <img src="{{label.icon}}" alt="Notificações" class="{{label.class}}" />
 
         {{label.label}}
       </a>

@@ -74,3 +74,9 @@ nav a:hover {
 nav .material-symbols-outlined {
   font-size: 28px;
 }
+
+.icons-sidebar,
+.icon-dashboard {
+  width: 25px;
+  height: 25px;
+}
