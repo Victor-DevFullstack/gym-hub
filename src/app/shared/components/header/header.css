@@ -13,12 +13,16 @@
 
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 
     padding: 0 55px;
     box-sizing: border-box;
 
     gap: 35px;
+
+    .left span {
+        font-size: 1.2rem;
+    }
 }
 
 
@@ -27,6 +31,8 @@
 .header-search {
     display: flex;
     align-items: center;
+    justify-content: center;
+    align-self: center;
 
     gap: 20px;
 }
@@ -69,6 +75,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
 }
 
 .notification .material-symbols-outlined {
@@ -116,3 +123,9 @@
     font-size: 35px;
     color: var(--text-black);
 }
+
+.right {
+    display: flex;
+    gap: 20px;
+}
+

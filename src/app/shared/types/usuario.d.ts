@@ -9,7 +9,7 @@ type UsuarioType = {
   senha: string;
   role: Role;
   academiaId: string;
-  nomeAcademia?: string;
+  nomeAcademia: string;
   criadoPor?: string;
 };
 

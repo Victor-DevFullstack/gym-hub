@@ -1,36 +1,35 @@
 <header class="header">
-
-  <div class="header-search">
-    <span class="material-symbols-outlined search-icon">
-      search
-    </span>
-
-    <input
-      type="text"
-      placeholder="Buscar..."
-    />
-  </div>
-
-  <button class="notification">
-    <span class="material-symbols-outlined">
-      notifications
-    </span>
-  </button>
-
-  <div class="profile">
-
-    <div class="profile-letter">
-      {{user?.nome?.slice(0,1)}}
-      
+  <section class="left"><span>Academia <strong>{{user?.nomeAcademia}}</strong></span></section>
+  <section class="center">
+    <div class="header-search">
+      <span class="material-symbols-outlined search-icon">
+        search
+      </span>
+      <input
+        type="text"
+        placeholder="Buscar..."
+      />
     </div>
+  </section>
 
-    <span class="profile-name">
-      {{user?.nome}}
-    </span>
-    <span class="material-symbols-outlined arrow">
-      expand_more
-    </span>
-
-  </div>
+  <section class="right">
+    <button class="notification">
+      <span class="material-symbols-outlined">
+        notifications
+      </span>
+    </button>
+    <div class="profile">
+      <div class="profile-letter">
+        {{user?.nome?.slice(0,1)}}
+    
+      </div>
+      <span class="profile-name">
+        {{user?.nome}}
+      </span>
+      <span class="material-symbols-outlined arrow">
+        expand_more
+      </span>
+    </div>
+  </section>
 
 </header>
