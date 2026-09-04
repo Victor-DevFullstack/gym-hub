@@ -7,7 +7,7 @@
 
     <input
       type="text"
-      placeholder="search..."
+      placeholder="Buscar..."
     />
   </div>
 
@@ -20,13 +20,13 @@
   <div class="profile">
 
     <div class="profile-letter">
-      V
+      {{user?.nome?.slice(0,1)}}
+      
     </div>
 
     <span class="profile-name">
-      Victor
+      {{user?.nome}}
     </span>
-
     <span class="material-symbols-outlined arrow">
       expand_more
     </span>
