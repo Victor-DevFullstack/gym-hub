@@ -24,7 +24,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     class: 'icons-sidebar',
   },
   {
-    label: 'Usuários',
+    label: 'Funcionarios',
     icon: '/icons/person.svg',
     route: '/usuarios',
     roles: ['recepcionista', 'proprietario'],
@@ -33,7 +33,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: 'Carteira',
     icon: '/icons/wallet.svg',
-    route: '/usuarios',
+    route: '/carteira',
     roles: ['proprietario'],
     class: 'icons-sidebar',
   },

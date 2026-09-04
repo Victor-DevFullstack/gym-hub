@@ -10,10 +10,13 @@
 
   /*COLORS*/
   --white1: #FFFFFF;
-  --white2: #F8F8F8;
-  --blue1: #C3DCFF;
-  --blue2: #0151E9;
+  --white2: #F8FAF9;
+  --blue1: #5589E1;
+  --blue2: #0A5DE2;
   --blue3: #02123C;
+  --gray1: #888E97;
+  --gray2: #B3B3B3;
+  --gray3:#1E2027;
   
   /*BACKGROUND COLOR*/
   --background-white1: #FFFFFF;
@@ -21,6 +24,9 @@
   --background-blue1: #C3DCFF;
   --background-blue2: #0151E9;
   --background-blue3: #02123C;
+
+
+  --background-gray1:#1E2027;
 
   --background-color-card: #F4F3F6;
   
@@ -32,6 +38,10 @@
   --text-black: #000000;
   --text-white: #ffffff;
   --text-off-white: #F2F0EF;
+
+
+  --text-gray: #171D26;
+  --text-blue: #5589E1;
   
   /*BORDER*/
   --border: #878787;
