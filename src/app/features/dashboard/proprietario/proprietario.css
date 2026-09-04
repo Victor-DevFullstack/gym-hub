@@ -1,7 +1,6 @@
 section {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    background-color: var(--background-color);
     gap: 50px;
     justify-self:end;
     justify-content: center;   

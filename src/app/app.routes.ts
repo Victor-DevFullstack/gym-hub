@@ -14,6 +14,16 @@ export const routes: Routes = [
     path: 'dashboard', 
     canActivate: [authGuard],
     loadComponent: () => import('./shared/components/page-layout/page-layout').then((m) => m.PageLayout),
+  },
+  {
+    path: 'usuarios',
+    canActivate: [authGuard],
+    loadComponent:() => import('./features/pages/usuario/usuario').then((m) => m.Usuario)
+  },
+  {
+    path: 'carteira',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/pages/carteira/carteira').then((m) => m.Carteira)
   }
 ];
   

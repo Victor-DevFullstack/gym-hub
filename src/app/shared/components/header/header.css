@@ -7,7 +7,7 @@
     height: 80px;
     width: 100%;
 
-    background-color: var(--background-white2);
+    background-color: var(--white1);
 
     border-bottom: 1px solid var(--border-black);
 
@@ -44,7 +44,7 @@
     border: 2px solid var(--border);
     outline: none;
 
-    background-color: var(--background-white1);
+    background-color: var(--white1);
     padding: 0 12px;
 
     box-sizing: border-box;
