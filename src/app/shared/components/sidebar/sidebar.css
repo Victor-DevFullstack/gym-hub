@@ -1,14 +1,18 @@
+:host {
+  display: contents;
+}
+
 .sidebar {
   width: 300px;
-  height: 100vh;
+  height: 100%;
 
   background-color: var(--background-white2);
 
   border-right: 1px solid var(--border-black);
 
-  position: fixed;
+  /* position: fixed;
   left: 0;
-  top: 0;
+  top: 0; */
 
   padding: 30px 20px;
 

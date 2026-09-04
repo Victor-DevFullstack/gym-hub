@@ -16,3 +16,4 @@ export const routes: Routes = [
     loadComponent: () => import('./shared/components/page-layout/page-layout').then((m) => m.PageLayout),
   }
 ];
+  

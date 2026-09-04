@@ -1,22 +1,24 @@
 
-<app-sidebar></app-sidebar>
-
-<app-header></app-header>
-
-<div class="main">
-
+<section class="app">
+  <app-sidebar class="sidebar"></app-sidebar>
   
-
-  <main class="content">
-    @if (usuarioLogado?.role === 'proprietario') {
-      <app-proprietario></app-proprietario>
-    } @else if (usuarioLogado?.role === 'recepcionista') {
-      <app-recepcao></app-recepcao>
-    } @else if (usuarioLogado?.role === 'professor') {
-      <app-professor></app-professor>
-    } @else if (usuarioLogado?.role === 'cliente') {
-      <app-aluno></app-aluno>
-    }
-  </main>
-
-</div>
+  <app-header class="header"></app-header>
+  
+  <div class="main">
+  
+  
+  
+    <main class="content">
+      @if (usuarioLogado?.role === 'proprietario') {
+        <app-proprietario></app-proprietario>
+      } @else if (usuarioLogado?.role === 'recepcionista') {
+        <app-recepcao></app-recepcao>
+      } @else if (usuarioLogado?.role === 'professor') {
+        <app-professor></app-professor>
+      } @else if (usuarioLogado?.role === 'cliente') {
+        <app-aluno></app-aluno>
+      }
+    </main>
+  
+  </div>
+</section>

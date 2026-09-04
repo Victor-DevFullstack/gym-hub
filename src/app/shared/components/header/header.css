@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 .header {
     height: 80px;
     width: 100%;

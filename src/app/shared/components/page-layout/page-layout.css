@@ -1,7 +1,37 @@
+:host {
+  display: contents;
+}
+
+
 .content {
-    display: flex;
+    /* display: flex; */
     
     height: 100%;
     max-width: 1145px;
-    margin-left: 300px;
+    /* margin-left: 300px; */
+}
+
+.app {
+    width: 100%;
+    height: 100%;
+    display: grid;
+
+    grid-template: 
+        "sidebar header"
+        "sidebar main"
+        "sidebar main"
+    ;
+
+    .sidebar {
+        grid-area: sidebar;
+    }
+
+    .header {
+        grid-area: header;
+
+    }
+
+    .main {
+        grid-area: main;
+    }
 }
