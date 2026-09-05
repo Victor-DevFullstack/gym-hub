@@ -9,7 +9,7 @@
 
     background-color: var(--white1);
 
-    border-bottom: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border);
 
     display: flex;
     align-items: center;
@@ -46,8 +46,8 @@
     width: 185px;
     height: 43px;
 
-    border-radius: var(--radius15);
-    border: 2px solid var(--border);
+    border-radius: var(--radius10);
+    border: 1px solid var(--border);
     outline: none;
 
     background-color: var(--white1);
@@ -99,7 +99,7 @@
     width: 50px;
     height: 50px;
 
-    border-radius: var(--radius10);
+    border-radius: var(--radius15);
 
     background-color: #fff;
     border: 1px solid #000;
@@ -114,7 +114,7 @@
 }
 
 .profile-name {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     color: var(--text-black)
 }
@@ -126,6 +126,19 @@
 
 .right {
     display: flex;
-    gap: 20px;
+    gap: 40px;
 }
 
+.bell-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    align-self: end;
+     
+}

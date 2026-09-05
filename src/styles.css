@@ -11,12 +11,20 @@
   /*COLORS*/
   --white1: #FFFFFF;
   --white2: #F8FAF9;
+  --white3: #F9FAFC;
+
   --blue1: #5589E1;
   --blue2: #0A5DE2;
   --blue3: #02123C;
   --gray1: #888E97;
   --gray2: #B3B3B3;
   --gray3:#1E2027;
+
+  --red1: #F9DFDF;
+  --red2: #CF6E6C;
+  --red3: #904B4A;
+
+  --black: #000000;
   
   /*BACKGROUND COLOR*/
   --background-white1: #FFFFFF;
@@ -31,6 +39,7 @@
   --background-color-card: #F4F3F6;
   
   /*RADIUS*/
+  --radius5: 5px;
   --radius10: 10px;
   --radius15: 15px;
 
@@ -44,7 +53,7 @@
   --text-blue: #5589E1;
   
   /*BORDER*/
-  --border: #878787;
+  --border: #E6E8EC;
   --border-black: #000000;
 
 }

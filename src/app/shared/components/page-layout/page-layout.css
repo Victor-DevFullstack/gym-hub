@@ -37,6 +37,6 @@
     .main {
         grid-area: main;
         padding: 2rem;
-        background-color: var(--white2);
+        background-color: var(--white3);
     }
 }

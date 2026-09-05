@@ -1,10 +1,7 @@
 <header class="header">
   <section class="left"><span>Academia <strong>{{user?.nomeAcademia}}</strong></span></section>
   <section class="center">
-    <div class="header-search">
-      <span class="material-symbols-outlined search-icon">
-        search
-      </span>
+    <div class="header-search"> 
       <input
         type="text"
         placeholder="Buscar..."
@@ -14,21 +11,22 @@
 
   <section class="right">
     <button class="notification">
-      <span class="material-symbols-outlined">
-        notifications
-      </span>
+      <img src="/icons/bell.svg" alt="Notificações" class="bell-icon" />
     </button>
     <div class="profile">
       <div class="profile-letter">
         {{user?.nome?.slice(0,1)}}
     
       </div>
-      <span class="profile-name">
-        {{user?.nome}}
-      </span>
-      <span class="material-symbols-outlined arrow">
-        expand_more
-      </span>
+
+      <div class="profile-info">
+        <span class="profile-name">
+          {{user?.nome}}
+        </span>
+        <span class="profile-role">
+          {{user?.role}}
+        </span>
+      </div>
     </div>
   </section>
 

@@ -4,7 +4,7 @@
 }
 
 .sidebar {
-  width: 300px;
+  width: 250px;
   height: 100%;
 
   background-color: var(--gray3);
@@ -24,7 +24,7 @@
 
 
 .logo {
-  left: 20px;
+  left: 4px;
   bottom: 12px;
   margin-bottom: 60px;
   position: relative;
