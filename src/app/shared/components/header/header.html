@@ -23,7 +23,7 @@
         {{user?.nome?.slice(0,1)}}
     
       </div>
-      <span class="profile-name">
+      <span [title]="user?.nome" class="profile-name">
         {{user?.nome}}
       </span>
       <span class="material-symbols-outlined arrow">

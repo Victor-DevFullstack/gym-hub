@@ -1,26 +1,12 @@
-<section>
-    <mat-card>
-        <mat-card-title>Receita do Mês</mat-card-title>
-        <mat-card-subtitle>R$ 33.599,24</mat-card-subtitle>
-    </mat-card>
+<section class="dashboard-container">
+  <section class="title">
+    <h2>Visão geral</h2>
+    <p>Resumo da academia {{ usuarioLogado()?.nomeAcademia }}</p>
+  </section>
 
-    <mat-card>
-        <mat-card-title>Receita do Ano</mat-card-title>
-        <mat-card-subtitle>R$ 33.599,24</mat-card-subtitle>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-title>Alunos Novos</mat-card-title>
-        <mat-card-subtitle>38</mat-card-subtitle>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-title>Alunos Ativos</mat-card-title>
-        <mat-card-subtitle>348</mat-card-subtitle>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-title>Matrículas canceladas</mat-card-title>
-        <mat-card-subtitle>16</mat-card-subtitle>
-    </mat-card>
+  <section class="cards">
+    <app-dashboard-card titulo="Receita do Mês" conteudo="R$ 3.599,24"></app-dashboard-card>
+    <app-dashboard-card titulo="Receita do Ano" conteudo="R$ 33.599,24"></app-dashboard-card>
+    <app-dashboard-card titulo="Alunos novos" conteudo="38"></app-dashboard-card>
+  </section>
 </section>

@@ -1,0 +1,26 @@
+mat-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  height: 150px;
+  border: 0.1px solid #5e5e5e71;
+  color: #fff;
+  padding-inline: 2rem;
+}
+
+mat-card-title {
+  height: 50%;
+  box-sizing: border-box;
+  padding-top: 20px;
+  align-self: self-start;
+  font-size: 14px;
+  font-weight: bolder;
+  color: rgb(91, 91, 91);
+}
+
+mat-card-subtitle {
+  flex: 1;
+  align-self: self-start;
+  font-size: 24px;
+  font-weight: bolder;
+}

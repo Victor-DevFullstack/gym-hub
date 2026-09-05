@@ -1,35 +1,35 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
-
-  --font-family: "Manrope", sans-serif;
+  --font-family: 'Manrope', sans-serif;
 
   /*COLORS*/
-  --white1: #FFFFFF;
-  --white2: #F8FAF9;
-  --blue1: #5589E1;
-  --blue2: #0A5DE2;
-  --blue3: #02123C;
-  --gray1: #888E97;
-  --gray2: #B3B3B3;
-  --gray3:#1E2027;
-  
+  --white1: #ffffff;
+  --white2: #f8faf9;
+  --blue1: #5589e1;
+  --blue2: #0a5de2;
+  --blue3: #02123c;
+  --gray1: #888e97;
+  --gray2: #b3b3b3;
+  --gray3: #1e2027;
+
   /*BACKGROUND COLOR*/
-  --background-white1: #FFFFFF;
-  --background-white2: #F8F8F8;
-  --background-blue1: #C3DCFF;
-  --background-blue2: #0151E9;
-  --background-blue3: #02123C;
+  --background-white1: #ffffff;
+  --background-white2: #f8f8f8;
+  --background-blue1: #c3dcff;
+  --background-blue2: #0151e9;
+  --background-blue3: #02123c;
 
+  --background-gray1: #1e2027;
 
-  --background-gray1:#1E2027;
+  --background-color-card: #f4f3f6;
 
-  --background-color-card: #F4F3F6;
-  
   /*RADIUS*/
   --radius10: 10px;
   --radius15: 15px;
@@ -37,14 +37,25 @@
   /*TEXTO*/
   --text-black: #000000;
   --text-white: #ffffff;
-  --text-off-white: #F2F0EF;
+  --text-off-white: #f2f0ef;
 
+  --text-gray: #171d26;
+  --text-blue: #5589e1;
 
-  --text-gray: #171D26;
-  --text-blue: #5589E1;
-  
   /*BORDER*/
   --border: #878787;
   --border-black: #000000;
+}
 
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .title {
+    font-weight: lighter;
+    p {
+      letter-spacing: 0.7px;
+    }
+  }
 }
