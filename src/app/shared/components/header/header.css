@@ -9,11 +9,8 @@
 
   background-color: var(--white1);
 
-<<<<<<< HEAD
-    border-bottom: 1px solid var(--border);
-=======
-  border-bottom: 1px solid var(--border-black);
->>>>>>> 7b065491ba38bd40b9d5be7157e5515a0a9c2399
+  border-bottom: 1px solid var(--border);
+  
 
   display: flex;
   align-items: center;
@@ -56,15 +53,12 @@
   height: 100%;
   width: 100%;
 
-<<<<<<< HEAD
     border-radius: var(--radius10);
     border: 1px solid var(--border);
     outline: none;
-=======
   border-radius: var(--radius15);
   border: 2px solid var(--border);
   outline: none;
->>>>>>> 7b065491ba38bd40b9d5be7157e5515a0a9c2399
 
   background-color: var(--white1);
   padding: 0 12px;
@@ -114,11 +108,8 @@
   height: 32px;
   aspect-ratio: 1;
 
-<<<<<<< HEAD
     border-radius: var(--radius15);
-=======
   border-radius: var(--radius10);
->>>>>>> 7b065491ba38bd40b9d5be7157e5515a0a9c2399
 
   background-color: #fff;
   border: 1px solid #000;
@@ -133,11 +124,9 @@
 }
 
 .profile-name {
-<<<<<<< HEAD
     font-size: 20px;
     font-weight: bold;
-    color: var(--text-black)
-=======
+    color: var(--text-black);
   display: inline-block;
   max-width: 140px;
   min-width: 0;
@@ -147,7 +136,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--text-black);
->>>>>>> 7b065491ba38bd40b9d5be7157e5515a0a9c2399
 }
 
 .arrow {
@@ -156,7 +144,6 @@
 }
 
 .right {
-<<<<<<< HEAD
     display: flex;
     gap: 40px;
 }
@@ -172,10 +159,6 @@
     align-items: center;
     gap: 5px;
     align-self: end;
-     
-}
-=======
   display: flex;
   gap: 6px;
 }
->>>>>>> 7b065491ba38bd40b9d5be7157e5515a0a9c2399

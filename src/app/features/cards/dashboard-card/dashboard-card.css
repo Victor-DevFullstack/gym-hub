@@ -1,3 +1,6 @@
+/*@import url('../../dashboard/proprietario/proprietario.css');*/
+
+/*
 mat-card {
   display: flex;
   flex-direction: column;
@@ -21,6 +24,175 @@ mat-card-title {
 mat-card-subtitle {
   flex: 1;
   align-self: self-start;
-  font-size: 24px;
+  font-size: 24 px;
   font-weight: bolder;
+}
+*/
+
+section , 
+.dashboard-container {
+    display: grid ;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    justify-self: center;
+    justify-content: center;
+    
+    @media (min-width: 950px) {
+        grid-template-columns: repeat(2, 1fr);
+        
+    }
+
+    @media (min-width: 1280px) {
+        grid-template-columns: repeat(3, 1fr);
+        
+    }
+}
+
+mat-card {
+    display: flex;
+    flex-direction: column;
+
+    width: 300px;
+    height: 150px;
+
+    background-color: var(--white1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius15);
+    box-shadow: none;
+
+    padding-left: 20px;
+    padding-top: 15px;
+
+    gap: 10px;
+    /*margin: 0 auto;*/
+
+  /*@media (min-width: 1060px) {
+    grid-template-columns: repeat(2, 1fr);
+  } 
+  
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(3, 1fr);
+  }*/
+}
+
+/*mat-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  height: 150px;
+  background-color: #d3d3d3;
+  border: 2px solid #5e5e5e;
+  color: #fff;
+}*/
+
+/*================================================== 
+    Estilo para a div com a classe card-header
+==================================================*/    
+.div-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.card-icon {
+    width: 30px;
+    height: 30px;
+}
+
+/*====================================== 
+    Estilo para o mat-card-title
+======================================*/
+
+mat-card-title {
+    height: 50%;
+    box-sizing: border-box;
+    
+    align-self: start;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+    color: black;
+  height: 50%;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bolder;
+
+}
+
+.title1, .title2, .title3, .title4, .title5, .title6 {
+    padding-top: 0px;
+}
+
+
+
+
+/*================================================== 
+    Estilo para a div com a classe div-subtitle
+==================================================*/
+.div-subtitle {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+/*====================================== 
+    Estilo para o mat-card-subtitle 
+======================================*/
+#conteudo {
+    flex: 1;
+    align-self: start;
+    /*margin: 0 auto;*/
+    font-size: 30px;
+    margin-top: 10px;
+    align-self: self-start;
+}
+.subtitle1 {
+    color: var(--blue1);
+}
+.subtitle2 {
+    color: var(--black);
+}
+.subtitle3 {
+    color: var(--black);
+}
+.subtitle4 {
+    color: var(--blue1);
+}
+.subtitle5 {
+    color: var(--blue1);
+}
+.subtitle6 {
+    align-self: start;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    color: var(--red3);
+}
+
+/*====================================== 
+            Estilo para o p 
+======================================*/
+p {
+    flex: 1;
+    align-self: self-start;
+    /*margin: 0 auto;*/
+    font-size: 15px;
+    color: var(--gray1);
+}
+
+.subtitle6-1 {
+    width: 50px;
+    align-self: center;
+    font-size: 15px;
+    background-color: var(--red1);
+    padding: 2px 5px;
+    border-radius: var(--radius5);
+    color: var(--red2);
+    margin-right: 50%;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

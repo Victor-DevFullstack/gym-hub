@@ -30,8 +30,7 @@
     min-width: 0;
   }
 
-<<<<<<< HEAD
-    .sidebar {
+    /*.sidebar {
         grid-area: sidebar;
         height: 100%;
     }
@@ -46,8 +45,7 @@
         grid-area: main;
         padding: 2rem;
         background-color: var(--white3);
-    }
-=======
+    }*/
   .main {
     width: 100%;
     grid-area: main;
@@ -55,5 +53,4 @@
     min-width: 0;
     background-color: var(--white2);
   }
->>>>>>> 7b065491ba38bd40b9d5be7157e5515a0a9c2399
 }
