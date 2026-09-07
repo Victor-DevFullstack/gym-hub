@@ -11,19 +11,27 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/cadastro/cadastro').then((m) => m.Cadastro),
   },
   {
-    path: 'dashboard', 
+    path: 'dashboard',
     canActivate: [authGuard],
     loadComponent: () => import('./shared/components/page-layout/page-layout').then((m) => m.PageLayout),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/dashboard/dashboard-home/dashboard-home').then((m) => m.DashboardHome),
+      },
+      {
+        path: 'usuarios',
+        loadComponent: () => import('./features/pages/usuario/usuario').then((m) => m.Usuario),
+      },
+      {
+        path: 'funcionarios',
+        loadComponent: () => import('./features/pages/funcionarios/funcionarios').then((m) => m.Funcionarios),
+      },
+      {
+        path: 'carteira',
+        loadComponent: () => import('./features/pages/carteira/carteira').then((m) => m.Carteira),
+      },
+    ],
   },
-  {
-    path: 'usuarios',
-    canActivate: [authGuard],
-    loadComponent:() => import('./features/pages/usuario/usuario').then((m) => m.Usuario)
-  },
-  {
-    path: 'carteira',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/pages/carteira/carteira').then((m) => m.Carteira)
-  }
 ];
   

@@ -10,23 +10,23 @@
   --font-family: 'Manrope', sans-serif;
 
   /*COLORS*/
-  --white1: #FFFFFF;
-  --white2: #F8FAF9;
-  --white3: #F9FAFC;
+  --white1: #ffffff;
+  --white2: #f8faf9;
+  --white3: #f9fafc;
 
-  --blue1: #5589E1;
-  --blue2: #0A5DE2;
-  --blue3: #02123C;
-  --gray1: #888E97;
-  --gray2: #B3B3B3;
-  --gray3:#1E2027;
+  --blue1: #5589e1;
+  --blue2: #0a5de2;
+  --blue3: #02123c;
+  --gray1: #888e97;
+  --gray2: #b3b3b3;
+  --gray3: #1e2027;
 
-  --red1: #F9DFDF;
-  --red2: #CF6E6C;
-  --red3: #904B4A;
+  --red1: #f9dfdf;
+  --red2: #cf6e6c;
+  --red3: #904b4a;
 
   --black: #000000;
-  
+
   --white1: #ffffff;
   --white2: #f8faf9;
   --blue1: #5589e1;
@@ -61,7 +61,7 @@
   --text-blue: #5589e1;
 
   /*BORDER*/
-  --border: #E6E8EC;
+  --border: #e6e8ec;
   --border-black: #000000;
 }
 
@@ -76,4 +76,23 @@
       letter-spacing: 0.7px;
     }
   }
+}
+
+.dashboard-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.dashboard-title h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-black);
+}
+
+.dashboard-title p {
+  font-size: 1rem;
+  color: var(--text-gray);
 }

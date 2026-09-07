@@ -12,6 +12,17 @@ export class UsuarioService {
     return dadosSalvos ? JSON.parse(dadosSalvos) : [];
   }
 
+  listarPorCargo(cargo: Role) {
+    const dados: UsuarioType[] = JSON.parse(localStorage.getItem(this.chave) ?? '[]');
+
+    const dadosFiltrados = dados.filter((user) => user.role === cargo);
+
+    console.log(dadosFiltrados);
+    
+
+    return dadosFiltrados;
+  }
+
   private salvarTodos(usuarios: UsuarioType[]): void {
     localStorage.setItem(this.chave, JSON.stringify(usuarios));
   }

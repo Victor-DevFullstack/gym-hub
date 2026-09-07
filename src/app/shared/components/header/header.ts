@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from "@angular/material/card";
 import { AuthService } from '../../../core/services/auth.service';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [MatCardModule],
+  imports: [MatCardModule, TitleCasePipe],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

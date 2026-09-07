@@ -1,22 +1,10 @@
-<!--
 <mat-card>
-        <div class="div-title">
-            <img src="{{src}}" alt="{{titulo}}" width="50" height="50" class="{{class}}">
-            <mat-card-title class="{{classtitulo}}">{{titulo}}</mat-card-title>
-        </div>
-        <mat-card-subtitle class="{{classsubtitle}}">{{conteudo}}</mat-card-subtitle>
-        <p>{{descricao}}</p>
-</mat-card>-->
-
-<mat-card>
-        <div class="div-title">
-            <!--<img src="/icons/arrow-repeat.svg" alt="Taxa de cancelamento" width="50" height="50" class="card-icon">
-            <mat-card-title class="title6">Taxa de cancelamento</mat-card-title>-->
-            <img src="{{src}}" alt="{{titulo}}" width="50" height="50" class="{{classImg}}">
-            <mat-card-title class="{{classtitulo}}">{{titulo}}</mat-card-title>
-        </div>
-        <div class="div-subtitle">
-            <span id="conteudo" class="{{classsubtitle}}">{{conteudo}}</span>
-            <span class="{{classSubtitle2}}">{{subConteudo}}</span>
-        </div>
+  <div class="div-title">
+    <img src="{{ src }}" alt="{{ titulo }}" width="50" height="50" class="{{ classImg }}" />
+    <mat-card-title class="{{ classtitulo }}">{{ titulo }}</mat-card-title>
+  </div>
+  <div class="div-subtitle">
+    <span id="conteudo" class="{{ classsubtitle }}">{{ conteudo }}</span>
+    <span class="{{ classSubtitle2 }}">{{ subConteudo }}</span>
+  </div>
 </mat-card>

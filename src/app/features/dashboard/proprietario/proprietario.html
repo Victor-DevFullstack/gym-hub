@@ -1,80 +1,57 @@
-<section class="dashboard-container">
-    <app-dashboard-card titulo="Clientes ativos" classtitulo="title1" classsubtitle="subtitle1" conteudo="289" src="/icons/people-blue.svg" classImg="card-icon"/>
-    <app-dashboard-card titulo="Novos clientes" classtitulo="title2" classsubtitle="subtitle2" conteudo="23" src="/icons/people-blue.svg" classImg="card-icon"/>
-    <app-dashboard-card titulo="Receita no mês" classtitulo="title3" classsubtitle="subtitle3" conteudo="R$ 38.000,00" src="/icons/cash-stack.svg" classImg="card-icon"/>
-    <app-dashboard-card titulo="Alunos Ativos" classtitulo="title4" classsubtitle="subtitle4" conteudo="348" src="/icons/people-blue.svg" classImg="card-icon"/>
-    <app-dashboard-card titulo="Matrículas canceladas" classtitulo="title5" classsubtitle="subtitle5" conteudo="16" src="/icons/people-blue.svg" classImg="card-icon"/>
-    <app-dashboard-card titulo="Taxa de cancelamento" classtitulo="title6" classsubtitle="subtitle6" conteudo="2.1%" subConteudo="-0.4%" classSubtitle2="subtitle6-1" src="/icons/arrow-repeat.svg" classImg="card-icon"/>
-
-
-    <!--<mat-card>
-        <div class="div-title">
-            <img src="/icons/people-blue.svg" alt="Novos clientes" width="50" height="50" class="card-icon">
-            <mat-card-title class="title2">Novos clientes no mês</mat-card-title>
-        </div>
-        <p>+8% vs mês anterior</p>
-    </mat-card>
-
-    <app-dashboard-card titulo="Clientes ativos" conteudo="289" src="/icons/people-blue.svg" class="card-icon"></app-dashboard-card>
-
-    <mat-card>
-        <div class="div-title">
-            <img src="/icons/people-blue.svg" alt="Novos clientes" width="50" height="50" class="card-icon">
-            <mat-card-title class="title2">Novos clientes no mês</mat-card-title>
-        </div>
-        <mat-card-subtitle class="subtitle2">23</mat-card-subtitle>
-        <p>ultimo mês</p>
-    </mat-card>
-
-    <app-dashboard-card titulo="Novos clientes" conteudo="23" src="/icons/people-blue.svg" class="card-icon"></app-dashboard-card>
-
-
-    <mat-card>
-        <div class="div-title">
-            <img src="/icons/cash-stack.svg" alt="Receita no mês" width="50" height="50" class="card-icon">
-            <mat-card-title class="title3">Receita no mês</mat-card-title>
-        </div>
-        <mat-card-subtitle class="subtitle3">R$ 38.000,00</mat-card-subtitle>
-    </mat-card>
-
-    <mat-card>
-        <div class="div-title">
-            <img src="/icons/people-blue.svg" alt="Alunos Ativos" width="50" height="50" class="card-icon">
-            <mat-card-title class="title4">Alunos Ativos</mat-card-title>
-        </div>
-        <mat-card-subtitle class="subtitle4">348</mat-card-subtitle>
-    </mat-card>
-
-    <mat-card>
-        <div class="div-title">
-            <img src="/icons/people-blue.svg" alt="Matrículas canceladas" width="50" height="50" class="card-icon">
-            <mat-card-title class="title5">Matrículas canceladas</mat-card-title>
-        </div>
-        <mat-card-subtitle class="subtitle5">16</mat-card-subtitle>
-    </mat-card>
-    <mat-card>
-        <div class="div-title">
-            <img src="/icons/arrow-repeat.svg" alt="Taxa de cancelamento" width="50" height="50" class="card-icon">
-            <mat-card-title class="title6">Taxa de cancelamento</mat-card-title>
-        </div>
-        <div class="div-subtitle">
-            <span class="subtitle6">2.1%</span>
-            <span class="subtitle6-1">-0.4%</span>
-        </div>
-    </mat-card>
-
-    <app-dashboard-card titulo="Receita do Mês" conteudo="R$ 3.599,24" descricao="+8% vs mês anterior" src="/icons/cash-stack.svg" class="card-icon"></app-dashboard-card>
-    -->
+<section class="dashboard-title">
+    <h2>Visão Geral</h2>
+    <p>Resumo da academia {{usuarioLogado()?.nomeAcademia}}</p>
 </section>
-<!--<section class="dashboard-container">
-  <section class="title">
-    <h2>Visão geral</h2>
-    <p>Resumo da academia {{ usuarioLogado()?.nomeAcademia }}</p>
-  </section>
 
-  <section class="cards">
-    <app-dashboard-card titulo="Receita do Mês" conteudo="R$ 3.599,24"></app-dashboard-card>
-    <app-dashboard-card titulo="Receita do Ano" conteudo="R$ 33.599,24"></app-dashboard-card>
-    <app-dashboard-card titulo="Alunos novos" conteudo="38"></app-dashboard-card>
-  </section>
-</section>-->
+<section class="dashboard-container">
+  <app-dashboard-card
+    titulo="Clientes ativos"
+    classtitulo="title1"
+    classsubtitle="subtitle1"
+    conteudo="{{ clientesAtivos() }}"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Novos clientes"
+    classtitulo="title2"
+    classsubtitle="subtitle2"
+    conteudo="23"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Receita no mês"
+    classtitulo="title3"
+    classsubtitle="subtitle3"
+    conteudo="R$ 38.000,00"
+    src="/icons/cash-stack.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Alunos Ativos"
+    classtitulo="title4"
+    classsubtitle="subtitle4"
+    conteudo="348"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Matrículas canceladas"
+    classtitulo="title5"
+    classsubtitle="subtitle5"
+    conteudo="16"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Taxa de cancelamento"
+    classtitulo="title6"
+    classsubtitle="subtitle6"
+    conteudo="2.1%"
+    subConteudo="-0.4%"
+    classSubtitle2="subtitle6-1"
+    src="/icons/arrow-repeat.svg"
+    classImg="card-icon"
+  />
+</section>

@@ -9,15 +9,7 @@
   
   
     <main class="content">
-      @if (usuarioLogado?.role === 'proprietario') {
-        <app-proprietario></app-proprietario>
-      } @else if (usuarioLogado?.role === 'recepcionista') {
-        <app-recepcao></app-recepcao>
-      } @else if (usuarioLogado?.role === 'professor') {
-        <app-professor></app-professor>
-      } @else if (usuarioLogado?.role === 'cliente') {
-        <app-aluno></app-aluno>
-      }
+      <router-outlet></router-outlet>
     </main>
   
   </div>

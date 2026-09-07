@@ -26,14 +26,14 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: 'Funcionarios',
     icon: '/icons/person.svg',
-    route: '/usuarios',
+    route: '/dashboard/funcionarios',
     roles: ['recepcionista', 'proprietario'],
     class: 'icons-sidebar',
   },
   {
     label: 'Carteira',
     icon: '/icons/wallet.svg',
-    route: '/carteira',
+    route: '/dashboard/carteira',
     roles: ['proprietario'],
     class: 'icons-sidebar',
   },
