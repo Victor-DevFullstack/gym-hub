@@ -35,6 +35,14 @@ export const routes: Routes = [
         path: 'dashboards',
         loadComponent: () => import('./features/dashboard/recepcao/recepcao').then((m) => m.Recepcao),
       },
+      {
+        path: 'alunos',
+        loadComponent: () => import('./features/pages/clientes/clientes').then((m) => m.Clientes),
+      },
+      {
+        path: 'dashboards',
+        loadComponent: () => import('./features/dashboard/recepcao/recepcao').then((m) => m.Recepcao),
+      },
     ],
   },
 ];

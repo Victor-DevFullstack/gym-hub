@@ -1,1 +1,35 @@
-<p>recepcao works!</p>
+<section class="dashboard-title">
+    <h2>Visão Geral</h2>
+    <p>Seja bem-vindo <strong>{{usuarioLogado()?.nome}}</strong></p>
+</section>
+
+<section class="dashboard-container">
+    <app-dashboard-card 
+    titulo="Alunos ativos"
+    classtitulo="title1"
+    classsubtitle="subtitle-blue1"
+    conteudo="{{ alunosAtivos() }}"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+    subTexto="na academia"
+    />
+    <app-dashboard-card 
+    titulo="Mensalidades Pendentes"
+    classtitulo="title2"
+    classsubtitle="subtitle-black"
+    conteudo="{{ alunosAtivos() }}"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+    subTexto="aguardando pagamentos"
+    />
+    <app-dashboard-card 
+    titulo="Novos hoje"
+    classtitulo="title2"
+    classsubtitle="subtitle-black"
+    conteudo="{{ alunosAtivos() }}"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+    subTexto="cadastros"
+    />
+</section>
+
