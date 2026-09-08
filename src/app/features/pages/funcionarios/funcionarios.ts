@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -41,9 +41,16 @@ export class Funcionarios {
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
+  
   private recepcionistas = computed(() => this.usuarioService.listarPorCargo('recepcionista'));
 
-  dataSource = new MatTableDataSource(this.recepcionistas());
+  dataSource = new MatTableDataSource<UsuarioType>();
+
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.recepcionistas();
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -71,7 +78,7 @@ export class Funcionarios {
       }
 
       const novoRecepcionista: UsuarioType = {
-        id: crypto.randomUUID(),
+        id: usuario ? usuario.id : crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,

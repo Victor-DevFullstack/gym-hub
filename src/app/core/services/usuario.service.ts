@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Role, UsuarioType } from '../../shared/types/usuario';
 
 @Injectable({
@@ -7,19 +7,14 @@ import { Role, UsuarioType } from '../../shared/types/usuario';
 export class UsuarioService {
   private chave = 'usuarios';
 
+  private usuarios = signal<UsuarioType[]>(JSON.parse(localStorage.getItem(this.chave) ?? '[]'));
+
   private listarTodos(): UsuarioType[] {
-    const dadosSalvos = localStorage.getItem(this.chave);
-    return dadosSalvos ? JSON.parse(dadosSalvos) : [];
+    return this.usuarios();
   }
 
-  listarPorCargo(cargo: Role) {
-    const dados: UsuarioType[] = JSON.parse(localStorage.getItem(this.chave) ?? '[]');
-
-    const dadosFiltrados = dados.filter((user) => user.role === cargo);
-
-    console.log(dadosFiltrados);
-
-    return dadosFiltrados;
+  listarPorCargo(cargo: Role): UsuarioType[] {
+    return this.usuarios().filter((user) => user.role === cargo);
   }
 
   private salvarTodos(usuarios: UsuarioType[]): void {
@@ -27,16 +22,16 @@ export class UsuarioService {
   }
 
   cadastrar(usuario: UsuarioType): { cadastrou: boolean; message: string } {
-    const usuarios = this.listarTodos();
-
-    const emailJaExiste = usuarios.some((u) => u.email === usuario.email);
+    const emailJaExiste = this.usuarios().some(
+      (u) => u.email.toLowerCase() === usuario.email.toLowerCase(),
+    );
 
     if (emailJaExiste) {
       return { cadastrou: false, message: 'Já existe um usuário com esse email' };
     }
 
-    usuarios.push(usuario);
-    this.salvarTodos(usuarios);
+    this.usuarios.update((listaAntiga) => [...listaAntiga, usuario]);
+    this.salvarTodos(this.usuarios());
 
     return {
       cadastrou: true,
@@ -45,9 +40,14 @@ export class UsuarioService {
   }
 
   atualizar(usuario: UsuarioType) {
-    const usuarios = this.listarTodos();
-    const index = usuarios.findIndex((u) => u.email === usuario.email);
-    const emailJaUsado = usuarios.some((u) => u.email === usuario.email && u.id !== usuario.id);
+    const index = this.usuarios().findIndex((u) => u.id === usuario.id);
+
+    console.log('ID recebido:', usuario.id);
+    console.log('Index encontrado:', index);
+
+    const emailJaUsado = this.usuarios().some(
+      (u) => u.email.toLowerCase() === usuario.email.toLowerCase() && u.id !== usuario.id,
+    );
 
     if (emailJaUsado) {
       return {
@@ -57,14 +57,13 @@ export class UsuarioService {
     }
 
     if (index !== -1) {
-      const usuarioAntigo = usuarios[index];
-      const usuarioAtualizado = {
-        ...usuarioAntigo,
-        ...usuario,
-      };
+      const usuarioAntigo = this.usuarios()[index];
 
-      usuarios[index] = usuarioAtualizado;
-      this.salvarTodos(usuarios);
+      this.usuarios.update((lista) =>
+        lista.map((u) => (u.id === usuario.id ? { ...u, ...usuario } : u)),
+      );
+
+      this.salvarTodos(this.usuarios());
       return {
         cadastrou: true,
         message: 'Atualizado com Sucesso.',
@@ -78,8 +77,7 @@ export class UsuarioService {
   }
 
   login(email: string, senha: string): { user?: UsuarioType } {
-    const usuarios = this.listarTodos();
-    const user = usuarios.find((u) => u.email === email && u.senha === senha);
+    const user = this.usuarios().find((u) => u.email === email && u.senha === senha);
 
     return user ? { user } : {};
   }
