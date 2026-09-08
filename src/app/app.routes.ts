@@ -40,10 +40,13 @@ export const routes: Routes = [
         loadComponent: () => import('./features/pages/clientes/clientes').then((m) => m.Clientes),
       },
       {
-        path: 'dashboards',
-        loadComponent: () => import('./features/dashboard/recepcao/recepcao').then((m) => m.Recepcao),
+        path: 'professores',
+        loadComponent: () => import('./features/pages/professores/professores').then((m) => m.Professores),
+      },
+      {
+        path: 'mensalidades',
+        loadComponent: () => import('./features/pages/mensalidades/mensalidades').then((m) => m.Mensalidades),
       },
     ],
   },
 ];
-  

@@ -12,21 +12,21 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 
 @Component({
-  selector: 'app-clientes',
+  selector: 'app-mensalidades',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
-  templateUrl: './clientes.html',
-  styleUrl: './clientes.css',
+  templateUrl: './mensalidades.html',
+  styleUrl: './mensalidades.css',
 })
-export class Clientes {
-  displayedColumns: string[] = ['nome', 'email', 'plano', 'personal', 'status', 'editar' ];
+export class Mensalidades {
+  displayedColumns: string[] = ['nome', 'plano','valor', 'vencimento', 'status', ];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-  private alunos = computed(() => this.usuarioService.listarPorCargo('aluno'));
+  private mensalidades = computed(() => this.usuarioService.listarPorCargo('aluno'));
 
-  dataSource = new MatTableDataSource(this.alunos());
+  dataSource = new MatTableDataSource(this.mensalidades());
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -79,11 +79,5 @@ export class Clientes {
 
       this.dataSource.data = [...this.dataSource.data];
     });
-  }
-
-  deletarUsuario(usuario: UsuarioType) {
-    console.log(usuario);
-
-    this.usuarioService.deletar(usuario);
   }
 }
