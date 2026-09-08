@@ -37,4 +37,11 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     roles: ['proprietario'],
     class: 'icons-sidebar',
   },
+  {
+    label: 'Teste Dashboards',
+    icon: '/icons/wallet.svg',
+    route: 'dashboards',
+    roles: ['proprietario'],
+    class: 'icons-sidebar',
+  },
 ];

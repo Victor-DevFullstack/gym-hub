@@ -31,6 +31,10 @@ export const routes: Routes = [
         path: 'carteira',
         loadComponent: () => import('./features/pages/carteira/carteira').then((m) => m.Carteira),
       },
+      {
+        path: 'dashboards',
+        loadComponent: () => import('./features/dashboard/recepcao/recepcao').then((m) => m.Recepcao),
+      },
     ],
   },
 ];
