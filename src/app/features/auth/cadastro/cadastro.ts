@@ -55,8 +55,6 @@ export class Cadastro {
     const dadosForm = this.form.getRawValue();
     const id = crypto.randomUUID();
 
-    // Cadastro público sempre cria o usuário como "proprietario",
-    // dono da própria academia (academiaId = o próprio id dele).
     const { cadastrou, message } = this.usuarioService.cadastrar({
       id,
       nome: dadosForm.nome,

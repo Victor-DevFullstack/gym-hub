@@ -18,7 +18,6 @@ export class UsuarioService {
     const dadosFiltrados = dados.filter((user) => user.role === cargo);
 
     console.log(dadosFiltrados);
-    
 
     return dadosFiltrados;
   }
@@ -42,6 +41,39 @@ export class UsuarioService {
     return {
       cadastrou: true,
       message: 'Cadastrado com sucesso\nDeseja ir para página de login?',
+    };
+  }
+
+  atualizar(usuario: UsuarioType) {
+    const usuarios = this.listarTodos();
+    const index = usuarios.findIndex((u) => u.email === usuario.email);
+    const emailJaUsado = usuarios.some((u) => u.email === usuario.email && u.id !== usuario.id);
+
+    if (emailJaUsado) {
+      return {
+        cadastrou: false,
+        message: 'Esse email já está em uso.',
+      };
+    }
+
+    if (index !== -1) {
+      const usuarioAntigo = usuarios[index];
+      const usuarioAtualizado = {
+        ...usuarioAntigo,
+        ...usuario,
+      };
+
+      usuarios[index] = usuarioAtualizado;
+      this.salvarTodos(usuarios);
+      return {
+        cadastrou: true,
+        message: 'Atualizado com Sucesso.',
+      };
+    }
+
+    return {
+      cadastrou: false,
+      message: 'Ocorreu algum erro ao atualizar.',
     };
   }
 
