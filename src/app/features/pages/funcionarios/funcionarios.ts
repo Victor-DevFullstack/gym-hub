@@ -30,18 +30,18 @@ const ELEMENT_DATA: Test[] = [
 
 @Component({
   selector: 'app-funcionarios',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule],
   templateUrl: './funcionarios.html',
   styleUrl: './funcionarios.css',
 })
 export class Funcionarios {
-  displayedColumns: string[] = ['nome', 'role', 'email', 'editar'];
+  displayedColumns: string[] = ['nome', 'email', 'editar'];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-  
+
   private recepcionistas = computed(() => this.usuarioService.listarPorCargo('recepcionista'));
 
   dataSource = new MatTableDataSource<UsuarioType>();
@@ -103,5 +103,11 @@ export class Funcionarios {
 
       this.dataSource.data = [...this.dataSource.data];
     });
+  }
+
+  deletarUsuario(usuario: UsuarioType) {
+    console.log(usuario);
+
+    this.usuarioService.deletar(usuario);
   }
 }
