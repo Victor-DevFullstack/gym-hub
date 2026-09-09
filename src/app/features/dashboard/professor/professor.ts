@@ -25,7 +25,7 @@ export interface Test {
   styleUrl: './professor.css',
 })
 export class Professor {
-displayedColumns: string[] = ['nome', 'email', 'editar'];
+displayedColumns: string[] = ['nome', 'plano', 'status', 'editar'];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
