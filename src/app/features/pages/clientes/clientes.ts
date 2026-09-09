@@ -11,44 +11,27 @@ import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 
-export interface Test {
-  name: string;
-  cargo: Role;
-  email: string;
-  status: 'Ativo' | 'Inativo';
-}
-
-const ELEMENT_DATA: Test[] = [
-  { name: 'Marcia', cargo: 'recepcionista', email: 'hydrogen@example.com', status: 'Ativo' },
-  { name: 'Wellington', cargo: 'recepcionista', email: 'helium@example.com', status: 'Ativo' },
-  { name: 'Lívia', cargo: 'recepcionista', email: 'Li', status: 'Ativo' },
-  { name: 'Ana', cargo: 'recepcionista', email: 'Be', status: 'Ativo' },
-  { name: 'Carlos', cargo: 'recepcionista', email: 'B', status: 'Ativo' },
-  { name: 'Maria', cargo: 'recepcionista', email: 'C', status: 'Ativo' },
-  { name: 'Olivia', cargo: 'recepcionista', email: 'N', status: 'Ativo' },
-];
-
 @Component({
-  selector: 'app-funcionarios',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule],
-  templateUrl: './funcionarios.html',
-  styleUrl: './funcionarios.css',
+  selector: 'app-clientes',
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
+  templateUrl: './clientes.html',
+  styleUrl: './clientes.css',
 })
-export class Funcionarios {
-  displayedColumns: string[] = ['nome', 'email', 'editar'];
+export class Clientes {
+  displayedColumns: string[] = ['nome', 'email', 'plano', 'personal', 'status', 'editar' ];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
 
-  private recepcionistas = computed(() => this.usuarioService.listarPorCargo('recepcionista'));
+  private alunos = computed(() => this.usuarioService.listarPorCargo('aluno'));
 
   dataSource = new MatTableDataSource<UsuarioType>();
 
   constructor() {
     effect(() => {
-      this.dataSource.data = this.recepcionistas();
+      this.dataSource.data = this.alunos();
     });
   }
 
@@ -59,7 +42,7 @@ export class Funcionarios {
 
   abrirDialog(usuario?: UsuarioType): void {
     const dialogRef = this.matDialog.open(UsuarioDialog, {
-      data: { cargo: 'recepcionista', usuario },
+      data: { cargo: 'aluno', usuario },
     });
 
     dialogRef.afterClosed().subscribe((resultado) => {
@@ -77,8 +60,8 @@ export class Funcionarios {
         return;
       }
 
-      const novoRecepcionista: UsuarioType = {
-        id: usuario ? usuario.id : crypto.randomUUID(),
+      const novoAluno: UsuarioType = {
+        id: crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,
@@ -88,13 +71,13 @@ export class Funcionarios {
       };
 
       if (usuario) {
-        let { cadastrou, message } = this.usuarioService.atualizar(novoRecepcionista);
+        let { cadastrou, message } = this.usuarioService.atualizar(novoAluno);
         if (!cadastrou) {
           this.dialog.openDialog({ title: 'Erro ao atualizar', message });
           return;
         }
       } else {
-        let { cadastrou, message } = this.usuarioService.cadastrar(novoRecepcionista);
+        let { cadastrou, message } = this.usuarioService.cadastrar(novoAluno);
         if (!cadastrou) {
           this.dialog.openDialog({ title: 'Erro no cadastro', message });
           return;

@@ -20,5 +20,5 @@ export class Proprietario {
 
   readonly usuarioLogado = signal(this.authService.getUsuarioLogado());
 
-  readonly clientesAtivos = computed(() => this.usuarioService.listarPorCargo('cliente').length);
+  readonly alunosAtivos = computed(() => this.usuarioService.listarPorCargo('aluno').length);
 }

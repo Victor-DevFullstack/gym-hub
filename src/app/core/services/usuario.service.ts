@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { Role, UsuarioType } from '../../shared/types/usuario';
 
 @Injectable({
@@ -13,12 +13,14 @@ export class UsuarioService {
     return this.usuarios();
   }
 
-  listarPorCargo(cargo: Role): UsuarioType[] {
-    return this.usuarios().filter((user) => user.role === cargo);
+  constructor() {
+    effect(() => {
+      localStorage.setItem(this.chave, JSON.stringify(this.usuarios()));
+    });
   }
 
-  private salvarTodos(usuarios: UsuarioType[]): void {
-    localStorage.setItem(this.chave, JSON.stringify(usuarios));
+  listarPorCargo(cargo: Role): UsuarioType[] {
+    return this.usuarios().filter((user) => user.role === cargo);
   }
 
   cadastrar(usuario: UsuarioType): { cadastrou: boolean; message: string } {
@@ -31,7 +33,6 @@ export class UsuarioService {
     }
 
     this.usuarios.update((listaAntiga) => [...listaAntiga, usuario]);
-    this.salvarTodos(this.usuarios());
 
     return {
       cadastrou: true,
@@ -63,7 +64,6 @@ export class UsuarioService {
         lista.map((u) => (u.id === usuario.id ? { ...u, ...usuario } : u)),
       );
 
-      this.salvarTodos(this.usuarios());
       return {
         cadastrou: true,
         message: 'Atualizado com Sucesso.',
@@ -76,6 +76,17 @@ export class UsuarioService {
     };
   }
 
+  deletar(usuario: UsuarioType) {
+    const index = this.usuarios().findIndex((u) => u.id === usuario.id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    this.usuarios.update((lista) => lista.filter((u) => u.id !== usuario.id));
+
+    return true;
+  }
   login(email: string, senha: string): { user?: UsuarioType } {
     const user = this.usuarios().find((u) => u.email === email && u.senha === senha);
 

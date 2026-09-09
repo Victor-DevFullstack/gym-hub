@@ -1,13 +1,14 @@
+
 <section class="top-dashboard">
   <section class="dashboard-title">
-    <h2>Recepcionistas</h2>
-    <p>Contas de recepção da academia</p>
+    <h2>Professores</h2>
+    <p>Contas de professores da academia</p>
   </section>
 
-  <button mat-flat-button (click)="abrirDialog()">Adicionar Recepcionista</button>
+  <button mat-flat-button (click)="abrirDialog()">Adicionar Professor</button>
 </section>
 
-<section class="funcionarios">
+<section class="alunos">
   <mat-form-field>
     <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Maria" #input />
@@ -23,6 +24,7 @@
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let element">{{ element.email }}</td>
     </ng-container>
+    
 
     <ng-container matColumnDef="editar">
       <th class="edit" mat-header-cell *matHeaderCellDef></th>
@@ -41,3 +43,4 @@
     </tr>
   </table>
 </section>
+

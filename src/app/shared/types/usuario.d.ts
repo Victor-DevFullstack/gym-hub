@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-type Role = 'proprietario' | 'recepcionista' | 'professor' | 'cliente';
+type Role = 'proprietario' | 'recepcionista' | 'professor' | 'aluno';
 
 type UsuarioType = {
   id: string;

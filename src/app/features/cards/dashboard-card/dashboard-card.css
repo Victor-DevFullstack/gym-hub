@@ -101,6 +101,18 @@ mat-card-title {
   color: var(--red3);
 }
 
+.subtitle-blue1 {
+  color: var(--blue1);
+}
+
+.subtitle-black {
+  color: var(--black);
+}
+
+.subtitle-red3 {
+  color: var(--red3);
+}
+
 /*====================================== 
             Estilo para o p 
 ======================================*/

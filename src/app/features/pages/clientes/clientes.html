@@ -1,13 +1,14 @@
+
 <section class="top-dashboard">
   <section class="dashboard-title">
-    <h2>Recepcionistas</h2>
-    <p>Contas de recepção da academia</p>
+    <h2>Alunos</h2>
+    <p>Contas de alunos da academia</p>
   </section>
 
-  <button mat-flat-button (click)="abrirDialog()">Adicionar Recepcionista</button>
+  <button mat-flat-button (click)="abrirDialog()">Adicionar Aluno</button>
 </section>
 
-<section class="funcionarios">
+<section class="alunos">
   <mat-form-field>
     <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Maria" #input />
@@ -18,10 +19,25 @@
       <th mat-header-cell *matHeaderCellDef>Nome</th>
       <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
     </ng-container>
-
+    
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="plano">
+      <th mat-header-cell *matHeaderCellDef>Plano</th>
+      <td mat-cell *matCellDef="let element">Mensal básico{{ element.plano }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="personal">
+      <th mat-header-cell *matHeaderCellDef>Personal</th>
+      <td mat-cell *matCellDef="let element">Fulano{{ element.personal }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">Pago{{ element.status }}</td>
     </ng-container>
 
     <ng-container matColumnDef="editar">
@@ -41,3 +57,4 @@
     </tr>
   </table>
 </section>
+

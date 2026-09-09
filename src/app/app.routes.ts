@@ -35,7 +35,22 @@ export const routes: Routes = [
         path: 'dashboards',
         loadComponent: () => import('./features/dashboard/aluno/aluno').then((m) => m.Aluno),
       },
+      {
+        path: 'alunos',
+        loadComponent: () => import('./features/pages/clientes/clientes').then((m) => m.Clientes),
+      },
+      {
+        path: 'professores',
+        loadComponent: () => import('./features/pages/professores/professores').then((m) => m.Professores),
+      },
+      {
+        path: 'mensalidades',
+        loadComponent: () => import('./features/pages/mensalidades/mensalidades').then((m) => m.Mensalidades),
+      },
+      {
+        path: 'configuracoes',
+        loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+      },
     ],
   },
 ];
-  

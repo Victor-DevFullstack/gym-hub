@@ -18,4 +18,5 @@ export class DashboardCard {
   @Input({ required: false }) descricao = '';
   @Input({ required: false }) src = '';
   @Input({ required: false }) classImg = '';
+  @Input({ required: false }) subTexto = '';
 }

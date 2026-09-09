@@ -10,24 +10,10 @@ export interface SidebarItem {
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
-    label: 'Alunos',
-    icon: '/icons/people.svg',
-    route: '/alunos',
-    roles: ['recepcionista'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Pagamentos',
-    icon: 'payments',
-    route: '/pagamentos',
-    roles: ['recepcionista', 'cliente'],
-    class: 'icons-sidebar',
-  },
-  {
     label: 'Funcionarios',
     icon: '/icons/person.svg',
     route: '/dashboard/funcionarios',
-    roles: ['recepcionista', 'proprietario'],
+    roles: ['proprietario'],
     class: 'icons-sidebar',
   },
   {
@@ -38,10 +24,24 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     class: 'icons-sidebar',
   },
   {
-    label: 'Teste Dashboards',
+    label: 'Alunos',
+    icon: '/icons/people.svg',
+    route: 'alunos',
+    roles: ['recepcionista'],
+    class: 'icons-sidebar',
+  },
+  {
+    label: 'Professores e Personais',
+    icon: '/icons/person-arms-up.svg',
+    route: 'professores',
+    roles: ['recepcionista'],
+    class: 'icons-sidebar',
+  },
+  {
+    label: 'Mensalidades',
     icon: '/icons/wallet.svg',
-    route: 'dashboards',
-    roles: ['proprietario'],
+    route: 'mensalidades',
+    roles: ['recepcionista'],
     class: 'icons-sidebar',
   },
 ];

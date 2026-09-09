@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, signal, effect, inject, computed } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,44 +11,27 @@ import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 
-export interface Test {
-  name: string;
-  cargo: Role;
-  email: string;
-  status: 'Ativo' | 'Inativo';
-}
-
-const ELEMENT_DATA: Test[] = [
-  { name: 'Marcia', cargo: 'recepcionista', email: 'hydrogen@example.com', status: 'Ativo' },
-  { name: 'Wellington', cargo: 'recepcionista', email: 'helium@example.com', status: 'Ativo' },
-  { name: 'Lívia', cargo: 'recepcionista', email: 'Li', status: 'Ativo' },
-  { name: 'Ana', cargo: 'recepcionista', email: 'Be', status: 'Ativo' },
-  { name: 'Carlos', cargo: 'recepcionista', email: 'B', status: 'Ativo' },
-  { name: 'Maria', cargo: 'recepcionista', email: 'C', status: 'Ativo' },
-  { name: 'Olivia', cargo: 'recepcionista', email: 'N', status: 'Ativo' },
-];
 
 @Component({
-  selector: 'app-funcionarios',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule],
-  templateUrl: './funcionarios.html',
-  styleUrl: './funcionarios.css',
+  selector: 'app-professores',
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
+  templateUrl: './professores.html',
+  styleUrl: './professores.css',
 })
-export class Funcionarios {
+export class Professores {
   displayedColumns: string[] = ['nome', 'email', 'editar'];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-
-  private recepcionistas = computed(() => this.usuarioService.listarPorCargo('recepcionista'));
+  private professores = computed(() => this.usuarioService.listarPorCargo('professor'));
 
   dataSource = new MatTableDataSource<UsuarioType>();
 
   constructor() {
     effect(() => {
-      this.dataSource.data = this.recepcionistas();
+      this.dataSource.data = this.professores();
     });
   }
 
@@ -59,7 +42,7 @@ export class Funcionarios {
 
   abrirDialog(usuario?: UsuarioType): void {
     const dialogRef = this.matDialog.open(UsuarioDialog, {
-      data: { cargo: 'recepcionista', usuario },
+      data: { cargo: 'professor', usuario },
     });
 
     dialogRef.afterClosed().subscribe((resultado) => {
@@ -77,8 +60,8 @@ export class Funcionarios {
         return;
       }
 
-      const novoRecepcionista: UsuarioType = {
-        id: usuario ? usuario.id : crypto.randomUUID(),
+      const novoProfessor: UsuarioType = {
+        id: crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,
@@ -88,13 +71,13 @@ export class Funcionarios {
       };
 
       if (usuario) {
-        let { cadastrou, message } = this.usuarioService.atualizar(novoRecepcionista);
+        let { cadastrou, message } = this.usuarioService.atualizar(novoProfessor);
         if (!cadastrou) {
           this.dialog.openDialog({ title: 'Erro ao atualizar', message });
           return;
         }
       } else {
-        let { cadastrou, message } = this.usuarioService.cadastrar(novoRecepcionista);
+        let { cadastrou, message } = this.usuarioService.cadastrar(novoProfessor);
         if (!cadastrou) {
           this.dialog.openDialog({ title: 'Erro no cadastro', message });
           return;

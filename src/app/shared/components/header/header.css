@@ -164,3 +164,8 @@
   align-self: end;
   display: flex;
 }
+
+.link {
+  text-decoration: none;
+  color: var(--black);
+}
