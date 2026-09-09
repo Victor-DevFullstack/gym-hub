@@ -1,0 +1,60 @@
+.top-dashboard {
+  display: flex;
+  justify-content: space-between;
+  
+  button {
+    background-color: var(--blue1);
+    color: var(--white1);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: var(--radius10);
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.Professores {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .name {
+    font-weight: bolder;
+  }
+
+  table {
+    width: 100%;
+    border-radius: 2rem;
+
+    th {
+      background-color: var(--blue1);
+      color: var(--white1);
+      font-weight: 600;
+    }
+    td {
+      font-weight: 400;
+    }
+    tr {
+      height: 50px;
+
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    tr:nth-child(even) {
+      background-color: var(--background-white2);
+    }
+    tr:hover {
+      background-color: var(--background-blue1);
+    }
+  }
+}
+
+.mat-column-editar {
+  text-align: end;
+}
