@@ -44,4 +44,25 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     roles: ['recepcionista'],
     class: 'icons-sidebar',
   },
+  {
+    label: 'Treino',
+    icon: '/icons/peso2.svg',
+    route: 'mensalidades',
+    roles: ['aluno'],
+    class: 'icons-sidebar',
+  },
+  {
+    label: 'Pagamentos',
+    icon: '/icons/wallet.svg',
+    route: 'mensalidades',
+    roles: ['aluno'],
+    class: 'icons-sidebar',
+  },
+  {
+    label: 'Meu plano',
+    icon: '/icons/wallet.svg',
+    route: 'mensalidades',
+    roles: ['aluno'],
+    class: 'icons-sidebar',
+  },
 ];

@@ -1,1 +1,34 @@
-<p>aluno works!</p>
+<section class="dashboard-title">
+    <h2>Visão Geral</h2>
+    <p>Resumo da academia {{usuarioLogado()?.nomeAcademia}}</p>
+</section>
+
+<section class="dashboard-container">
+  <app-dashboard-card
+    titulo="Plano atual"
+    classtitulo="title1"
+    classsubtitle="subtitle-black"
+    conteudo="Mensal Básico"
+    subTexto="ativo"
+    src="/icons/people-blue.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Proximo vencimento"
+    classtitulo="title2"
+    classsubtitle="subtitle2"
+    conteudo="30/10/2026"
+    subTexto="Pago"
+    src="/icons/person-black.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Personal"
+    classtitulo="title3"
+    classsubtitle="subtitle3"
+    conteudo="Rodrigo Dacome"
+    subTexto="responsável"
+    src="/icons/cash-stack.svg"
+    classImg="card-icon"
+  />
+</section>
