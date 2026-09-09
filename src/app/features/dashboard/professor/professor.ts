@@ -1,11 +1,11 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Role, UsuarioType } from '../../../shared/types/usuario';
-import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe, NgClass } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
@@ -20,20 +20,26 @@ export interface Test {
 
 @Component({
   selector: 'app-professor',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe, NgClass],
   templateUrl: './professor.html',
   styleUrl: './professor.css',
 })
 export class Professor {
-displayedColumns: string[] = ['nome', 'role', 'email', 'editar'];
+displayedColumns: string[] = ['nome', 'email', 'editar'];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-  private recepcionistas = computed(() => this.usuarioService.listarPorCargo('recepcionista'));
+  private professor = computed(() => this.usuarioService.listarPorCargo('aluno'));
 
-  dataSource = new MatTableDataSource(this.recepcionistas());
+  dataSource = new MatTableDataSource<UsuarioType>();
+
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.professor();
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -60,7 +66,7 @@ displayedColumns: string[] = ['nome', 'role', 'email', 'editar'];
         return;
       }
 
-      const novoRecepcionista: UsuarioType = {
+      const novoProfessor: UsuarioType = {
         id: crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
@@ -71,13 +77,13 @@ displayedColumns: string[] = ['nome', 'role', 'email', 'editar'];
       };
 
       if (usuario) {
-        let { cadastrou, message } = this.usuarioService.atualizar(novoRecepcionista);
+        let { cadastrou, message } = this.usuarioService.atualizar(novoProfessor);
         if (!cadastrou) {
           this.dialog.openDialog({ title: 'Erro ao atualizar', message });
           return;
         }
       } else {
-        let { cadastrou, message } = this.usuarioService.cadastrar(novoRecepcionista);
+        let { cadastrou, message } = this.usuarioService.cadastrar(novoProfessor);
         if (!cadastrou) {
           this.dialog.openDialog({ title: 'Erro no cadastro', message });
           return;
