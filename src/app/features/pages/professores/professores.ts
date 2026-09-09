@@ -1,4 +1,4 @@
-import { Component, signal, inject, computed } from '@angular/core';
+import { Component, signal, effect, inject, computed } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,7 +27,13 @@ export class Professores {
   private dialog = inject(Dialog);
   private professores = computed(() => this.usuarioService.listarPorCargo('professor'));
 
-  dataSource = new MatTableDataSource(this.professores());
+  dataSource = new MatTableDataSource<UsuarioType>();
+
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.professores();
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

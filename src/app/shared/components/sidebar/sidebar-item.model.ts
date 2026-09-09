@@ -24,13 +24,6 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     class: 'icons-sidebar',
   },
   {
-    label: 'Teste Dashboards',
-    icon: '/icons/wallet.svg',
-    route: 'dashboards',
-    roles: ['proprietario'],
-    class: 'icons-sidebar',
-  },
-  {
     label: 'Alunos',
     icon: '/icons/people.svg',
     route: 'alunos',

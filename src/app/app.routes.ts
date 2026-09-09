@@ -47,6 +47,10 @@ export const routes: Routes = [
         path: 'mensalidades',
         loadComponent: () => import('./features/pages/mensalidades/mensalidades').then((m) => m.Mensalidades),
       },
+      {
+        path: 'configuracoes',
+        loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+      },
     ],
   },
 ];

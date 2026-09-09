@@ -13,21 +13,24 @@
     <button class="notification">
       <img src="/icons/bell.svg" alt="Notificações" class="bell-icon" />
     </button>
-    <div class="profile">
-      <div class="profile-letter">
-        {{user?.nome?.slice(0,1)}}
-    
-      </div>
 
-      <div class="profile-info">
-        <span class="profile-name">
-          {{user?.nome}}
-        </span>
-        <span class="profile-role">
-          {{user?.role | titlecase}}
-        </span>
+    <a routerLink="configuracoes" class="link">
+      <div class="profile">
+        <div class="profile-letter">
+          {{user?.nome?.slice(0,1)}}
+      
+        </div>
+
+        <div class="profile-info">
+          <span class="profile-name">
+            {{user?.nome}}
+          </span>
+          <span class="profile-role">
+            {{user?.role | titlecase}}
+          </span>
+        </div>
       </div>
-    </div>
+    </a>
   </section>
 
 </header>
