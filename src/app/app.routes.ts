@@ -33,7 +33,7 @@ export const routes: Routes = [
       },
       {
         path: 'dashboards',
-        loadComponent: () => import('./features/dashboard/recepcao/recepcao').then((m) => m.Recepcao),
+        loadComponent: () => import('./features/dashboard/aluno/aluno').then((m) => m.Aluno),
       },
       {
         path: 'alunos',

@@ -8,6 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { DashboardCard } from '../../cards/dashboard-card/dashboard-card';
 import { UsuarioService } from '../../../core/services/usuario.service';
 
+
 @Component({
   selector: 'app-aluno',
   imports: [Header, RouterOutlet, Sidebar, MatCardModule, MatIconModule, DashboardCard],
@@ -22,3 +23,4 @@ export class Aluno {
 
   readonly alunosAtivos = computed(() => this.usuarioService.listarPorCargo('aluno').length);
 }
+
