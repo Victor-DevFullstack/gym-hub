@@ -1,35 +1,25 @@
 <header class="header">
-  
-  <section class="left"><span>Academia <strong>{{user?.nomeAcademia}}</strong></span></section>
-  
+  <section class="left">
+    <span
+      >Academia <strong>{{ user?.nomeAcademia }}</strong></span
+    >
+  </section>
+
   <section class="center">
-    <div class="header-search"> 
-      <input
-        type="text"
-        placeholder="Buscar..."
-      />
+    <div class="header-search">
+      <input type="text" placeholder="Buscar..." />
     </div>
   </section>
 
   <!-- EXIBIR NOTIFICAÇÕES -->
 
   <section class="right">
-
-    <button
-    class="notification"
-    (click)="exibirNotificacoes()"
-    >
-      <img
-      src="/icons/bell.svg"
-      alt="Notificações"
-      class="bell-icon"
-      />
+    <button class="notification" (click)="exibirNotificacoes()">
+      <img src="/icons/bell.svg" alt="Notificações" class="bell-icon" />
     </button>
 
-     @if (notificacoesAbertas()) {
-
+    @if (notificacoesAbertas()) {
       <div class="notificacao-popup">
-
         <h3>Notificações</h3>
 
         <span class="notificacao-data">
@@ -40,15 +30,8 @@
 
         <small>Tudo está em dia!</small>
 
-        <button
-          class="fecharNotificacoes"
-          (click)="exibirNotificacoes()"
-        >
-          Fechar
-        </button>
-
+        <button class="fecharNotificacoes" (click)="exibirNotificacoes()">Fechar</button>
       </div>
-
     }
 
     <!-- CONFIGURAÇÕES DO USUÁRIO -->
@@ -56,21 +39,23 @@
     <a routerLink="configuracoes/account" class="link">
       <div class="profile">
         <div class="profile-letter">
-          {{user?.nome?.slice(0,1)}}
+          {{ user?.nome?.slice(0, 1) }}
         </div>
 
         <div class="profile-info">
           <span class="profile-name">
-            {{user?.nome}}
+            {{ user?.nome }}
           </span>
 
           <span class="profile-role">
-            {{user?.role | titlecase}}
+            {{ user?.role | titlecase }}
           </span>
         </div>
 
-        <button (click)="logout()">Logout</button>
+        <a (click)="logout()">
+          <img src="/icons/logout.svg" alt="Sair" />
+        </a>
       </div>
     </a>
-
-</section>
+  </section>
+</header>

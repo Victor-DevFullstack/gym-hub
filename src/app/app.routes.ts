@@ -53,10 +53,10 @@ export const routes: Routes = [
         children: [
           {
             path: 'account',
-            loadComponent: () => import('./features/pages/settings/settings').then((m) => m.Settings),
-          }
-        ]
-      },
-    ],
+            loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+          },
+        ],
+      }
+    ]
   },
-];
+]
