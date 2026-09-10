@@ -15,6 +15,9 @@ import { MatInputModule } from '@angular/material/input';
 import { TitleCasePipe } from '@angular/common';
 import { Plano, ProfessorType, Role, UsuarioType } from '../../types/usuario';
 import { UsuarioService } from '../../../core/services/usuario.service';
+import { formatarValorPlano, LABEL_POR_PLANO } from '../../constants/plano.constants';
+
+const PLANOS: Exclude<Plano, null>[] = ['experimental', 'mensal', 'trimestral', 'semestral', 'anual'];
 
 export type AddAlunoFormValue = {
   nome: string;
@@ -53,8 +56,18 @@ export class AddAlunoDialog {
     !this.data.usuario ? `Adicionar ${this.data.cargo}` : `Editar ${this.data.usuario.nome}`,
   );
 
+  readonly planos = PLANOS;
+
   listarPersonais() {
     return this.usuariosService.listarPorCargo("professor")
+  }
+
+  labelPlano(plano: Exclude<Plano, null>): string {
+    return LABEL_POR_PLANO[plano];
+  }
+
+  valorPlano(plano: Exclude<Plano, null>): string {
+    return formatarValorPlano(plano);
   }
 
   constructor() {

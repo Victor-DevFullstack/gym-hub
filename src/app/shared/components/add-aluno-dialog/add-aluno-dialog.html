@@ -15,11 +15,9 @@
     <mat-form-field appearance="outline">
       <mat-label>Selecione um plano</mat-label>
       <mat-select matInput type="email" formControlName="plano">
-        <mat-option value="experimental">Aula experimental - <strong>Gratuita</strong></mat-option>
-        <mat-option value="mensal">Plano mensal - <strong>R$ 119,90</strong></mat-option>
-        <mat-option value="trimestral">Plano trimestral - <strong>R$ 329,70</strong></mat-option>
-        <mat-option value="semestral">Plano semestral - <strong>R$ 599,40</strong></mat-option>
-        <mat-option value="anual">Plano anual - <strong>R$ 958,80</strong></mat-option>
+        @for (plano of planos; track plano) {
+          <mat-option [value]="plano">{{ labelPlano(plano) }} - <strong>{{ valorPlano(plano) }}</strong></mat-option>
+        }
       </mat-select>
     </mat-form-field>
 

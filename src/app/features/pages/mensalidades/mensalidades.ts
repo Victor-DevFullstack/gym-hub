@@ -10,14 +10,7 @@ import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
-
-const VALOR_POR_PLANO: Record<'experimental' | 'mensal' | 'trimestral' | 'semestral' | 'anual', number> = {
-  experimental: 0,
-  mensal: 119.9,
-  trimestral: 329.7,
-  semestral: 599.4,
-  anual: 958.8,
-};
+import { formatarValorPlano } from '../../../shared/constants/plano.constants';
 
 const DIAS_LIMITE_PENDENTE = 7;
 
@@ -53,8 +46,7 @@ export class Mensalidades {
 
   getValor(usuario: UsuarioType): string {
     const aluno = usuario as AlunoType;
-    const valor = aluno.plano ? VALOR_POR_PLANO[aluno.plano] : 0;
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    return aluno.plano ? formatarValorPlano(aluno.plano) : 'Gratuita';
   }
 
   getVencimento(usuario: UsuarioType): string {

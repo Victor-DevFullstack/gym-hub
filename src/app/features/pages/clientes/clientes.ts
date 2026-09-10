@@ -11,6 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 import { AddAlunoDialog } from '../../../shared/components/add-aluno-dialog/add-aluno-dialog';
+import { DIAS_POR_PLANO } from '../../../shared/constants/plano.constants';
 
 @Component({
   selector: 'app-clientes',
@@ -65,28 +66,7 @@ export class Clientes {
       const dataDeContratacao = new Date();
       const dataDeVencimento = new Date(dataDeContratacao);
 
-      let dias: number;
-
-      switch (resultado.plano) {
-        case 'experimental':
-          dias = 1;
-          break;
-        case 'mensal':
-          dias = 30;
-          break;
-        case 'trimestral':
-          dias = 90;
-          break;
-        case 'semestral':
-          dias = 180;
-          break;
-        case 'anual':
-          dias = 365;
-          break;
-        default:
-          dias = 30;
-          break;
-      }
+      const dias = resultado.plano ? DIAS_POR_PLANO[resultado.plano] : DIAS_POR_PLANO.mensal;
 
       dataDeVencimento.setDate(dataDeVencimento.getDate() + dias);
 
