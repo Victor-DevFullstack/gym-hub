@@ -16,7 +16,7 @@
     titulo="Novos alunos"
     classtitulo="title2"
     classsubtitle="subtitle2"
-    conteudo="23"
+    conteudo="{{ novosAlunos() }}"
     src="/icons/person-black.svg"
     classImg="card-icon"
   />
@@ -24,15 +24,15 @@
     titulo="Receita no mês"
     classtitulo="title3"
     classsubtitle="subtitle3"
-    conteudo="R$ 38.000,00"
+    conteudo="{{ receitaMensal() }}"
     src="/icons/cash-stack.svg"
     classImg="card-icon"
   />
   <app-dashboard-card
-    titulo="Alunos Ativos"
+    titulo="Alunos em dia"
     classtitulo="title4"
     classsubtitle="subtitle4"
-    conteudo="348"
+    conteudo="{{ alunosEmDia() }}"
     src="/icons/people-blue.svg"
     classImg="card-icon"
   />
