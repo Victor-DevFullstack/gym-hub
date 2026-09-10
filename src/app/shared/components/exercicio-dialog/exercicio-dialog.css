@@ -1,0 +1,19 @@
+.exercicio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 320px;
+}
+
+.exercicio-form-row {
+  display: flex;
+  gap: 8px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+mat-dialog-content {
+  overflow: visible;
+}

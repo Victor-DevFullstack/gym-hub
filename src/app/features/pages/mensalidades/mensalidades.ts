@@ -11,10 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 import { formatarValorPlano } from '../../../shared/constants/plano.constants';
-
-const DIAS_LIMITE_PENDENTE = 7;
-
-type StatusMensalidade = 'Pago' | 'Pendente' | 'Atrasado';
+import { calcularStatusMensalidade, formatarData } from '../../../shared/utils/mensalidade.utils';
 
 @Component({
   selector: 'app-mensalidades',
@@ -51,29 +48,12 @@ export class Mensalidades {
 
   getVencimento(usuario: UsuarioType): string {
     const aluno = usuario as AlunoType;
-    if (!aluno.dataDeVencimento) {
-      return '-';
-    }
-    return new Date(aluno.dataDeVencimento).toLocaleDateString('pt-BR');
+    return formatarData(aluno.dataDeVencimento);
   }
 
-  getStatus(usuario: UsuarioType): StatusMensalidade {
+  getStatus(usuario: UsuarioType) {
     const aluno = usuario as AlunoType;
-    if (!aluno.dataDeVencimento) {
-      return 'Pago';
-    }
-
-    const hoje = new Date();
-    const vencimento = new Date(aluno.dataDeVencimento);
-    const diasParaVencer = Math.ceil((vencimento.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24));
-
-    if (diasParaVencer < 0) {
-      return 'Atrasado';
-    }
-    if (diasParaVencer <= DIAS_LIMITE_PENDENTE) {
-      return 'Pendente';
-    }
-    return 'Pago';
+    return calcularStatusMensalidade(aluno.dataDeVencimento);
   }
 
   abrirDialog(usuario?: UsuarioType): void {

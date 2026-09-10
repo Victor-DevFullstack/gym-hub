@@ -1,0 +1,35 @@
+<section class="top-dashboard">
+  <section class="dashboard-title">
+    <h2>Meu plano</h2>
+    <p>Detalhes da sua assinatura na academia</p>
+  </section>
+</section>
+
+<section class="meu-plano-cards">
+  <app-dashboard-card
+    titulo="Plano"
+    classtitulo="title1"
+    classsubtitle="subtitle-black"
+    conteudo="{{ nomePlano }}"
+    subTexto="{{ valorPlano }}"
+    src="/icons/wallet.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Vencimento"
+    classtitulo="title2"
+    classsubtitle="subtitle2"
+    conteudo="{{ vencimento }}"
+    subTexto="{{ status }}"
+    src="/icons/cartao.svg"
+    classImg="card-icon"
+  />
+  <app-dashboard-card
+    titulo="Personal"
+    classtitulo="title3"
+    classsubtitle="subtitle3"
+    conteudo="{{ personal }}"
+    src="/icons/person-black.svg"
+    classImg="card-icon"
+  />
+</section>
