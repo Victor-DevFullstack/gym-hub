@@ -1,0 +1,80 @@
+:host {
+  display: block;
+  
+}
+
+.sidebar {
+  background-color: var(--gray3);
+
+  border-right: 1px solid var(--border-black);
+
+  /* position: fixed;
+  left: 0;
+  top: 0; */
+  
+  align-items: center;
+
+  padding: 30px 20px;
+
+  box-sizing: border-box;
+}
+
+
+.logo {
+  left: 3%;
+  bottom: 12px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.logo-icon {
+  width: 200px;
+  height: auto;
+  position: absolute;
+}
+
+
+nav {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+nav a {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 15px;
+
+  text-decoration: none;
+
+  color: var(--gray2);
+
+  font-size: 18px;
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  transition: all .15s ease-in-out;
+}
+
+
+nav a:hover {
+  background-color: #c5c5c584;
+}
+
+
+nav .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.icons-sidebar,
+.icon-dashboard {
+  width: 25px;
+  height: 25px;
+  color: #888E97;
+}

@@ -7,8 +7,6 @@
 .left {
     width: 20%;
     height: 100%;
-    background-color: aqua;
-
     a {
         display: flex;
         align-items: center;

@@ -49,7 +49,13 @@ export const routes: Routes = [
       },
       {
         path: 'configuracoes',
-        loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+        loadComponent: () => import('./shared/components/settings/layout/layout').then((m) => m.Layout),
+        children: [
+          {
+            path: 'account',
+            loadComponent: () => import('./features/pages/settings/settings').then((m) => m.Settings),
+          }
+        ]
       },
     ],
   },
