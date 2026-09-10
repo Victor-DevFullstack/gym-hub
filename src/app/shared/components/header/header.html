@@ -36,7 +36,7 @@
 
     <!-- CONFIGURAÇÕES DO USUÁRIO -->
 
-    <a routerLink="configuracoes/settings" class="link">
+    <a routerLink="configuracoes/conta" class="link">
       <div class="profile">
         <div class="profile-letter">
           {{ user?.nome?.slice(0, 1) }}
@@ -51,10 +51,6 @@
             {{ user?.role | titlecase }}
           </span>
         </div>
-
-        <a (click)="logout()">
-          <img src="/icons/logout.svg" alt="Sair" />
-        </a>
       </div>
     </a>
   </section>

@@ -49,14 +49,27 @@ export const routes: Routes = [
       },
       {
         path: 'configuracoes',
-        loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+        loadComponent: () => import('./shared/components/settings/layout/layout').then((m) => m.Layout),
         children: [
           {
-            path: 'settings',
-            loadComponent: () => import('./features/pages/settings/settings').then((m) => m.Settings),
-          }
-        ]
-      },
-    ],
+            path: 'conta',
+            loadComponent: () => import('./shared/components/settings/account/account').then((m) => m.Account)
+          },
+          {
+            path: 'privacidade',
+            loadComponent: () => import('./shared/components/settings/privacidade/privacidade').then((m) => m.Privacidade)
+          },
+          {
+            path: 'notificacoes',
+            loadComponent: () => import('./shared/components/settings/notificacoes/notificacoes').then((m) => m.Notificacoes)
+          },
+          {
+            path: 'faturamento',
+            loadComponent: () => import('./shared/components/settings/faturamento//faturamento').then((m) => m.Faturamento)
+          },
+
+        ],
+      }
+    ]
   },
-];
+]

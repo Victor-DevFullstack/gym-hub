@@ -1,3 +1,5 @@
+/*@import url(../sidebar-settings/sidebar-settings.css);*/
+
 .container {
     display: flex;
     width: 100%;
@@ -5,10 +7,8 @@
 }
 
 .left {
+    display: grid;
     width: 20%;
-    height: 100%;
-    background-color: aqua;
-
     a {
         display: flex;
         align-items: center;
@@ -27,18 +27,34 @@
         border-radius: 8px;
 
         transition: all .15s ease-in-out;
+        
+        &:hover{
+            background-color: #c5c5c584;
+
+        }
     }
 
     .icons-sidebar,
-    .icon-dashboard {
+    .icon-dashboard,
+    .icon-logout {
         width: 25px;
         height: 25px;
         color: #888E97;
+    }
+
+    .link-logout {
+        display: grid;
+        margin-right: 20px;
+        margin-left: 20px;
+        align-self: end;
+        text-align: center;
+        color: var(--red4);
+        border: 1px solid var(--red4);
     }
 }
 
 .right {
     width: 80%;
-    
-    background-color: red;
+    padding: 20px;
+    border-left: 1px solid var(--border-black);
 }

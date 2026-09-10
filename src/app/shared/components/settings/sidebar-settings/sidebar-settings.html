@@ -1,0 +1,12 @@
+<aside class="sidebar">
+  <nav>
+    @for (label of visibleItems; track $index) {
+      <a routerLink="{{label.route}}">
+        <img src="{{label.icon}}" alt="Notificações" class="{{label.class}}" />
+
+        {{label.label}}
+      </a>
+    }
+  </nav>
+
+</aside>
