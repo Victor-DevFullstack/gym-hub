@@ -4,7 +4,7 @@ type Role = 'proprietario' | 'recepcionista' | 'professor' | 'aluno';
 
 type Plano = 'mensal' | 'trimestral' | 'semestral' | 'anual' | null;
 
-type UsuarioType = AlunoType | ProprietarioType;
+type UsuarioType = AlunoType | ProprietarioType | ProfessorType | RecepcionistaType;
 
 interface BaseUsuarioType {
   id: string;
@@ -32,6 +32,10 @@ interface ProprietarioType extends BaseUsuarioType {
 interface ProfessorType extends BaseUsuarioType {
   role: 'professor';
   alunos?: AlunoType[]
+}
+
+interface RecepcionistaType extends BaseUsuarioType {
+  role: 'recepcionista';
 }
 
 type UsuarioFormControls = {
