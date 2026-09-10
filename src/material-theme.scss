@@ -7,32 +7,63 @@
 
 html {
   height: 100%;
+
   @include mat.theme(
     (
       color: (
         primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        tertiary: mat.$green-palette,
       ),
-      typography: Roboto,
+      typography: Manrope,
       density: 0,
     )
   );
+
+// PALETA DE CORES DA ID VISUAL //
+
+  // Principal
+  --mat-sys-primary: #32DD9F;
+  --mat-sys-on-primary: #020611;
+
+  // Containers da cor principal
+  --mat-sys-primary-container: #B8F5DF;
+  --mat-sys-on-primary-container: #020611;
+
+  // Secundária
+  --mat-sys-secondary: #217657;
+  --mat-sys-on-secondary: #FFFFFF;
+
+  // Containers da secundária
+  --mat-sys-secondary-container: #C1E8D8;
+  --mat-sys-on-secondary-container: #020611;
+
+  // Terciária
+  --mat-sys-tertiary: #217657;
+  --mat-sys-on-tertiary: #FFFFFF;
+
+  // Superfícies
+  --mat-sys-background: #F8F8F8;
+  --mat-sys-surface: #FFFFFF;
+  --mat-sys-surface-container: #F8F8F8;
+  --mat-sys-surface-container-low: #F8F8F8;
+  --mat-sys-surface-container-high: #FFFFFF;
+
+  // Texto
+  --mat-sys-on-surface: #020611;
+  --mat-sys-on-surface-variant: #4F5559;
+
+  // Bordas
+  --mat-sys-outline: #D5DAD8;
+  --mat-sys-outline-variant: #E5E9E7;
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
   color-scheme: light;
 
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 
-  // Reset the user agent margin.
   margin: 0;
   height: 100%;
 }

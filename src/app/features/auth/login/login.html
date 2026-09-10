@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-content>
       <form>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput [formControl]="emailFormControl" type="email" placeholder="seu@email.com" required>
             @if ((emailFormControl.hasError('email') && !emailFormControl.hasError('required')) || emailFormControl.hasError("pattern")) {
@@ -16,7 +16,7 @@
             }
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline" >
             <mat-label>Senha</mat-label>
             <input matInput [formControl]="passwordFormControl" type="password" placeholder="********" required>
             @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
@@ -34,7 +34,7 @@
 
         <mat-card-actions>
           <button mat-flat-button type="submit" (click)="login()">Entrar</button>
-          <button mat-raised-button routerLink="/cadastro">Cadastrar-se</button>
+          <button mat-raised-button routerLink="/cadastro" class="btn-secundario">Cadastrar-se</button>
   
         </mat-card-actions>
       </form>

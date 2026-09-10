@@ -1,5 +1,7 @@
 <header class="header">
+  
   <section class="left"><span>Academia <strong>{{user?.nomeAcademia}}</strong></span></section>
+  
   <section class="center">
     <div class="header-search"> 
       <input
@@ -9,28 +11,64 @@
     </div>
   </section>
 
+  <!-- EXIBIR NOTIFICAÇÕES -->
+
   <section class="right">
-    <button class="notification">
-      <img src="/icons/bell.svg" alt="Notificações" class="bell-icon" />
+
+    <button
+    class="notification"
+    (click)="exibirNotificacoes()"
+    >
+      <img
+      src="/icons/bell.svg"
+      alt="Notificações"
+      class="bell-icon"
+      />
     </button>
+
+     @if (notificacoesAbertas()) {
+
+      <div class="notificacao-popup">
+
+        <h3>Notificações</h3>
+
+        <span class="notificacao-data">
+          {{ dataAtual }}
+        </span>
+
+        <p>Nenhuma nova notificação.</p>
+
+        <small>Tudo está em dia!</small>
+
+        <button
+          class="fecharNotificacoes"
+          (click)="exibirNotificacoes()"
+        >
+          Fechar
+        </button>
+
+      </div>
+
+    }
+
+    <!-- CONFIGURAÇÕES DO USUÁRIO -->
 
     <a routerLink="configuracoes" class="link">
       <div class="profile">
         <div class="profile-letter">
           {{user?.nome?.slice(0,1)}}
-      
         </div>
 
         <div class="profile-info">
           <span class="profile-name">
             {{user?.nome}}
           </span>
+
           <span class="profile-role">
             {{user?.role | titlecase}}
           </span>
         </div>
       </div>
     </a>
-  </section>
 
-</header>
+</section>
