@@ -22,7 +22,7 @@ interface AlunoType extends BaseUsuarioType {
   plano: Plano;
   dataDeContratacao: string | null;
   dataDeVencimento: string | null;
-  personal: ProfessorType | null;
+  personal: ProfessorType | null | "sem-personal";
 }
 
 interface ProprietarioType extends BaseUsuarioType {
