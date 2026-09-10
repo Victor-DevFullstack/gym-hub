@@ -52,9 +52,22 @@ export const routes: Routes = [
         loadComponent: () => import('./shared/components/settings/layout/layout').then((m) => m.Layout),
         children: [
           {
-            path: 'account',
+            path: 'conta',
             loadComponent: () => import('./shared/components/settings/account/account').then((m) => m.Account)
           },
+          {
+            path: 'privacidade',
+            loadComponent: () => import('./shared/components/settings/privacidade/privacidade').then((m) => m.Privacidade)
+          },
+          {
+            path: 'notificacoes',
+            loadComponent: () => import('./shared/components/settings/notificacoes/notificacoes').then((m) => m.Notificacoes)
+          },
+          {
+            path: 'faturamento',
+            loadComponent: () => import('./shared/components/settings/faturamento//faturamento').then((m) => m.Faturamento)
+          },
+
         ],
       }
     ]
