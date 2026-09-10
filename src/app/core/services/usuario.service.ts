@@ -90,7 +90,7 @@ export class UsuarioService {
     return true;
   }
   login(email: string, senha: string): { user?: UsuarioType } {
-    const user = this.usuarios().find((u) => u.email === email && u.senha === senha);
+    const user = this.usuarios().find((u) => u.email.toLowerCase() === email.toLowerCase() && u.senha === senha);
 
     return user ? { user } : {};
   }
