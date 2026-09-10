@@ -51,6 +51,10 @@
             {{ user?.role | titlecase }}
           </span>
         </div>
+
+        <a (click)="logout()">
+          <img src="/icons/logout.svg" alt="Sair" />
+        </a>
       </div>
     </a>
   </section>
