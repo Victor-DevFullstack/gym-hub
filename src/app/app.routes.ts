@@ -53,7 +53,7 @@ export const routes: Routes = [
         children: [
           {
             path: 'account',
-            loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+            loadComponent: () => import('./shared/components/settings/account/account').then((m) => m.Account)
           },
         ],
       }
