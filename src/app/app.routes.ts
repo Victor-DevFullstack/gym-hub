@@ -50,6 +50,12 @@ export const routes: Routes = [
       {
         path: 'configuracoes',
         loadComponent: () => import('./shared/components/configuracoes/configuracoes').then((m) => m.Configuracoes),
+        children: [
+          {
+            path: 'settings',
+            loadComponent: () => import('./features/pages/settings/settings').then((m) => m.Settings),
+          }
+        ]
       },
     ],
   },
