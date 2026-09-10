@@ -58,3 +58,18 @@
 .mat-column-editar {
   text-align: end;
 }
+
+.status-pago {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.status-pendente {
+  color: #b58900;
+  font-weight: 600;
+}
+
+.status-atrasado {
+  color: #c62828;
+  font-weight: 600;
+}

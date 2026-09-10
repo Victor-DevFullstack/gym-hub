@@ -2,7 +2,7 @@ import { FormControl } from '@angular/forms';
 
 type Role = 'proprietario' | 'recepcionista' | 'professor' | 'aluno';
 
-type Plano = 'mensal' | 'trimestral' | 'semestral' | 'anual' | null;
+type Plano = 'experimental' | 'mensal' | 'trimestral' | 'semestral' | 'anual' | null;
 
 type UsuarioType = AlunoType | ProprietarioType | ProfessorType | RecepcionistaType;
 

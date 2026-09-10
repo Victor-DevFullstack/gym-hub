@@ -4,12 +4,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Role, UsuarioType } from '../../../shared/types/usuario';
+import { AlunoType, Role, UsuarioType } from '../../../shared/types/usuario';
 import { TitleCasePipe } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
+
+const VALOR_POR_PLANO: Record<'experimental' | 'mensal' | 'trimestral' | 'semestral' | 'anual', number> = {
+  experimental: 0,
+  mensal: 119.9,
+  trimestral: 329.7,
+  semestral: 599.4,
+  anual: 958.8,
+};
+
+const DIAS_LIMITE_PENDENTE = 7;
+
+type StatusMensalidade = 'Pago' | 'Pendente' | 'Atrasado';
 
 @Component({
   selector: 'app-mensalidades',
@@ -37,6 +49,39 @@ export class Mensalidades {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getValor(usuario: UsuarioType): string {
+    const aluno = usuario as AlunoType;
+    const valor = aluno.plano ? VALOR_POR_PLANO[aluno.plano] : 0;
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  getVencimento(usuario: UsuarioType): string {
+    const aluno = usuario as AlunoType;
+    if (!aluno.dataDeVencimento) {
+      return '-';
+    }
+    return new Date(aluno.dataDeVencimento).toLocaleDateString('pt-BR');
+  }
+
+  getStatus(usuario: UsuarioType): StatusMensalidade {
+    const aluno = usuario as AlunoType;
+    if (!aluno.dataDeVencimento) {
+      return 'Pago';
+    }
+
+    const hoje = new Date();
+    const vencimento = new Date(aluno.dataDeVencimento);
+    const diasParaVencer = Math.ceil((vencimento.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (diasParaVencer < 0) {
+      return 'Atrasado';
+    }
+    if (diasParaVencer <= DIAS_LIMITE_PENDENTE) {
+      return 'Pendente';
+    }
+    return 'Pago';
   }
 
   abrirDialog(usuario?: UsuarioType): void {

@@ -68,6 +68,9 @@ export class Clientes {
       let dias: number;
 
       switch (resultado.plano) {
+        case 'experimental':
+          dias = 1;
+          break;
         case 'mensal':
           dias = 30;
           break;
