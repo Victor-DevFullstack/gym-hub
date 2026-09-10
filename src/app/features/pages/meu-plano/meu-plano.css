@@ -3,9 +3,20 @@
   justify-content: space-between;
 }
 
-.meu-plano-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.dashboard-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 30px;
+  justify-self: center;
+  justify-content: center;
   margin-top: 20px;
+
+  @media (min-width: 950px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
