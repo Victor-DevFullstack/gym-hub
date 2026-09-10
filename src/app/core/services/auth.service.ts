@@ -11,13 +11,15 @@ export class AuthService {
   private router = inject(Router);
   private chave = 'usuarioLogado';
 
-  usuarioLogado = signal<UsuarioType | null>(JSON.parse(localStorage.getItem(this.chave) || 'null'));
-  
+  usuarioLogado = signal<UsuarioType | null>(
+    JSON.parse(localStorage.getItem(this.chave) || 'null'),
+  );
+
   constructor() {
     effect(() => {
       const usuario = this.usuarioLogado();
       localStorage.setItem(this.chave, JSON.stringify(usuario));
-    })
+    });
   }
 
   login(email: string, senha: string): { user?: UsuarioType } {

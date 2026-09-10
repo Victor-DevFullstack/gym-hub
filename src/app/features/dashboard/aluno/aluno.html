@@ -1,6 +1,6 @@
 <section class="dashboard-title">
-    <h2>Visão Geral</h2>
-    <p>Resumo da academia {{usuarioLogado()?.nomeAcademia}}</p>
+  <h2>Visão Geral</h2>
+  <p>Resumo da academia {{ getAlunoLogado()?.nomeAcademia }}</p>
 </section>
 
 <section class="dashboard-container">
@@ -8,8 +8,8 @@
     titulo="Plano atual"
     classtitulo="title1"
     classsubtitle="subtitle-black"
-    conteudo="Mensal Básico"
-    subTexto="ativo"
+    conteudo="{{ getAlunoLogado()?.plano | titlecase}}"
+    subTexto="{{ planoAtivo() }}"
     src="/icons/people-blue.svg"
     classImg="card-icon"
   />
@@ -17,8 +17,8 @@
     titulo="Proximo vencimento"
     classtitulo="title2"
     classsubtitle="subtitle2"
-    conteudo="30/10/2026"
-    subTexto="Pago"
+    conteudo="{{ getAlunoLogado()?.dataDeVencimento }}"
+    subTexto="{{ estaPago() }}"
     src="/icons/person-black.svg"
     classImg="card-icon"
   />
@@ -26,8 +26,7 @@
     titulo="Personal"
     classtitulo="title3"
     classsubtitle="subtitle3"
-    conteudo="Rodrigo Dacome"
-    subTexto="responsável"
+    conteudo="{{ getPersonal() }}"
     src="/icons/cash-stack.svg"
     classImg="card-icon"
   />

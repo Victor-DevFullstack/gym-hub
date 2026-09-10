@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{ titulo() | titlecase }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="funcionario-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Selecione um plano</mat-label>
+      <mat-select matInput type="email" formControlName="plano">
+        <mat-option value="mensal">Aula experimental</mat-option>
+        <mat-option value="mensal">Plano mensal - <strong>R$ 119,90</strong></mat-option>
+        <mat-option value="trimestral">Plano trimestral - <strong>R$ 329,70</strong></mat-option>
+        <mat-option value="semestral">Plano semestral - <strong>R$ 599,40</strong></mat-option>
+        <mat-option value="anual">Plano anual - <strong>R$ 958,80</strong></mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Deseja algum personal?</mat-label>
+      <mat-select matInput formControlName="personal">
+        <mat-option value="sem-personal">Sem personal</mat-option>
+        @for (personal of listarPersonais(); track $index) {
+          <mat-option value="{{personal.id}}">{{personal.nome}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" formControlName="senha" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]>Cancelar</button>
+  <button mat-flat-button (click)="salvar()">Salvar</button>
+</mat-dialog-actions>

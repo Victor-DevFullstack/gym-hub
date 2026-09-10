@@ -4,12 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Role, UsuarioType } from '../../../shared/types/usuario';
+import { AlunoType, ProfessorType, Role, UsuarioType } from '../../../shared/types/usuario';
 import { TitleCasePipe } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
+import { AddAlunoDialog } from '../../../shared/components/add-aluno-dialog/add-aluno-dialog';
 
 @Component({
   selector: 'app-clientes',
@@ -18,7 +19,7 @@ import { Dialog } from '../../../shared/components/dialog/dialog';
   styleUrl: './clientes.css',
 })
 export class Clientes {
-  displayedColumns: string[] = ['nome', 'email', 'plano', 'personal', 'status', 'editar' ];
+  displayedColumns: string[] = ['nome', 'email', 'plano', 'personal', 'status', 'editar'];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
@@ -26,6 +27,7 @@ export class Clientes {
   private dialog = inject(Dialog);
 
   private alunos = computed(() => this.usuarioService.listarPorCargo('aluno'));
+  private personais = computed(() => this.usuarioService.listarPorCargo('professor'));
 
   dataSource = new MatTableDataSource<UsuarioType>();
 
@@ -41,11 +43,11 @@ export class Clientes {
   }
 
   abrirDialog(usuario?: UsuarioType): void {
-    const dialogRef = this.matDialog.open(UsuarioDialog, {
+    const dialogRef = this.matDialog.open(AddAlunoDialog, {
       data: { cargo: 'aluno', usuario },
     });
 
-    dialogRef.afterClosed().subscribe((resultado) => {
+    dialogRef.afterClosed().subscribe((resultado: AlunoType) => {
       if (!resultado) {
         return;
       }
@@ -60,15 +62,49 @@ export class Clientes {
         return;
       }
 
-      const novoAluno: UsuarioType = {
+      const dataDeContratacao = new Date();
+      const dataDeVencimento = new Date(dataDeContratacao);
+
+      let dias: number;
+
+      switch (resultado.plano) {
+        case 'mensal':
+          dias = 30;
+          break;
+        case 'trimestral':
+          dias = 90;
+          break;
+        case 'semestral':
+          dias = 180;
+          break;
+        case 'anual':
+          dias = 365;
+          break;
+        default:
+          dias = 30;
+          break;
+      }
+
+      dataDeVencimento.setDate(dataDeVencimento.getDate() + dias);
+
+      const novoAluno: AlunoType = {
         id: crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,
-        role: resultado.cargo,
+        plano: resultado.plano,
+
+        dataDeContratacao: dataDeContratacao.toString(),
+        dataDeVencimento: dataDeVencimento.toString(),
+        personal: resultado.personal,
+
+        role: "aluno",
         academiaId: usuarioLogado.academiaId,
         nomeAcademia: usuarioLogado.nomeAcademia,
       };
+
+      console.log(novoAluno);
+      
 
       if (usuario) {
         let { cadastrou, message } = this.usuarioService.atualizar(novoAluno);
@@ -86,6 +122,14 @@ export class Clientes {
 
       this.dataSource.data = [...this.dataSource.data];
     });
+  }
+
+  getPersonal(personalId: string): ProfessorType | null {
+    const personal: any = this.usuarioService.buscarPorId(personalId)
+    if (!personal) {
+      return null
+    }
+    return personal
   }
 
   deletarUsuario(usuario: UsuarioType) {

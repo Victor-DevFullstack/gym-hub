@@ -5,7 +5,9 @@
   </div>
   <div class="div-subtitle">
     <span id="conteudo" class="{{ classsubtitle }}">{{ conteudo }}</span>
-    <span class="{{ classSubtitle2 }}">{{ subConteudo }}</span>
   </div>
-  <p>{{ subTexto }}</p>
+
+  @if (subTexto) {
+    <p>{{ subTexto }}</p>
+  }
 </mat-card>

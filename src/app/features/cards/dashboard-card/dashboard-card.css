@@ -1,6 +1,7 @@
 mat-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+
+  grid-template-rows: repeat(3, 1fr);
 
   /* width: 300px; */
   height: 150px;
@@ -10,8 +11,8 @@ mat-card {
   border-radius: var(--radius15);
   box-shadow: none;
 
-  padding-left: 20px;
-  padding-top: 15px;
+  padding-inline: 20px;
+  padding-block: 15px;
 
   gap: 10px;
 }
@@ -65,18 +66,22 @@ mat-card-title {
 .div-subtitle {
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  height: 100%;
+
+  span {
+    height: 100%;
+    align-self: center;
+    margin-top: 8px;
+  }
 }
 /*====================================== 
     Estilo para o mat-card-subtitle 
 ======================================*/
 #conteudo {
   flex: 1;
-  align-self: start;
+  align-self: center;
   /*margin: 0 auto;*/
-  font-size: 30px;
-  margin-top: 10px;
-  align-self: self-start;
+  font-size: 26px;
 }
 .subtitle1 {
   color: var(--blue1);
