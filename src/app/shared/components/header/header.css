@@ -146,6 +146,21 @@
   gap: 6px;
 
   cursor: pointer;
+  
+
+  a {
+    margin-left: 8px;
+    align-self: center;
+    text-align: center;
+    width: 24px;
+    aspect-ratio: 1;
+
+    img {
+      width: 100%;
+      align-self: center;
+      text-align: center;
+    }
+  }
 }
 
 .profile-letter {
