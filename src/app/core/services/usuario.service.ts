@@ -32,6 +32,8 @@ export class UsuarioService {
       return { cadastrou: false, message: 'Já existe um usuário com esse email' };
     }
 
+    usuario.email = usuario.email.toLowerCase();
+
     this.usuarios.update((listaAntiga) => [...listaAntiga, usuario]);
 
     return {
