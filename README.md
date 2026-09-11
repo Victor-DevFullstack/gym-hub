@@ -6,13 +6,37 @@ Feito com Angular 21 + Angular Material.
 
 ## Telas
 
-| Login | Dashboard (proprietário) |
-|---|---|
-| ![Login](docs/screenshots/login.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+| Login |
+|---|
+| ![Login](docs/screenshots/login.png) |
 
-| Alunos | Mobile |
+### Proprietário
+
+| Dashboard | Alunos | Funcionários |
+|---|---|---|
+| ![Dashboard proprietário](docs/screenshots/dashboard-proprietario.png) | ![Alunos](docs/screenshots/alunos.png) | ![Funcionários](docs/screenshots/funcionarios.png) |
+
+| Carteira | Configurações |
 |---|---|
-| ![Alunos](docs/screenshots/alunos.png) | ![Mobile](docs/screenshots/mobile.png) |
+| ![Carteira](docs/screenshots/carteira.png) | ![Configurações](docs/screenshots/configuracoes.png) |
+
+### Recepção
+
+| Dashboard | Professores e Personais | Mensalidades |
+|---|---|---|
+| ![Dashboard recepção](docs/screenshots/dashboard-recepcao.png) | ![Professores](docs/screenshots/professores.png) | ![Mensalidades](docs/screenshots/mensalidades.png) |
+
+### Professor
+
+| Alunos |
+|---|
+| ![Dashboard professor](docs/screenshots/dashboard-professor.png) |
+
+### Aluno
+
+| Dashboard | Treino | Meu plano |
+|---|---|---|
+| ![Dashboard aluno](docs/screenshots/dashboard-aluno.png) | ![Treino](docs/screenshots/treino-aluno.png) | ![Meu plano](docs/screenshots/meu-plano.png) |
 
 ## Funcionalidades
 
