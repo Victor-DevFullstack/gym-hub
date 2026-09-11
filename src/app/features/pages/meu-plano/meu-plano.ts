@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
+import { UsuarioService } from '../../../core/services/usuario.service';
 import { AlunoType } from '../../../shared/types/usuario';
 import { formatarValorPlano, LABEL_POR_PLANO } from '../../../shared/constants/plano.constants';
 import { calcularStatusMensalidade, formatarData } from '../../../shared/utils/mensalidade.utils';
@@ -13,6 +14,7 @@ import { DashboardCard } from '../../cards/dashboard-card/dashboard-card';
 })
 export class MeuPlano {
   private authService = inject(AuthService);
+  private usuarioService = inject(UsuarioService);
 
   private aluno = this.buscarAlunoLogado();
 
@@ -42,6 +44,7 @@ export class MeuPlano {
     if (!personal || personal === 'sem-personal') {
       return 'Sem personal';
     }
-    return personal.nome;
+    const professor = this.usuarioService.buscarPorId(personal as unknown as string);
+    return professor?.nome ?? 'Sem personal';
   }
 }

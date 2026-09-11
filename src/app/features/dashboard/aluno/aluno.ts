@@ -53,8 +53,9 @@ export class Aluno {
     if (!personal || personal === "sem-personal") {
       return "Sem personal"
     }
-    
-    return personal.nome
+
+    const professor = this.usuarioService.buscarPorId(personal as unknown as string);
+    return professor?.nome ?? "Sem personal"
   }
 
   constructor() {
