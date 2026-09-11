@@ -59,3 +59,20 @@
 .mat-column-editar {
   text-align: end;
 }
+
+@media (max-width: 768px) {
+  .top-dashboard {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .professor mat-form-field {
+    max-width: 100%;
+  }
+
+  .professor table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

@@ -2,15 +2,17 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-width: 320px;
+  width: min(320px, 85vw);
 }
 
 .exercicio-form-row {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 
   mat-form-field {
     flex: 1;
+    min-width: 120px;
   }
 }
 

@@ -58,3 +58,20 @@
 .mat-column-editar {
   text-align: end;
 }
+
+@media (max-width: 768px) {
+  .top-dashboard {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .alunos mat-form-field {
+    max-width: 100%;
+  }
+
+  .alunos table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

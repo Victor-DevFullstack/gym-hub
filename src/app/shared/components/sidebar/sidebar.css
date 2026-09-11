@@ -81,3 +81,42 @@ nav .material-symbols-outlined {
   height: 25px;
   color: #888E97;
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 12px;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow-x: auto;
+    gap: 4px;
+  }
+
+  nav a {
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  nav .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  .icons-sidebar,
+  .icon-dashboard {
+    width: 20px;
+    height: 20px;
+  }
+}

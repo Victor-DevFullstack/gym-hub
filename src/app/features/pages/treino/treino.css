@@ -6,6 +6,7 @@
 .novo-treino {
   display: flex;
   align-items: start;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 20px;
 
@@ -87,4 +88,21 @@
   display: flex;
   gap: 4px;
   justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .novo-treino mat-form-field {
+    max-width: 100%;
+  }
+
+  .exercicios-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .treino-card-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }

@@ -64,3 +64,14 @@
     padding: 20px;
     /*border-left: 1px solid var(--border);*/
 }
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .right {
+        padding: 12px;
+    }
+}

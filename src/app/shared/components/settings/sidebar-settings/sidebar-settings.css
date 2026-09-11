@@ -77,3 +77,29 @@ nav .material-symbols-outlined {
   height: 25px;
   color: #888E97;
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 12px;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  nav {
+    flex-direction: row;
+    justify-content: center;
+    overflow-x: auto;
+    gap: 4px;
+  }
+
+  nav a {
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
