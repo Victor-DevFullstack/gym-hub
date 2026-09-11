@@ -1,1 +1,33 @@
-<p>privacidade works!</p>
+<section class="container">
+  <mat-card>
+    <mat-card-content>
+      <h2>Privacidade e segurança</h2>
+
+      <div class="item">
+        <span>Autenticação em duas etapas (2FA)</span>
+        <mat-slide-toggle
+          [checked]="autenticacaoDoisFatores()"
+          (change)="autenticacaoDoisFatores.set($event.checked)"
+        ></mat-slide-toggle>
+      </div>
+
+      <div class="item">
+        <span>Permissão de compartilhamento de dados</span>
+        <mat-slide-toggle
+          [checked]="compartilhamentoDeDados()"
+          (change)="compartilhamentoDeDados.set($event.checked)"
+        ></mat-slide-toggle>
+      </div>
+
+      <button class="item item-link" (click)="abrirEmBreve('Usuários bloqueados')">
+        <span>Gerenciar usuários bloqueados</span>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+      <button class="item item-link" (click)="abrirEmBreve('Senha e histórico de login')">
+        <span>Senha e histórico de login</span>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </mat-card-content>
+  </mat-card>
+</section>

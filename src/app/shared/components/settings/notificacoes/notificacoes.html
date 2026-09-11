@@ -1,1 +1,54 @@
-<p>notificacoes works!</p>
+<section class="container">
+  <mat-card>
+    <mat-card-content>
+      <h2>Central de notificações</h2>
+
+      <div class="item">
+        <span>Lembretes de treino</span>
+        <mat-slide-toggle
+          [checked]="lembretesDeTreino()"
+          (change)="lembretesDeTreino.set($event.checked)"
+        ></mat-slide-toggle>
+      </div>
+
+      <div class="item">
+        <span>Resumo de atividades</span>
+        <mat-slide-toggle
+          [checked]="resumoDeAtividades()"
+          (change)="resumoDeAtividades.set($event.checked)"
+        ></mat-slide-toggle>
+      </div>
+
+      <div class="item">
+        <span>Novas mensagens</span>
+        <mat-slide-toggle
+          [checked]="novasMensagens()"
+          (change)="novasMensagens.set($event.checked)"
+        ></mat-slide-toggle>
+      </div>
+
+      <div class="item">
+        <span>Atualizações do sistema</span>
+        <mat-slide-toggle
+          [checked]="atualizacoesDoSistema()"
+          (change)="atualizacoesDoSistema.set($event.checked)"
+        ></mat-slide-toggle>
+      </div>
+
+      <div class="quiet-hours">
+        <h3>Horário silencioso</h3>
+        <div class="quiet-hours-inputs">
+          <mat-form-field appearance="outline">
+            <mat-label>Início</mat-label>
+            <input matInput type="time" [ngModel]="silencioInicio()" (ngModelChange)="silencioInicio.set($event)" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Fim</mat-label>
+            <input matInput type="time" [ngModel]="silencioFim()" (ngModelChange)="silencioFim.set($event)" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
