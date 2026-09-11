@@ -82,7 +82,7 @@ displayedColumns: string[] = ['nome', 'plano', 'status', 'treino', 'editar'];
       }
 
       const novoProfessor: UsuarioType = {
-        id: crypto.randomUUID(),
+        id: usuario ? usuario.id : crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,

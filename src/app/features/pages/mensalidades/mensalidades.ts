@@ -77,7 +77,7 @@ export class Mensalidades {
       }
 
       const novoAluno: UsuarioType = {
-        id: crypto.randomUUID(),
+        id: usuario ? usuario.id : crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,
