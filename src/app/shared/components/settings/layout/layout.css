@@ -1,7 +1,8 @@
 /*@import url(../sidebar-settings/sidebar-settings.css);*/
 
 .container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 30% 70%;
     width: 100%;
     height: 100%;
     flex-direction: row;
@@ -57,7 +58,9 @@
 }
 
 .right {
+    display: flex;
     /*width: 80%;*/
+    flex-direction: column;
     padding: 20px;
-    border-left: 1px solid var(--border         );
+    /*border-left: 1px solid var(--border);*/
 }
