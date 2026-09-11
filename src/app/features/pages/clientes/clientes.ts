@@ -63,22 +63,28 @@ export class Clientes {
         return;
       }
 
-      const dataDeContratacao = new Date();
-      const dataDeVencimento = new Date(dataDeContratacao);
+      const usuarioExistente = usuario as AlunoType | undefined;
 
-      const dias = resultado.plano ? DIAS_POR_PLANO[resultado.plano] : DIAS_POR_PLANO.mensal;
+      const dataDeContratacao = usuarioExistente?.dataDeContratacao ?? new Date().toString();
 
-      dataDeVencimento.setDate(dataDeVencimento.getDate() + dias);
+      let dataDeVencimento = usuarioExistente?.dataDeVencimento ?? null;
+
+      if (!usuarioExistente) {
+        const vencimento = new Date(dataDeContratacao);
+        const dias = resultado.plano ? DIAS_POR_PLANO[resultado.plano] : DIAS_POR_PLANO.mensal;
+        vencimento.setDate(vencimento.getDate() + dias);
+        dataDeVencimento = vencimento.toString();
+      }
 
       const novoAluno: AlunoType = {
-        id: crypto.randomUUID(),
+        id: usuarioExistente?.id ?? crypto.randomUUID(),
         nome: resultado.nome,
         email: resultado.email,
         senha: resultado.senha,
         plano: resultado.plano,
 
-        dataDeContratacao: dataDeContratacao.toString(),
-        dataDeVencimento: dataDeVencimento.toString(),
+        dataDeContratacao,
+        dataDeVencimento,
         personal: resultado.personal,
 
         role: "aluno",
@@ -86,8 +92,6 @@ export class Clientes {
         nomeAcademia: usuarioLogado.nomeAcademia,
       };
 
-      console.log(novoAluno);
-      
 
       if (usuario) {
         let { cadastrou, message } = this.usuarioService.atualizar(novoAluno);
