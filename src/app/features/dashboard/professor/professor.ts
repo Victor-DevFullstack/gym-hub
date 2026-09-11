@@ -44,7 +44,7 @@ displayedColumns: string[] = ['nome', 'plano', 'status', 'treino', 'editar'];
       .listarPorAcademia(professorLogado.academiaId, 'aluno')
       .filter((usuario): usuario is AlunoType => {
         const personal = (usuario as AlunoType).personal;
-        return !!personal && personal !== 'sem-personal' && personal.id === professorLogado.id;
+        return !!personal && personal !== 'sem-personal' && (personal as unknown as string) === professorLogado.id;
       });
   });
 
