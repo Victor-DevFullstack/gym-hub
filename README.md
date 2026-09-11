@@ -2,8 +2,6 @@
 
 Sistema de gestão para academias — controle de alunos, mensalidades, treinos e equipe, com painéis diferentes por cargo (proprietário, recepção, professor, aluno).
 
-Feito com Angular 21 + Angular Material.
-
 ## Telas
 
 | Login |
@@ -49,18 +47,7 @@ Feito com Angular 21 + Angular Material.
 - **Configurações** — conta, privacidade, notificações e faturamento.
 - **Responsivo** — layout adaptado para desktop, tablet e mobile.
 
-## Rodando localmente
-
-Pré-requisito: Node 22.22.3+, 24.15.0+ ou 26+ (o Angular CLI 21 recusa versões intermediárias, ex. 24.12).
-
-```bash
-npm install
-ng serve
-```
-
-Acesse `http://localhost:4200`.
-
-### Login de demonstração
+## Login de demonstração
 
 Na primeira execução (localStorage vazio) o app gera dados fake de uma academia fictícia. Senha `123456` para todos:
 
