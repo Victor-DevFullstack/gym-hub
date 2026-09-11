@@ -22,8 +22,4 @@ export class Header {
   exibirNotificacoes() {
     this.notificacoesAbertas.update((valor) => !valor);
   }
-
-  logout() {
-    this.authService.logout();
-  }
 }

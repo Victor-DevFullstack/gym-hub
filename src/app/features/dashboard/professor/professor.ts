@@ -9,6 +9,7 @@ import { TitleCasePipe, NgClass } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
+import { AlunoType } from '../../../shared/types/usuario';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 
 export interface Test {
