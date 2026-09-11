@@ -1,0 +1,93 @@
+@if (!aluno) {
+  <section class="top-dashboard">
+    <section class="dashboard-title">
+      <h2>Treino</h2>
+      <p>Não foi possível encontrar este aluno.</p>
+    </section>
+  </section>
+} @else {
+  <section class="top-dashboard">
+    <section class="dashboard-title">
+      <h2>Treino</h2>
+      <p>
+        @if (modoProfessor) {
+          Fichas de treino de {{ aluno.nome }}
+        } @else {
+          Suas fichas de treino
+        }
+      </p>
+    </section>
+  </section>
+
+  @if (modoProfessor) {
+    <section class="novo-treino">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome da ficha</mat-label>
+        <input matInput [formControl]="novoTreinoNome" placeholder="Ex. Treino A - Superior" />
+      </mat-form-field>
+      <button mat-flat-button (click)="criarTreino()">Criar ficha</button>
+    </section>
+  }
+
+  <section class="treinos-lista">
+    @for (treino of treinos(); track treino.id) {
+      <section class="treino-card">
+        <header class="treino-card-header">
+          <h3>{{ treino.nome }}</h3>
+          @if (modoProfessor) {
+            <div class="treino-card-actions">
+              <button mat-button (click)="adicionarExercicio(treino.id)">+ Exercício</button>
+              <button mat-button color="warn" (click)="excluirTreino(treino.id)">Excluir ficha</button>
+            </div>
+          }
+        </header>
+
+        @if (treino.exercicios.length === 0) {
+          <p class="sem-exercicios">Nenhum exercício cadastrado nesta ficha ainda.</p>
+        } @else {
+          <table class="exercicios-table">
+            <thead>
+              <tr>
+                <th>Exercício</th>
+                <th>Séries</th>
+                <th>Repetições</th>
+                <th>Carga</th>
+                <th>Observações</th>
+                @if (modoProfessor) {
+                  <th></th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (exercicio of treino.exercicios; track exercicio.id) {
+                <tr>
+                  <td>{{ exercicio.nome }}</td>
+                  <td>{{ exercicio.series }}</td>
+                  <td>{{ exercicio.repeticoes }}</td>
+                  <td>{{ exercicio.carga || '-' }}</td>
+                  <td>{{ exercicio.observacoes || '-' }}</td>
+                  @if (modoProfessor) {
+                    <td class="exercicio-actions">
+                      <button mat-button (click)="editarExercicio(treino.id, exercicio.id)">Editar</button>
+                      <button mat-button color="warn" (click)="excluirExercicio(treino.id, exercicio.id)">
+                        Excluir
+                      </button>
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </section>
+    } @empty {
+      <p class="sem-treinos">
+        @if (modoProfessor) {
+          Nenhuma ficha de treino cadastrada para este aluno ainda.
+        } @else {
+          Você ainda não tem nenhuma ficha de treino cadastrada. Fale com seu personal.
+        }
+      </p>
+    }
+  </section>
+}

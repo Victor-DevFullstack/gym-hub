@@ -4,8 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Role, UsuarioType } from '../../../shared/types/usuario';
+import { AlunoType, Role, UsuarioType } from '../../../shared/types/usuario';
 import { TitleCasePipe, NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
@@ -21,18 +22,32 @@ export interface Test {
 
 @Component({
   selector: 'app-professor',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe, NgClass],
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe, NgClass, RouterLink],
   templateUrl: './professor.html',
   styleUrl: './professor.css',
 })
 export class Professor {
-displayedColumns: string[] = ['nome', 'plano', 'status', 'editar'];
+displayedColumns: string[] = ['nome', 'plano', 'status', 'treino', 'editar'];
 
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-  private professor = computed(() => this.usuarioService.listarPorCargo('aluno'));
+  private professorLogado = this.authService.getUsuarioLogado();
+
+  private professor = computed(() => {
+    const professorLogado = this.professorLogado;
+    if (!professorLogado) {
+      return [];
+    }
+
+    return this.usuarioService
+      .listarPorAcademia(professorLogado.academiaId, 'aluno')
+      .filter((usuario): usuario is AlunoType => {
+        const personal = (usuario as AlunoType).personal;
+        return !!personal && personal !== 'sem-personal' && personal.id === professorLogado.id;
+      });
+  });
 
   dataSource = new MatTableDataSource<UsuarioType>();
 

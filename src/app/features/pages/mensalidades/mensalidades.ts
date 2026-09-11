@@ -4,12 +4,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Role, UsuarioType } from '../../../shared/types/usuario';
+import { AlunoType, Role, UsuarioType } from '../../../shared/types/usuario';
 import { TitleCasePipe } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
+import { formatarValorPlano } from '../../../shared/constants/plano.constants';
+import { calcularStatusMensalidade, formatarData } from '../../../shared/utils/mensalidade.utils';
 
 @Component({
   selector: 'app-mensalidades',
@@ -37,6 +39,21 @@ export class Mensalidades {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getValor(usuario: UsuarioType): string {
+    const aluno = usuario as AlunoType;
+    return aluno.plano ? formatarValorPlano(aluno.plano) : 'Gratuita';
+  }
+
+  getVencimento(usuario: UsuarioType): string {
+    const aluno = usuario as AlunoType;
+    return formatarData(aluno.dataDeVencimento);
+  }
+
+  getStatus(usuario: UsuarioType) {
+    const aluno = usuario as AlunoType;
+    return calcularStatusMensalidade(aluno.dataDeVencimento);
   }
 
   abrirDialog(usuario?: UsuarioType): void {

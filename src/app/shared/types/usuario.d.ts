@@ -2,7 +2,7 @@ import { FormControl } from '@angular/forms';
 
 type Role = 'proprietario' | 'recepcionista' | 'professor' | 'aluno';
 
-type Plano = 'mensal' | 'trimestral' | 'semestral' | 'anual' | null;
+type Plano = 'experimental' | 'mensal' | 'trimestral' | 'semestral' | 'anual' | null;
 
 type UsuarioType = AlunoType | ProprietarioType | ProfessorType | RecepcionistaType;
 
@@ -22,7 +22,7 @@ interface AlunoType extends BaseUsuarioType {
   plano: Plano;
   dataDeContratacao: string | null;
   dataDeVencimento: string | null;
-  personal: ProfessorType | null;
+  personal: ProfessorType | null | "sem-personal";
 }
 
 interface ProprietarioType extends BaseUsuarioType {

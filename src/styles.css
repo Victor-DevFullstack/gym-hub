@@ -106,3 +106,18 @@
 .th-fim {
   border-radius: 0px 15px 0px 0px;
 }
+
+.status-pago {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.status-pendente {
+  color: #b58900;
+  font-weight: 600;
+}
+
+.status-atrasado {
+  color: #c62828;
+  font-weight: 600;
+}

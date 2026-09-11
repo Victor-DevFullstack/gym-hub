@@ -47,7 +47,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: 'Treino',
     icon: '/icons/peso2.svg',
-    route: 'mensalidades',
+    route: 'treino',
     roles: ['aluno'],
     class: 'icons-sidebar',
   },
@@ -61,7 +61,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     label: 'Meu plano',
     icon: '/icons/wallet.svg',
-    route: 'mensalidades',
+    route: 'meu-plano',
     roles: ['aluno'],
     class: 'icons-sidebar',
   },

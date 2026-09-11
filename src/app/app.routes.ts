@@ -48,6 +48,18 @@ export const routes: Routes = [
         loadComponent: () => import('./features/pages/mensalidades/mensalidades').then((m) => m.Mensalidades),
       },
       {
+        path: 'meu-plano',
+        loadComponent: () => import('./features/pages/meu-plano/meu-plano').then((m) => m.MeuPlano),
+      },
+      {
+        path: 'treino',
+        loadComponent: () => import('./features/pages/treino/treino').then((m) => m.Treino),
+      },
+      {
+        path: 'treino/:alunoId',
+        loadComponent: () => import('./features/pages/treino/treino').then((m) => m.Treino),
+      },
+      {
         path: 'configuracoes',
         loadComponent: () => import('./shared/components/settings/layout/layout').then((m) => m.Layout),
         children: [

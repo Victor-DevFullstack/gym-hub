@@ -8,11 +8,11 @@ import { AuthService } from '../../../core/services/auth.service';
 import { DashboardCard } from '../../cards/dashboard-card/dashboard-card';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { AlunoType } from '../../../shared/types/usuario';
-import { TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-aluno',
-  imports: [Header, RouterOutlet, Sidebar, MatCardModule, MatIconModule, DashboardCard, TitleCasePipe],
+  imports: [Header, RouterOutlet, Sidebar, MatCardModule, MatIconModule, DashboardCard, TitleCasePipe, DatePipe],
   templateUrl: './aluno.html',
   styleUrl: './aluno.css',
 })
@@ -50,10 +50,10 @@ export class Aluno {
   getPersonal() {
     const personal = this.getAlunoLogado()?.personal;
 
-    if (!personal) {
+    if (!personal || personal === "sem-personal") {
       return "Sem personal"
     }
-
+    
     return personal.nome
   }
 

@@ -1,0 +1,59 @@
+.top-dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 30px;
+  justify-self: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  @media (min-width: 950px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.carteira-table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  table {
+    width: 100%;
+    border-radius: 2rem;
+
+    th {
+      background-color: var(--blue1);
+      color: var(--white1);
+      font-weight: 600;
+    }
+    td {
+      font-weight: 400;
+    }
+    tr {
+      height: 50px;
+
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    tr:nth-child(even) {
+      background-color: var(--background-white2);
+    }
+    tr:hover {
+      background-color: var(--background-blue1);
+    }
+  }
+}
