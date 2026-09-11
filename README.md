@@ -1,64 +1,63 @@
-<<<<<<< HEAD
 # GymHub
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.21.
+Sistema de gestão para academias — controle de alunos, mensalidades, treinos e equipe, com painéis diferentes por cargo (proprietário, recepção, professor, aluno).
 
-## Development server
+Feito com Angular 21 + Angular Material.
 
-To start a local development server, run:
+## Telas
+
+| Login | Dashboard (proprietário) |
+|---|---|
+| ![Login](docs/screenshots/login.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+
+| Alunos | Mobile |
+|---|---|
+| ![Alunos](docs/screenshots/alunos.png) | ![Mobile](docs/screenshots/mobile.png) |
+
+## Funcionalidades
+
+- **Login por cargo** — proprietário, recepcionista, professor e aluno, cada um com seu próprio painel e permissões.
+- **Dashboard** — alunos ativos, novos alunos, receita no mês, matrículas canceladas, taxa de cancelamento.
+- **Alunos** — cadastro, edição, planos (experimental, mensal, trimestral, semestral, anual), personal trainer vinculado e status de pagamento (pago/pendente/atrasado).
+- **Funcionários e professores** — gestão de equipe.
+- **Mensalidades e carteira** — controle financeiro da academia.
+- **Fichas de treino** — exercícios com séries, repetições e carga, vinculados a aluno e professor.
+- **Configurações** — conta, privacidade, notificações e faturamento.
+- **Responsivo** — layout adaptado para desktop, tablet e mobile.
+
+## Rodando localmente
+
+Pré-requisito: Node 22.22.3+, 24.15.0+ ou 26+ (o Angular CLI 21 recusa versões intermediárias, ex. 24.12).
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Acesse `http://localhost:4200`.
 
-## Code scaffolding
+### Login de demonstração
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Na primeira execução (localStorage vazio) o app gera dados fake de uma academia fictícia. Senha `123456` para todos:
 
-```bash
-ng generate component component-name
-```
+| Cargo | Email |
+|---|---|
+| Proprietário | proprietario@academiademo.com |
+| Recepção | recepcao@academiademo.com |
+| Professor | bruno@academiademo.com |
+| Aluno | larissa@academiademo.com |
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Stack
 
-```bash
-ng generate --help
-```
+- Angular 21 (standalone components, `@if`/`@for`)
+- Angular Material + CDK
+- RxJS
+- Vitest (testes unitários)
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Scripts
 
 ```bash
-ng test
+ng serve   # dev server
+ng build   # build de produção
+ng test    # testes unitários (Vitest)
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# gym-hub
-Sistema de academia.
->>>>>>> 1ef6d1401003f332cfaa376099f7626bddbd3590
