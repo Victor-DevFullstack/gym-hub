@@ -1,10 +1,12 @@
 import { effect, Injectable, signal } from '@angular/core';
 
+export const CHAVE_TREINOS = 'treinos';
+
 @Injectable({
   providedIn: 'root',
 })
 export class TreinoService {
-  private chave = 'treinos';
+  private chave = CHAVE_TREINOS;
 
   private treinos = signal<TreinoType[]>(JSON.parse(localStorage.getItem(this.chave) ?? '[]'));
 

@@ -57,4 +57,28 @@ export class Proprietario {
     );
     return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   });
+
+  readonly matriculasCanceladas = computed(() => {
+    const academiaId = this.usuarioLogado()?.academiaId;
+    if (!academiaId) {
+      return 0;
+    }
+
+    const hoje = new Date();
+    return this.usuarioService.listarCancelamentosPorAcademia(academiaId).filter((cancelamento) => {
+      const data = new Date(cancelamento.data);
+      return data.getMonth() === hoje.getMonth() && data.getFullYear() === hoje.getFullYear();
+    }).length;
+  });
+
+  readonly taxaDeCancelamento = computed(() => {
+    const canceladas = this.matriculasCanceladas();
+    const total = this.alunosAtivos() + canceladas;
+
+    if (total === 0) {
+      return '0%';
+    }
+
+    return `${((canceladas / total) * 100).toFixed(1)}%`;
+  });
 }

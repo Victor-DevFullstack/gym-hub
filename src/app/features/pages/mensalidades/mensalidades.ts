@@ -26,7 +26,20 @@ export class Mensalidades {
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-  private mensalidades = computed(() => this.usuarioService.listarPorCargo('aluno'));
+  private mensalidades = computed(() => {
+    const usuarioLogado = this.authService.getUsuarioLogado();
+    if (!usuarioLogado) {
+      return [];
+    }
+
+    const alunosDaAcademia = this.usuarioService.listarPorAcademia(usuarioLogado.academiaId, 'aluno');
+
+    if (usuarioLogado.role === 'aluno') {
+      return alunosDaAcademia.filter((aluno) => aluno.id === usuarioLogado.id);
+    }
+
+    return alunosDaAcademia;
+  });
 
   dataSource = new MatTableDataSource<UsuarioType>();
 

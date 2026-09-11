@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Header } from '../../../shared/components/header/header';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from '../../../shared/components/sidebar/sidebar';
@@ -63,6 +63,4 @@ export class Aluno {
       console.log(this.usuarioLogado());
     });
   }
-
-  readonly alunosAtivos = computed(() => this.usuarioService.listarPorCargo('aluno').length);
 }

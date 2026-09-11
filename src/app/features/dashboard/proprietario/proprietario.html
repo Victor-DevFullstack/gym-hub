@@ -40,7 +40,7 @@
     titulo="Matrículas canceladas"
     classtitulo="title5"
     classsubtitle="subtitle5"
-    conteudo="16"
+    conteudo="{{ matriculasCanceladas() }}"
     src="/icons/people-blue.svg"
     classImg="card-icon"
   />
@@ -48,9 +48,7 @@
     titulo="Taxa de cancelamento"
     classtitulo="title6"
     classsubtitle="subtitle6"
-    conteudo="2.1%"
-    subConteudo="-0.4%"
-    classSubtitle2="subtitle6-1"
+    conteudo="{{ taxaDeCancelamento() }}"
     src="/icons/arrow-repeat.svg"
     classImg="card-icon"
   />

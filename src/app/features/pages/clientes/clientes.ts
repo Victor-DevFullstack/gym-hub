@@ -12,6 +12,7 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 import { AddAlunoDialog } from '../../../shared/components/add-aluno-dialog/add-aluno-dialog';
 import { DIAS_POR_PLANO } from '../../../shared/constants/plano.constants';
+import { calcularStatusMensalidade } from '../../../shared/utils/mensalidade.utils';
 
 @Component({
   selector: 'app-clientes',
@@ -27,8 +28,13 @@ export class Clientes {
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
 
-  private alunos = computed(() => this.usuarioService.listarPorCargo('aluno'));
-  private personais = computed(() => this.usuarioService.listarPorCargo('professor'));
+  private alunos = computed(() => {
+    const academiaId = this.authService.getUsuarioLogado()?.academiaId;
+    if (!academiaId) {
+      return [];
+    }
+    return this.usuarioService.listarPorAcademia(academiaId, 'aluno');
+  });
 
   dataSource = new MatTableDataSource<UsuarioType>();
 
@@ -109,6 +115,11 @@ export class Clientes {
 
       this.dataSource.data = [...this.dataSource.data];
     });
+  }
+
+  getStatus(usuario: UsuarioType) {
+    const aluno = usuario as AlunoType;
+    return calcularStatusMensalidade(aluno.dataDeVencimento);
   }
 
   getPersonal(personalId: string): ProfessorType | null {

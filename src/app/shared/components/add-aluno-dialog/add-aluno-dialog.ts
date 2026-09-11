@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TitleCasePipe } from '@angular/common';
 import { Plano, ProfessorType, Role, UsuarioType } from '../../types/usuario';
 import { UsuarioService } from '../../../core/services/usuario.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { formatarValorPlano, LABEL_POR_PLANO } from '../../constants/plano.constants';
 
 const PLANOS: Exclude<Plano, null>[] = ['experimental', 'mensal', 'trimestral', 'semestral', 'anual'];
@@ -49,6 +50,7 @@ export class AddAlunoDialog {
   private dialogRef = inject(MatDialogRef<AddAlunoDialog>);
 
   private usuariosService = inject(UsuarioService)
+  private authService = inject(AuthService)
 
 
   data = inject<{ cargo: Role; usuario?: UsuarioType }>(MAT_DIALOG_DATA);
@@ -59,7 +61,11 @@ export class AddAlunoDialog {
   readonly planos = PLANOS;
 
   listarPersonais() {
-    return this.usuariosService.listarPorCargo("professor")
+    const academiaId = this.authService.getUsuarioLogado()?.academiaId;
+    if (!academiaId) {
+      return [];
+    }
+    return this.usuariosService.listarPorAcademia(academiaId, "professor")
   }
 
   labelPlano(plano: Exclude<Plano, null>): string {

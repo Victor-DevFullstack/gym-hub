@@ -1,22 +1,51 @@
 import { effect, Injectable, signal } from '@angular/core';
 import { Role, UsuarioType } from '../../shared/types/usuario';
+import { gerarDadosSeed } from './usuario-seed';
+import { CHAVE_TREINOS } from './treino.service';
+
+export interface CancelamentoAluno {
+  academiaId: string;
+  data: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   private chave = 'usuarios';
+  private chaveCancelamentos = 'cancelamentosAluno';
 
   private usuarios = signal<UsuarioType[]>(JSON.parse(localStorage.getItem(this.chave) ?? '[]'));
+
+  private cancelamentos = signal<CancelamentoAluno[]>(
+    JSON.parse(localStorage.getItem(this.chaveCancelamentos) ?? '[]'),
+  );
 
   private listarTodos(): UsuarioType[] {
     return this.usuarios();
   }
 
   constructor() {
+    this.seedDadosDemo();
+
     effect(() => {
       localStorage.setItem(this.chave, JSON.stringify(this.usuarios()));
     });
+
+    effect(() => {
+      localStorage.setItem(this.chaveCancelamentos, JSON.stringify(this.cancelamentos()));
+    });
+  }
+
+  private seedDadosDemo(): void {
+    if (localStorage.getItem(this.chave) !== null) {
+      return;
+    }
+
+    const { usuarios, cancelamentos, treinos } = gerarDadosSeed();
+    this.usuarios.set(usuarios);
+    this.cancelamentos.set(cancelamentos);
+    localStorage.setItem(CHAVE_TREINOS, JSON.stringify(treinos));
   }
 
   listarPorCargo(cargo: Role): UsuarioType[] {
@@ -87,7 +116,18 @@ export class UsuarioService {
 
     this.usuarios.update((lista) => lista.filter((u) => u.id !== usuario.id));
 
+    if (usuario.role === 'aluno') {
+      this.cancelamentos.update((lista) => [
+        ...lista,
+        { academiaId: usuario.academiaId, data: new Date().toString() },
+      ]);
+    }
+
     return true;
+  }
+
+  listarCancelamentosPorAcademia(academiaId: string): CancelamentoAluno[] {
+    return this.cancelamentos().filter((c) => c.academiaId === academiaId);
   }
   login(email: string, senha: string): { user?: UsuarioType } {
     const user = this.usuarios().find((u) => u.email.toLowerCase() === email.toLowerCase() && u.senha === senha);

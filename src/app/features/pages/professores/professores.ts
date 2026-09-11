@@ -25,7 +25,13 @@ export class Professores {
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
-  private professores = computed(() => this.usuarioService.listarPorCargo('professor'));
+  private professores = computed(() => {
+    const academiaId = this.authService.getUsuarioLogado()?.academiaId;
+    if (!academiaId) {
+      return [];
+    }
+    return this.usuarioService.listarPorAcademia(academiaId, 'professor');
+  });
 
   dataSource = new MatTableDataSource<UsuarioType>();
 

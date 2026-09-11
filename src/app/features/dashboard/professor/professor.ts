@@ -4,20 +4,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { AlunoType, Role, UsuarioType } from '../../../shared/types/usuario';
+import { AlunoType, UsuarioType } from '../../../shared/types/usuario';
 import { TitleCasePipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
-
-export interface Test {
-  name: string;
-  cargo: Role;
-  email: string;
-  status: 'Ativo' | 'Inativo';
-}
+import { calcularStatusMensalidade } from '../../../shared/utils/mensalidade.utils';
 
 @Component({
   selector: 'app-professor',
@@ -59,6 +53,11 @@ displayedColumns: string[] = ['nome', 'plano', 'status', 'treino', 'editar'];
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getStatus(usuario: UsuarioType) {
+    const aluno = usuario as AlunoType;
+    return calcularStatusMensalidade(aluno.dataDeVencimento);
   }
 
   abrirDialog(usuario?: UsuarioType): void {
