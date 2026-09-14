@@ -33,6 +33,9 @@
   --blue1: #5589e1;
   --blue2: #0a5de2;
   --blue3: #02123c;
+
+  --green1: #8FFCD4;
+  --green2: #239C71;
   
   --gray1: #888e97;
   --gray2: #b3b3b3;
@@ -50,6 +53,7 @@
   --background-color-card: #f4f3f6;
 
   /*RADIUS*/
+  --radius2: 3px;
   --radius5: 5px;
   --radius10: 10px;
   --radius15: 15px;
