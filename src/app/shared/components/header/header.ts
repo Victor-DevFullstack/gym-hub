@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 export class Header {
   private authService = inject(AuthService);
 
-  user = this.authService.getUsuarioLogado();
+  user = this.authService.usuarioLogado;
 
   notificacoesAbertas = signal(false);
 

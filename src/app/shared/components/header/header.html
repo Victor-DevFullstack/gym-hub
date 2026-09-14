@@ -1,7 +1,7 @@
 <header class="header">
   <section class="left">
     <span
-      >Academia <strong>{{ user?.nomeAcademia }}</strong></span
+      >Academia <strong>{{ user()?.nomeAcademia }}</strong></span
     >
   </section>
 
@@ -39,16 +39,16 @@
     <a routerLink="configuracoes/conta" class="link">
       <div class="profile">
         <div class="profile-letter">
-          {{ user?.nome?.slice(0, 1) }}
+          {{ user()?.nome?.slice(0, 1) }}
         </div>
 
         <div class="profile-info">
           <span class="profile-name">
-            {{ user?.nome }}
+            {{ user()?.nome }}
           </span>
 
           <span class="profile-role">
-            {{ user?.role | titlecase }}
+            {{ user()?.role | titlecase }}
           </span>
         </div>
       </div>

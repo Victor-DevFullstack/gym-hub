@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,27 +25,39 @@ export class Account {
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
 
-  private usuarioLogado = this.authService.getUsuarioLogado();
-
   form = new FormGroup({
-    nome: new FormControl(this.usuarioLogado?.nome ?? '', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    email: new FormControl(this.usuarioLogado?.email ?? '', {
+    nome: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.email],
     }),
   });
 
+  constructor() {
+    // Sempre que o usuarioLogado (signal) mudar — seja por esse mesmo
+    // componente salvando, seja por qualquer outro lugar do app — o
+    // formulário se atualiza sozinho, sem precisar recarregar a página.
+    effect(() => {
+      const usuario = this.authService.usuarioLogado();
+      this.form.patchValue(
+        {
+          nome: usuario?.nome ?? '',
+          email: usuario?.email ?? '',
+        },
+        { emitEvent: false },
+      );
+    });
+  }
+
   salvar() {
-    if (this.form.invalid || !this.usuarioLogado) {
+    const usuarioLogado = this.authService.usuarioLogado();
+
+    if (this.form.invalid || !usuarioLogado) {
       return;
     }
 
     const { nome, email } = this.form.getRawValue();
-
-    const usuarioAtualizado = { ...this.usuarioLogado, nome, email };
+    const usuarioAtualizado = { ...usuarioLogado, nome, email };
 
     const { cadastrou, message } = this.usuarioService.atualizar(usuarioAtualizado);
 
@@ -55,6 +67,6 @@ export class Account {
     }
 
     this.authService.usuarioLogado.set(usuarioAtualizado);
-    this.dialog.openDialog({ title: 'Sucesso', message: 'Dados atualizados com sucesso.' });
+    //this.dialog.openDialog({ title: 'Sucesso', message: 'Dados atualizados com sucesso.' });
   }
 }

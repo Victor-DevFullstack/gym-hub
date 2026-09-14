@@ -75,3 +75,11 @@
     white-space: nowrap;
   }
 }
+
+.th-inicio {
+  border-radius: 15px 0px 0px 0px;
+}
+
+.th-fim {
+  border-radius: 0px 15px 0px 0px;
+}
