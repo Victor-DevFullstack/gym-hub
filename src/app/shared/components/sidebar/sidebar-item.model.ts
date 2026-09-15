@@ -10,7 +10,7 @@ export interface SidebarItem {
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
-    label: 'Funcionarios',
+    label: 'Recepcionistas',
     icon: '/icons/person.svg',
     route: '/dashboard/funcionarios',
     roles: ['proprietario'],
