@@ -125,3 +125,70 @@
   color: #c62828;
   font-weight: 600;
 }
+
+/*.filtrar {
+  background-color: #0151e9;
+  border: 1px solid var(--border)
+}*/
+
+
+/*====================================================
+                       FILTRO
+====================================================*/
+
+.div-input {
+  width: 100%;
+  
+}
+
+/* remove o fundo cinza e a linha inferior do appearance "fill" */
+.div-input .mat-mdc-text-field-wrapper {
+  background-color: var(--white1);
+  border-radius: var(--radius15);
+  border: 2px solid var(--border);
+}
+
+.div-input .mdc-line-ripple {
+  display: none;
+}
+
+/* altura igual à do header (40px) */
+.div-input .mat-mdc-form-field-infix {
+  min-height: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* tipografia igual à do input do header */
+.div-input input.mat-mdc-input-element {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.div-input input.mat-mdc-input-element::placeholder {
+  color: #999;
+  background-color: var(--white1);
+}
+
+/* remove o espaço reservado embaixo para mensagens de erro */
+.div-input .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+
+/*==========================*/
+
+.div-input .mdc-notched-outline__leading,
+.div-input .mdc-notched-outline__notch,
+.div-input .mdc-notched-outline__trailing {
+  border-color: var(--border);
+  border-width: 2px;
+}
+
+.div-input .mdc-notched-outline__leading {
+  border-radius: var(--radius15) 0 0 var(--radius15);
+}
+
+.div-input .mdc-notched-outline__trailing {
+  border-radius: 0 var(--radius15) var(--radius15) 0;
+}
