@@ -32,12 +32,15 @@
           <a href="">Esqueci minha senha</a>
         </article>
 
-        <mat-card-actions>
+        <mat-card-actions id="entradas">
           <button mat-flat-button type="submit" (click)="login()">Entrar</button>
           <button mat-raised-button routerLink="/cadastro" class="btn-secundario">Cadastrar-se</button>
   
         </mat-card-actions>
       </form>
     </mat-card-content>
+    <mat-card-actions id="outras-entradas">
+          <a routerLink=""><img src="/icons/icon-google.svg"></a>
+        </mat-card-actions>
   </mat-card>
 </section>
