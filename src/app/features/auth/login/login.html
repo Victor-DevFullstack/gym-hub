@@ -1,46 +1,64 @@
-<section class="auth-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+<section class="login-page">
+  <div class="login-card">
+    <!-- PAINEL ESQUERDO (IMAGEM) -->
+    <aside class="login-visual">
+      <img src="/icons/logo-site-gym-branco.svg" alt="" class="login-visual-mark" />
+    </aside>
+
+    <!-- PAINEL DIREITO (FORMULÁRIO) -->
+    <div class="login-form-side">
+      <img src="/icons/logo-site-gym-preto.svg" alt="Gym Hub" class="login-brand" />
+
+      <h1>Bem-vindo de volta</h1>
+      <p class="login-subtitle">Entre para gerenciar sua academia e seus alunos.</p>
+
       <form>
         <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput [formControl]="emailFormControl" type="email" placeholder="seu@email.com" required>
-            @if ((emailFormControl.hasError('email') && !emailFormControl.hasError('required')) || emailFormControl.hasError("pattern")) {
-              <mat-error>Informe um email válido</mat-error>
-            }
-            @if (emailFormControl.hasError('required')) {
-              <mat-error>Email é <strong>obrigatório</strong></mat-error>
-            }
+          <mat-label>Email</mat-label>
+          <input matInput [formControl]="emailFormControl" type="email" placeholder="seu@email.com" required>
+          @if ((emailFormControl.hasError('email') && !emailFormControl.hasError('required')) || emailFormControl.hasError("pattern")) {
+            <mat-error>Informe um email válido</mat-error>
+          }
+          @if (emailFormControl.hasError('required')) {
+            <mat-error>Email é <strong>obrigatório</strong></mat-error>
+          }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" >
-            <mat-label>Senha</mat-label>
-            <input matInput [formControl]="passwordFormControl" type="password" placeholder="********" required>
-            @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
-              <mat-error>A senha deve ter no mínimo 6 caracteres</mat-error>
-            }
-            @if (passwordFormControl.hasError('required')) {
-              <mat-error>Senha é <strong>obrigatória</strong></mat-error>
-            }
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput [formControl]="passwordFormControl" type="password" placeholder="********" required>
+          @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
+            <mat-error>A senha deve ter no mínimo 6 caracteres</mat-error>
+          }
+          @if (passwordFormControl.hasError('required')) {
+            <mat-error>Senha é <strong>obrigatória</strong></mat-error>
+          }
         </mat-form-field>
-        
+
         <article class="login-remember">
           <mat-checkbox>Lembrar-me</mat-checkbox>
           <a href="">Esqueci minha senha</a>
         </article>
 
-        <mat-card-actions id="entradas">
+        <div class="login-actions">
           <button mat-flat-button type="submit" (click)="login()">Entrar</button>
-          <button mat-raised-button routerLink="/cadastro" class="btn-secundario">Cadastrar-se</button>
-  
-        </mat-card-actions>
+        </div>
+
+        <div class="login-divider">
+          <span>ou</span>
+        </div>
+
+        <button mat-stroked-button type="button" class="login-google" (click)="loginComGoogle()">
+          <div class="login-google">
+            <img src="/icons/icon-google.svg" class="icon-google">
+          <span span>Entrar com Google</span>
+          </div>
+        </button>
+        
+        <p class="login-signup">
+          Não tem uma conta? <a routerLink="/cadastro">Cadastre-se</a>
+        </p>
       </form>
-    </mat-card-content>
-    <mat-card-actions id="outras-entradas">
-          <a routerLink=""><img src="/icons/icon-google.svg"></a>
-        </mat-card-actions>
-  </mat-card>
+    </div>
+  </div>
 </section>

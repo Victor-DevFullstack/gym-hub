@@ -33,13 +33,38 @@ mat-card {
     width: 100%;
   }
 
-  #entradas {
+  .opcoes {
     display: flex;
     flex-direction: column;
     gap: 15px;
 
     button {
       width: 100%;
+    }
+  }
+
+  .outras-opcoes {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    gap: 20px;
+  }
+  
+  .link-opcoes {
+    display: grid;
+    border-radius: 50%;
+    padding: 8px;
+    background-color: var(--white1);
+    border: 1px solid var(--border);
+  }
+
+  .img-opcoes {
+    width: 35px;
+    height: 35px;
+    transition: width 0.3s, height 0.3s;
+    &:hover {
+      width: 40px;
+      height: 40px;
     }
   }
 }

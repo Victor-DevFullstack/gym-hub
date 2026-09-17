@@ -67,4 +67,13 @@ export class Login {
       this.dialog.openDialog({ title: 'Falha', message: 'Email ou senha estão incorretos.' });
     }
   }
+
+  loginComGoogle() {
+  // TODO: login via Google exige OAuth (ex: @abacritt/angularx-social-login
+  // ou Firebase Auth) + um backend pra validar o token — ainda não implementado.
+  this.dialog.openDialog({
+    title: 'Em breve',
+    message: 'Login com Google ainda será implementado.',
+  });
+}
 }
