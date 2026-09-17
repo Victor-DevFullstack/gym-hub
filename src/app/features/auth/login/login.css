@@ -16,7 +16,7 @@
 /* CARTÃO DIVIDIDO */
 .login-card {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1265px;
 
   display: grid;
   grid-template-columns: 1fr;

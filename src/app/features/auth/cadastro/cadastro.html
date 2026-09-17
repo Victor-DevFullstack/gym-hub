@@ -1,74 +1,299 @@
-<section class="auth-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Cadastrar-se</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="form">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome completo</mat-label>
-          <input
-            formControlName="nome"
-            matInput
-            type="text"
-            placeholder="Ex: João Silva Lima"
-            required
-          />
-        </mat-form-field>
+<form [formGroup]="form">
 
-        <mat-form-field appearance="outline">
-          <mat-label>Nome da academia</mat-label>
-          <input
-            formControlName="nomeAcademia"
-            matInput
-            type="text"
-            placeholder="Ex: SmartFit"
-            required
-          />
-        </mat-form-field>
+  <div class="cadastro-page">
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            formControlName="email"
-            [formControl]="emailFormControl"
-            type="email"
-            placeholder="seu@email.com"
-            required
-          />
-          @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
-            <mat-error>Informe um email válido</mat-error>
-          }
-          @if (emailFormControl.hasError('required')) {
-            <mat-error>Email é <strong>obrigatório</strong></mat-error>
-          }
-        </mat-form-field>
+    <div class="cadastro-container">
 
-        <mat-form-field appearance="outline">
-          <mat-label>Senha</mat-label>
-          <input
-            matInput
-            formControlName="senha"
-            [formControl]="passwordFormControl"
-            type="password"
-            placeholder="********"
-            required
-          />
-          @if (
-            passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')
-          ) {
-            <mat-error>A senha deve ter no mínimo 6 caracteres</mat-error>
-          }
-          @if (passwordFormControl.hasError('required')) {
-            <mat-error>Senha é <strong>obrigatória</strong></mat-error>
-          }
-        </mat-form-field>
+      <!-- ========================================= -->
+      <!-- LADO ESQUERDO - IMAGEM -->
+      <!-- ========================================= -->
 
-        <mat-card-actions>
-          <button (click)="cadastrar()" mat-flat-button type="submit">Cadastrar</button>
-        </mat-card-actions>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</section>
+      <div class="cadastro-imagem">
+
+        <div class="logo-gym">
+          <span class="logo-icon">V</span>
+          <span>Gym Hub</span>
+        </div>
+
+      </div>
+
+
+      <!-- ========================================= -->
+      <!-- LADO DIREITO - FORMULÁRIO -->
+      <!-- ========================================= -->
+
+      <div class="cadastro-form">
+
+
+        <!-- ========================================= -->
+        <!-- INDICADOR DAS ETAPAS -->
+        <!-- ========================================= -->
+
+        <div class="steps">
+
+          <div
+            class="step"
+            [class.active]="etapaAtual === 1"
+          >
+            1
+          </div>
+
+          <div
+            class="step-line"
+            [class.completed]="etapaAtual === 2"
+          ></div>
+
+          <div
+            class="step"
+            [class.active]="etapaAtual === 2"
+          >
+            2
+          </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- ETAPA 1 - CONTA -->
+        <!-- ========================================= -->
+
+        @if (etapaAtual === 1) {
+
+          <div class="etapa">
+
+            <h1>Crie Sua Conta Gym Hub</h1>
+
+
+            <!-- NOME -->
+
+            <div class="campo">
+
+              <label for="nome">
+                Nome Completo
+              </label>
+
+              <input
+                id="nome"
+                type="text"
+                placeholder="Nome Completo"
+                formControlName="nome"
+                required
+              />
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="campo">
+
+              <label for="email">
+                E-mail
+              </label>
+
+              <input
+                id="email"
+                type="email"
+                placeholder="E-mail"
+                formControlName="email"
+                required
+              />
+
+            </div>
+
+
+            <!-- SENHA -->
+
+            <div class="campo">
+
+              <label for="senha">
+                Senha
+              </label>
+
+              <input
+                id="senha"
+                type="password"
+                placeholder="Senha"
+                formControlName="senha"
+                required
+              />
+
+            </div>
+
+
+            <!-- BOTÕES -->
+
+            <div class="acoes">
+
+              <button
+                class="btn-voltar"
+                type="button"
+                routerLink=""
+              >
+                Voltar
+              </button>
+
+              <button
+                class="btn-principal"
+                type="button"
+                [disabled]="!etapa1Valida()"
+                (click)="proximaEtapa()"
+              >
+                Próximo
+              </button>
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <!-- ========================================= -->
+        <!-- ETAPA 2 - ACADEMIA -->
+        <!-- ========================================= -->
+
+        @if (etapaAtual === 2) {
+
+          <div class="etapa">
+
+            <h1>Perfil da Academia</h1>
+
+
+            <!-- ================================= -->
+            <!-- UPLOAD DA LOGO -->
+            <!-- ================================= -->
+
+            <div class="logo-upload">
+
+              <label for="logo">
+
+                <div class="upload-circle">
+
+                  <span>☁</span>
+
+                </div>
+
+              </label>
+
+              <span>Logo da Academia</span>
+
+              <input
+                id="logo"
+                type="file"
+                accept="image/*"
+              />
+
+            </div>
+
+
+            <!-- NOME DA ACADEMIA -->
+
+            <div class="campo">
+
+              <label for="nomeAcademia">
+                Nome da Academia
+              </label>
+
+              <input
+                id="nomeAcademia"
+                type="text"
+                placeholder="Nome da Academia"
+                formControlName="nomeAcademia"
+                required
+              />
+
+            </div>
+
+
+            <!-- CNPJ -->
+
+            <div class="campo">
+
+              <label for="cnpj">
+                CNPJ*
+              </label>
+
+              <input
+                id="cnpj"
+                type="text"
+                placeholder="CNPJ"
+                formControlName="cnpj"
+                required
+              />
+
+            </div>
+
+
+            <!-- TELEFONE -->
+
+            <div class="campo">
+
+              <label for="telefone">
+                Telefone
+              </label>
+
+              <input
+                id="telefone"
+                type="tel"
+                placeholder="Telefone"
+                formControlName="telefone"
+              />
+
+            </div>
+
+
+            <!-- ENDEREÇO -->
+
+            <div class="campo">
+
+              <label for="endereco">
+                Endereço
+              </label>
+
+              <input
+                id="endereco"
+                type="text"
+                placeholder="Endereço"
+                formControlName="endereco"
+                required
+              />
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- BOTÕES -->
+            <!-- ================================= -->
+
+            <div class="acoes">
+
+              <button
+                class="btn-voltar"
+                type="button"
+                (click)="voltar()"
+              >
+                Voltar
+              </button>
+              <button
+                class="btn-principal"
+                type="button"
+                [disabled]="!etapa2Valida()"
+                (click)="cadastrar()"
+              >
+                Cadastrar
+              </button>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>
