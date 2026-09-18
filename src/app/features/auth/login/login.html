@@ -28,7 +28,7 @@
           <mat-label>Senha</mat-label>
           <input matInput [formControl]="passwordFormControl" type="password" placeholder="********" required>
           @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
-            <mat-error>A senha deve ter no mínimo 6 caracteres</mat-error>
+            <mat-error>A senha deve ter no mínimo 8 caracteres</mat-error>
           }
           @if (passwordFormControl.hasError('required')) {
             <mat-error>Senha é <strong>obrigatória</strong></mat-error>
@@ -37,7 +37,7 @@
 
         <article class="login-remember">
           <mat-checkbox>Lembrar-me</mat-checkbox>
-          <a href="">Esqueci minha senha</a>
+          <a (click)="esqueciMinhaSenha()">Esqueci minha senha</a>
         </article>
 
         <div class="login-actions">

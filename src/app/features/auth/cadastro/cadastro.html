@@ -8,14 +8,18 @@
       <!-- LADO ESQUERDO - IMAGEM -->
       <!-- ========================================= -->
 
-      <div class="cadastro-imagem">
+      <!--<div class="cadastro-imagem">
 
         <div class="logo-gym">
           <span class="logo-icon">V</span>
           <span>Gym Hub</span>
         </div>
 
-      </div>
+      </div>-->
+
+      <aside class="cadastro-imagem">
+        <img src="/icons/logo-site-gym-branco.svg" alt="" class="logo-icon" />
+      </aside>
 
 
       <!-- ========================================= -->
@@ -84,7 +88,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Nome Completo</mat-label>
-              <input matInput formControlName="nome" type="email" placeholder="seu@email.com" required>
+              <input matInput formControlName="nome" type="text" placeholder="Ex: João Silva" required>
               <!--@if (.hasError('required')) {
                 <mat-error>Nome é <strong>obrigatório</strong></mat-error>
             }-->
@@ -157,7 +161,7 @@
 
               <button
                 mat-stroked-button
-                
+                class="btn-voltar"
                 type="button"
                 routerLink=""
               >
@@ -165,6 +169,7 @@
               </button>
 
               <button
+                mat-flat-button
                 class="btn-principal"
                 type="button"
                 [disabled]="!etapa1Valida()"
@@ -220,7 +225,7 @@
 
             <!-- NOME DA ACADEMIA -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="nomeAcademia">
                 Nome da Academia
@@ -234,12 +239,20 @@
                 required
               />
 
-            </div>
+            </div>-->
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nome da Academia</mat-label>
+              <input matInput formControlName="nomeAcademia" type="text" placeholder="" required>
+              <!--@if (.hasError('required')) {
+                <mat-error>Nome é <strong>obrigatório</strong></mat-error>
+            }-->
+            </mat-form-field>
 
 
             <!-- CNPJ -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="cnpj">
                 CNPJ*
@@ -253,12 +266,16 @@
                 required
               />
 
-            </div>
+            </div>-->
 
+            <mat-form-field appearance="outline">
+              <mat-label>CNPJ</mat-label>
+              <input matInput id="cnpj" type="text" placeholder="CNPJ" formControlName="cnpj" required />
+            </mat-form-field>
 
             <!-- TELEFONE -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="telefone">
                 Telefone
@@ -271,12 +288,17 @@
                 formControlName="telefone"
               />
 
-            </div>
+            </div>-->
+
+            <mat-form-field appearance="outline">
+              <mat-label>Telefone</mat-label>
+              <input matInput id="telefone" type="tel" placeholder="Telefone" formControlName="telefone"/>
+            </mat-form-field>
 
 
             <!-- ENDEREÇO -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="endereco">
                 Endereço
@@ -290,7 +312,12 @@
                 required
               />
 
-            </div>
+            </div>-->
+
+            <mat-form-field appearance="outline">
+              <mat-label>Endereço</mat-label>
+              <input matInput id="endereco" type="text" placeholder="Endereço" formControlName="endereco" required/>
+            </mat-form-field>
 
 
             <!-- ================================= -->
@@ -300,6 +327,7 @@
             <div class="acoes">
 
               <button
+                mat-stroked-button
                 class="btn-voltar"
                 type="button"
                 (click)="voltar()"
@@ -307,6 +335,7 @@
                 Voltar
               </button>
               <button
+                mat-flat-button
                 class="btn-principal"
                 type="button"
                 [disabled]="!etapa2Valida()"

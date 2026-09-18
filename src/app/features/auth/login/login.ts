@@ -68,6 +68,13 @@ export class Login {
     }
   }
 
+  esqueciMinhaSenha() {
+    this.dialog.openDialog({
+      title: 'Em breve',
+      message: 'Esqueci minha senha ainda será implmentado.' 
+    });
+  }
+
   loginComGoogle() {
   // TODO: login via Google exige OAuth (ex: @abacritt/angularx-social-login
   // ou Firebase Auth) + um backend pra validar o token — ainda não implementado.

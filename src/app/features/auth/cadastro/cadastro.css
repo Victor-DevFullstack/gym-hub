@@ -43,7 +43,7 @@
    IMAGEM
 ========================= */
 
-.cadastro-imagem {
+/*.cadastro-imagem {
   width: 100%;
 
   position: relative;
@@ -63,6 +63,20 @@
 
   padding: 28px;
   box-sizing: border-box;
+}*/
+
+.cadastro-imagem {
+  display: none;
+
+  position: relative;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 560px;
+
+  /* Para usar uma foto real, salve a imagem em public/ e troque por:
+     background: url("/academia.jpg") center / cover no-repeat; */
+  background: linear-gradient(160deg, var(--background-blue3), var(--background-blue2));
 }
 
 /* =========================
@@ -83,6 +97,9 @@
 .logo-icon {
   font-size: 28px;
   font-weight: 800;
+  width: 180px;
+  height: auto;
+  opacity: 0.25;
 }
 
 
@@ -312,11 +329,7 @@
 /* BOTÃO VOLTAR */
 
 .btn-voltar {
-  background: #ffffff;
-
-  border: 1px solid #aeb4ba;
-
-  color: #30343a;
+  border-radius: 50px;
 }
 
 .btn-voltar:hover {
@@ -327,7 +340,6 @@
 /* BOTÃO PRINCIPAL */
 
 .btn-principal {
-  background: #b7ff00;
 
   border: none;
 
@@ -335,8 +347,6 @@
 }
 
 .btn-principal:hover:not(:disabled) {
-  background: #a9ef00;
-
   transform: translateY(-1px);
 }
 
@@ -344,7 +354,7 @@
 /* BOTÃO DESABILITADO */
 
 .btn-principal:disabled {
-  background: #dce5cf;
+  background: var(--green3);
 
   color: #8b9284;
 
