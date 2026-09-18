@@ -24,16 +24,18 @@
 .cadastro-container {
   width: 100%;
   max-width: 1265px;
-  min-height: 670px;
+  height: 100%;
 
-  display: flex;
+  display: grid;
+
+  grid-template-columns: 1fr;
 
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 24px;
 
   overflow: hidden;
 
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
 
@@ -42,7 +44,7 @@
 ========================= */
 
 .cadastro-imagem {
-  width: 52%;
+  width: 100%;
 
   position: relative;
 
@@ -62,7 +64,6 @@
   padding: 28px;
   box-sizing: border-box;
 }
-
 
 /* =========================
    LOGO
@@ -90,7 +91,7 @@
 ========================= */
 
 .cadastro-form {
-  width: 48%;
+  width: 100%;
 
   padding: 42px 70px 38px;
 
@@ -102,6 +103,37 @@
   justify-content: flex-start;
 }
 
+
+
+/*================================================================
+                          MEDIA SCREEN
+================================================================*/
+
+/* TABLETS */
+@media (min-width: 600px) {
+  .cadastro-form {
+    padding: 48px 56px;
+  }
+
+  .cadastro-form h1 {
+    font-size: 32px;
+  }
+}
+
+/* COMPUTADORES */
+@media (min-width: 1024px) {
+  .cadastro-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cadastro-imagem {
+    display: flex;
+  }
+
+  .cadastro-form {
+    padding: 60px;
+  }
+}
 
 /* =========================
    ETAPAS

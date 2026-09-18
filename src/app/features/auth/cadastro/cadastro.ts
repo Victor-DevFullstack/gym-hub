@@ -40,7 +40,7 @@ export class Cadastro {
     nonNullable: true,
     validators: [
       Validators.required,
-      Validators.minLength(6)
+      Validators.minLength(8)
     ],
   });
 

@@ -37,7 +37,7 @@ export class Login {
   });
   passwordFormControl = new FormControl('', {
     nonNullable: true,
-    validators: [Validators.required, Validators.minLength(6)],
+    validators: [Validators.required, Validators.minLength(8)],
   });
 
   authService = inject(AuthService);

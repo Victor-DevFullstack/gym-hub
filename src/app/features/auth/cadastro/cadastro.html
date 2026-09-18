@@ -66,7 +66,7 @@
 
             <!-- NOME -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="nome">
                 Nome Completo
@@ -80,12 +80,21 @@
                 required
               />
 
-            </div>
+            </div>-->
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nome Completo</mat-label>
+              <input matInput formControlName="nome" type="email" placeholder="seu@email.com" required>
+              <!--@if (.hasError('required')) {
+                <mat-error>Nome é <strong>obrigatório</strong></mat-error>
+            }-->
+            </mat-form-field>
+
 
 
             <!-- EMAIL -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="email">
                 E-mail
@@ -99,12 +108,22 @@
                 required
               />
 
-            </div>
+            </div>-->
 
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email" placeholder="seu@email.com" required>
+              @if ((emailFormControl.hasError('email') && !emailFormControl.hasError('required')) || emailFormControl.hasError("pattern")) {
+                <mat-error>Informe um email válido</mat-error>
+              }
+              @if (emailFormControl.hasError('required')) {
+                <mat-error>Email é <strong>obrigatório</strong></mat-error>
+              }
+            </mat-form-field>
 
             <!-- SENHA -->
 
-            <div class="campo">
+            <!--<div class="campo">
 
               <label for="senha">
                 Senha
@@ -118,7 +137,18 @@
                 required
               />
 
-            </div>
+            </div>-->
+
+            <mat-form-field appearance="outline">
+              <mat-label>Senha</mat-label>
+              <input matInput formControlName="senha" type="password" placeholder="********" required>
+              @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
+                <mat-error>A senha deve ter no mínimo 8 caracteres</mat-error>
+              }
+              @if (passwordFormControl.hasError('required')) {
+                <mat-error>Senha é <strong>obrigatória</strong></mat-error>
+              }
+            </mat-form-field>
 
 
             <!-- BOTÕES -->
@@ -126,7 +156,8 @@
             <div class="acoes">
 
               <button
-                class="btn-voltar"
+                mat-stroked-button
+                
                 type="button"
                 routerLink=""
               >
