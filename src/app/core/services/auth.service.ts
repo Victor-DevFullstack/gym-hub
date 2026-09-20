@@ -35,7 +35,7 @@ export class AuthService {
 
   logout(): void {
     this.usuarioLogado.set(null);
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   getUsuarioLogado(): UsuarioType | null {

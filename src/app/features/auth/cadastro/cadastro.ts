@@ -219,7 +219,7 @@ export class Cadastro {
         .subscribe((irParaLogin) => {
 
           if (irParaLogin) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
           }
 
         });

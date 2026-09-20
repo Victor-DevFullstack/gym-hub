@@ -1,0 +1,113 @@
+<div class="home">
+
+  <!-- CABEÇALHO -->
+  <header class="home-header">
+    <div class="home-header-inner">
+      <div class="home-logo">
+        <img src="/icons/symbol.svg" alt="" />
+        <span>Gym <strong>Hub</strong></span>
+      </div>
+
+      <nav class="home-nav">
+        <a href="#plataforma">Plataforma</a>
+        <a href="#recursos">Recursos</a>
+        <a routerLink="/login">Entrar</a>
+      </nav>
+
+      <a routerLink="/cadastro" class="home-cta-header">Começar Grátis</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="home-hero">
+    <h1>O Sistema Operacional para Academias de Elite</h1>
+    <p>
+      Simplifique operações, potencialize sua equipe e aumente sua receita com a plataforma
+      completa de gestão de academias.
+    </p>
+
+    <div class="home-hero-actions">
+      <a routerLink="/cadastro" class="home-btn home-btn-primary">Começar Teste Grátis</a>
+      <a routerLink="/login" class="home-btn home-btn-secondary">Já tenho conta</a>
+    </div>
+
+    <!-- PRÉVIA DO DASHBOARD -->
+    <div class="home-preview">
+      <div class="home-preview-frame">
+        <aside class="home-preview-sidebar">
+          <div class="home-preview-logo">
+            <img src="/icons/logo-site.svg" alt="" />
+            Gym Hub
+          </div>
+          <div class="home-preview-menu-item is-active">Dashboard</div>
+          <div class="home-preview-menu-item">Alunos</div>
+          <div class="home-preview-menu-item">Professores</div>
+          <div class="home-preview-menu-item">Mensalidades</div>
+          <div class="home-preview-menu-item">Relatórios</div>
+        </aside>
+
+        <div class="home-preview-content">
+          <div class="home-preview-stats">
+            <div class="home-preview-card">
+              <span class="home-preview-label">Alunos ativos</span>
+              <strong>1.485</strong>
+              <span class="home-preview-growth">+12,2%</span>
+            </div>
+            <div class="home-preview-card">
+              <span class="home-preview-label">Receita este mês</span>
+              <strong>R$ 45.890</strong>
+            </div>
+            <div class="home-preview-card">
+              <span class="home-preview-label">Frequência</span>
+              <strong>92%</strong>
+            </div>
+          </div>
+
+          <div class="home-preview-chart">
+            <span class="home-preview-label">Visão geral da mensalidade</span>
+            <div class="home-preview-bars">
+              @for (altura of [40, 65, 50, 80, 60, 90, 70, 55, 85, 95, 75, 100]; track $index) {
+                <div class="home-preview-bar" [style.height.%]="altura"></div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="home-features" id="recursos">
+    <article class="home-feature-card">
+      <div class="home-feature-icon">
+        <img src="/icons/wallet.svg" alt="" />
+      </div>
+      <h3>Controle Financeiro</h3>
+      <ul>
+        <li>Controle de mensalidades e planos</li>
+        <li>Acompanhamento de receita em tempo real</li>
+        <li>Cobrança automatizada</li>
+        <li>Relatórios financeiros detalhados</li>
+      </ul>
+    </article>
+
+    <article class="home-feature-card">
+      <div class="home-feature-icon">
+        <img src="/icons/peso.svg" alt="" />
+      </div>
+      <h3>Gestão de Treinos</h3>
+      <ul>
+        <li>Montagem de fichas de treino</li>
+        <li>Gestão de professores e personais</li>
+        <li>Acompanhamento de progresso do aluno</li>
+        <li>Histórico de evolução por aluno</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="home-footer">
+    <span>© 2026 Gym Hub. Todos os direitos reservados.</span>
+  </footer>
+
+</div>
