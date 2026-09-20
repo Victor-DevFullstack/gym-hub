@@ -54,7 +54,7 @@ export class Login {
     const { user } = this.authService.login(email, senha);
 
     if (user) {
-      this.dialog
+      /*this.dialog
         .openDialog({
           title: 'Logado com sucesso',
           message: 'Deseja ir para a dashboard?',
@@ -62,7 +62,8 @@ export class Login {
         })
         .subscribe((irParaDashboard) => {
           irParaDashboard && this.router.navigate(['/dashboard']);
-        });
+        });*/
+        this.router.navigate(['/dashboard']);
     } else {
       this.dialog.openDialog({ title: 'Falha', message: 'Email ou senha estão incorretos.' });
     }
