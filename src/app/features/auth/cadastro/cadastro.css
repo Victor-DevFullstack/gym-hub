@@ -417,6 +417,9 @@
   display: none;
 }
 
+mat-form-field {
+  margin-top: 15px;
+}
 
 /* =========================
    RESPONSIVIDADE
