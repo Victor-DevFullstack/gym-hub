@@ -154,6 +154,17 @@
               }
             </mat-form-field>
 
+            <mat-form-field appearance="outline">
+              <mat-label>Confirmar senha</mat-label>
+              <input matInput formControlName="senha" type="password" placeholder="********" required>
+              @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
+                <mat-error>A senha deve ter no mínimo 8 caracteres</mat-error>
+              }
+              @if (passwordFormControl.hasError('required')) {
+                <mat-error>Senha é <strong>obrigatória</strong></mat-error>
+              }
+            </mat-form-field>
+
 
             <!-- BOTÕES -->
 
@@ -163,7 +174,7 @@
                 mat-stroked-button
                 class="btn-voltar"
                 type="button"
-                routerLink=""
+                routerLink="/login"
               >
                 Voltar
               </button>
