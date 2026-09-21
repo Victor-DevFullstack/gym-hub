@@ -111,6 +111,34 @@ mat-form-field {
   text-decoration: underline;
 }
 
+
+@media (max-width: 350px) {
+  .login-remember {
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+  /*.checkbox{
+    width: 30px;
+    height: 30px;
+  }*/
+  .esqueci-senha {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 325px) {
+  .login-remember {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .esqueci-senha {
+    margin-left: 10px;
+  }
+}
+
 /* BOTÃO */
 .login-actions button {
   width: 100%;
@@ -139,13 +167,45 @@ mat-form-field {
   text-decoration: underline;
 }
 
-@media (max-width: 599.98px) {
+/*@media (max-width: 599.98px) {
   .login-page {
     padding: 0px;
     height: 100%;
     width: 100%;
+    margin: 0px;
   }
-}
+}*/
+
+/* TABLETS 
+@media (min-width: 600px) {
+  .login-form-side {
+    padding: 48px 56px;
+  }
+
+  .login-form-side h1 {
+    font-size: 32px;
+  }
+}*/
+
+/* COMPUTADORES 
+@media (min-width: 1024px) {
+  .login-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .login-visual {
+    display: flex;
+  }
+
+  .login-form-side {
+    padding: 60px;
+  }
+}*/
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
 
 /* TABLETS */
 @media (min-width: 600px) {
@@ -157,6 +217,7 @@ mat-form-field {
     font-size: 32px;
   }
 }
+
 
 /* COMPUTADORES */
 @media (min-width: 1024px) {
@@ -170,6 +231,47 @@ mat-form-field {
 
   .login-form-side {
     padding: 60px;
+  }
+}
+
+
+/* CELULARES */
+@media (max-width: 599.98px) {
+
+  .login-page {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 0;
+
+    display: block;
+
+    background-color: #ffffff;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+
+    display: block;
+
+    border-radius: 0;
+    box-shadow: none;
+
+    background-color: #ffffff;
+  }
+
+  .login-visual {
+    display: none;
+  }
+
+  .login-form-side {
+    width: 100%;
+
+    padding: 40px 41px;
+
+    box-sizing: border-box;
   }
 }
 
@@ -221,3 +323,4 @@ mat-form-field {
   width: 20px;
   height: 20px;
 }
+
