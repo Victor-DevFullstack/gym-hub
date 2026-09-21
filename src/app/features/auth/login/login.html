@@ -13,6 +13,7 @@
       <p class="login-subtitle">Entre para gerenciar sua academia e seus alunos.</p>
 
       <form>
+        <div class="email-senha">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput [formControl]="emailFormControl" type="email" placeholder="seu@email.com" required>
@@ -34,7 +35,7 @@
             <mat-error>Senha é <strong>obrigatória</strong></mat-error>
           }
         </mat-form-field>
-
+        </div>
         <article class="login-remember">
           <mat-checkbox class="checkbox">Lembrar-me</mat-checkbox>
           <a (click)="esqueciMinhaSenha()" class="esqueci-senha">Esqueci minha senha</a>
