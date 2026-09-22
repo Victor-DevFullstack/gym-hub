@@ -32,4 +32,10 @@ export const SIDEBAR_SETTINGS_ITEMS: SidebarItem[] = [
     route: 'faturamento',
     class: 'icons-sidebar',
   },
+  {
+    label: 'Endereço',
+    icon: '/icons/cartao.svg',
+    route: 'endereco',
+    class: 'icons-sidebar',
+  },
 ];

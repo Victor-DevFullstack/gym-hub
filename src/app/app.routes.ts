@@ -83,7 +83,10 @@ export const routes: Routes  = [
             path: 'faturamento',
             loadComponent: () => import('./shared/components/settings/faturamento//faturamento').then((m) => m.Faturamento)
           },
-
+          {
+            path: 'endereco',
+            loadComponent: () => import('./shared/components/settings/endereco/endereco').then((m) => m.Endereco)
+          },
         ],
       }
     ]
