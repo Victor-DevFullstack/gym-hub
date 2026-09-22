@@ -37,14 +37,6 @@
         }
     }
 
-    .icons-sidebar,
-    .icon-dashboard,
-    .icon-logout {
-        width: 25px;
-        height: 25px;
-        color: #888E97;
-    }
-
     .link-logout {
         height: 50px;
         display: grid;

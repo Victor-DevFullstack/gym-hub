@@ -34,7 +34,7 @@ export const SIDEBAR_SETTINGS_ITEMS: SidebarItem[] = [
   },
   {
     label: 'Endereço',
-    icon: '/icons/cartao.svg',
+    icon: '/icons/marker.svg',
     route: 'endereco',
     class: 'icons-sidebar',
   },

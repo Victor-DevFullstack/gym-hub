@@ -72,10 +72,16 @@ nav .material-symbols-outlined {
 }
 
 .icons-sidebar,
-.icon-dashboard {
+.icon-dashboard,
+.icon-logout {
   width: 25px;
   height: 25px;
   color: #888E97;
+}
+
+.icons-marcador {
+  width: 25px;
+  height: 25px;
 }
 
 @media (max-width: 768px) {
