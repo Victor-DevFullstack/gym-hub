@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { EmailReputationService } from '../../../core/services/email-reputation.service';
+
 @Component({
   selector: 'app-cadastro',
   standalone: true,
@@ -19,6 +21,11 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './cadastro.css',
 })
 export class Cadastro {
+  validandoEmail = false;
+  emailValidado = false;
+  erroEmail = "";
+
+  private emailReputationService = inject(EmailReputationService)
 
   // Controla qual página do cadastro está sendo exibida
   etapaAtual = 1;
@@ -153,6 +160,55 @@ export class Cadastro {
 
   }
 
+
+  //==========================
+  //VERIFICAR EMAIL
+  //==========================
+
+  verificarEmail(): void {
+    const email = this.emailFormControl.value.trim();
+
+    //Validação do angular
+    if(this.emailFormControl.invalid) {
+      this.emailFormControl.markAllAsTouched();
+      return;
+    }
+
+    this.validandoEmail = true;
+    this.emailValidado = false;
+    this.erroEmail = "";
+
+    this.emailReputationService.verificar(email).subscribe({
+      next: (resultado) => {
+        this.validandoEmail = false;
+
+        const entregavel = resultado.email_deliverability.status === 'deliverably';
+
+        const formatoValido = resultado.email_deliverability.is_format_valid;
+
+        const mxValido = resultado.email_deliverability.is_mx_valid;
+
+        const smtpValido = resultado.email_deliverability.is_smtp_valid;
+      
+        if (entregavel && formatoValido && mxValido && smtpValido) {
+          this.emailValidado = true;
+          this.erroEmail = '';
+        } else {
+          this.emailValidado = false;
+          this.erroEmail = 'Não foi possível validar este endereço de e-mail.'
+        }
+      },
+
+      error: (erro) => {
+        console.error('Erro na abstract API', erro);
+
+        this.validandoEmail = false; 
+        this.emailValidado = false;
+
+        this.erroEmail = 'Não foi possível verificar o e-mail. Tente novamente.'
+      }
+    });
+  }
 
   // =========================
   // CADASTRAR
