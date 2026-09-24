@@ -25,7 +25,9 @@ export class Cadastro {
   emailValidado = false;
   erroEmail = "";
 
-  private emailReputationService = inject(EmailReputationService)
+  private ultimoEmailValidado = "";
+
+  private emailReputationService = inject(EmailReputationService);
 
   // Controla qual página do cadastro está sendo exibida
   etapaAtual = 1;
@@ -142,11 +144,23 @@ export class Cadastro {
   proximaEtapa(): void {
 
     if (this.etapa1Valida()) {
-      this.etapaAtual = 2;
+      //this.etapaAtual = 2;
+
+      if (this.etapaAtual === 1) {
+
+      if (this.form.invalid) {
+        this.form.markAllAsTouched();
+        return;
+      }
+
+      this.verificarEmail();
+
+      return;
+      }
+
     }
 
   }
-
 
   // =========================
   // VOLTAR PARA PÁGINA 1
@@ -182,7 +196,7 @@ export class Cadastro {
       next: (resultado) => {
         this.validandoEmail = false;
 
-        const entregavel = resultado.email_deliverability.status === 'deliverably';
+        const entregavel = resultado.email_deliverability.status === 'deliverable';
 
         const formatoValido = resultado.email_deliverability.is_format_valid;
 

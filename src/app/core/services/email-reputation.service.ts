@@ -37,7 +37,7 @@ export class EmailReputationService {
 
   private readonly apiUrl = 'https://emailreputation.abstractapi.com/v1/';
 
-  private readonly apiKey = '03ebc464e9f64c8baaca9826e5d30c61';
+  private readonly apiKey = 'b20af4b518e541ba95238db4eaae1749';
 
   verificar(email: string): Observable<EmailReputationResponse> {
     const params = new HttpParams()
