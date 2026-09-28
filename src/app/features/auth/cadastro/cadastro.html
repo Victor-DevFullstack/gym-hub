@@ -115,14 +115,38 @@
             </div>-->
 
             <mat-form-field appearance="outline">
+
               <mat-label>Email</mat-label>
-              <input matInput formControlName="email" type="email" placeholder="seu@email.com" required>
-              @if ((emailFormControl.hasError('email') && !emailFormControl.hasError('required')) || emailFormControl.hasError("pattern")) {
-                <mat-error>Informe um email válido</mat-error>
+
+              <input
+                matInput
+                formControlName="email"
+                type="email"
+                placeholder="seu@email.com"
+                required
+              >
+
+              @if (
+                (emailFormControl.hasError('email') &&
+                !emailFormControl.hasError('required'))
+              ) {
+                <mat-error>
+                  Informe um email válido
+                </mat-error>
               }
+
               @if (emailFormControl.hasError('required')) {
-                <mat-error>Email é <strong>obrigatório</strong></mat-error>
+                <mat-error>
+                  Email é <strong>obrigatório</strong>
+                </mat-error>
               }
+
+              @if (erroEmail) {
+                <mat-error>
+                  {{ erroEmail }}
+                </mat-error>
+              }
+
             </mat-form-field>
 
             <!-- SENHA -->
@@ -156,12 +180,11 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Confirmar senha</mat-label>
-              <input matInput formControlName="senha" type="password" placeholder="********" required>
-              @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
-                <mat-error>A senha deve ter no mínimo 8 caracteres</mat-error>
-              }
-              @if (passwordFormControl.hasError('required')) {
-                <mat-error>Senha é <strong>obrigatória</strong></mat-error>
+              <input matInput formControlName="confirmarSenha" type="password" placeholder="********" required>
+              @if (confirmarSenhaFormControl.hasError('required')) {
+                <mat-error>
+                  Confirme sua senha
+                </mat-error>
               }
             </mat-form-field>
 
@@ -183,10 +206,14 @@
                 mat-flat-button
                 class="btn-principal"
                 type="button"
-                [disabled]="!etapa1Valida()"
+                [disabled]="!etapa1Valida() || validandoEmail"
                 (click)="proximaEtapa()"
               >
-                Próximo
+                @if (validandoEmail) {
+                  Verificando...
+                } @else {
+                  Próximo
+                }
               </button>
 
             </div>

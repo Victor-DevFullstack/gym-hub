@@ -53,6 +53,13 @@ export class Cadastro {
     ],
   });
 
+  confirmarSenhaFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [
+      Validators.required
+    ],
+  });
+
 
   form = new FormGroup({
 
@@ -67,6 +74,8 @@ export class Cadastro {
     email: this.emailFormControl,
 
     senha: this.passwordFormControl,
+
+    confirmarSenha: this.confirmarSenhaFormControl,
 
 
     // Página 2
@@ -111,12 +120,25 @@ export class Cadastro {
   // VALIDAÇÃO DA PÁGINA 1
   // =========================
 
-  etapa1Valida(): boolean {
+  /*etapa1Valida(): boolean {
 
     return (
       this.form.controls.nome.valid &&
       this.form.controls.email.valid &&
       this.form.controls.senha.valid
+    );
+
+  }*/
+
+  etapa1Valida(): boolean {
+
+    return (
+      this.form.controls.nome.valid &&
+      this.form.controls.email.valid &&
+      this.form.controls.senha.valid &&
+      this.form.controls.confirmarSenha.valid &&
+      this.form.controls.senha.value ===
+        this.form.controls.confirmarSenha.value
     );
 
   }
@@ -141,7 +163,7 @@ export class Cadastro {
   // IR PARA PÁGINA 2
   // =========================
 
-  proximaEtapa(): void {
+  /*proximaEtapa(): void {
 
     if (this.etapa1Valida()) {
       //this.etapaAtual = 2;
@@ -160,6 +182,22 @@ export class Cadastro {
 
     }
 
+  }*/
+
+  proximaEtapa(): void {
+    if (this.etapaAtual !== 1) {
+      return;
+    }
+
+    if (!this.etapa1Valida()) {
+      this.form.controls.nome.markAsTouched();
+      this.emailFormControl.markAsTouched();
+      this.passwordFormControl.markAsTouched();
+
+      return;
+    }
+
+    this.verificarEmail();
   }
 
   // =========================
@@ -180,20 +218,24 @@ export class Cadastro {
   //==========================
 
   verificarEmail(): void {
+
     const email = this.emailFormControl.value.trim();
 
-    //Validação do angular
-    if(this.emailFormControl.invalid) {
-      this.emailFormControl.markAllAsTouched();
+    // Validação do Angular
+    if (this.emailFormControl.invalid) {
+      this.emailFormControl.markAsTouched();
       return;
     }
 
     this.validandoEmail = true;
     this.emailValidado = false;
-    this.erroEmail = "";
+    this.erroEmail = '';
 
     this.emailReputationService.verificar(email).subscribe({
+
       next: (resultado) => {
+        console.log('RESPOSTA DA ABSTRACT:', resultado);
+
         this.validandoEmail = false;
 
         const entregavel = resultado.email_deliverability.status === 'deliverable';
@@ -203,24 +245,37 @@ export class Cadastro {
         const mxValido = resultado.email_deliverability.is_mx_valid;
 
         const smtpValido = resultado.email_deliverability.is_smtp_valid;
-      
-        if (entregavel && formatoValido && mxValido && smtpValido) {
+
+        if ( entregavel && formatoValido && mxValido && smtpValido ) {
           this.emailValidado = true;
           this.erroEmail = '';
+
+          this.ultimoEmailValidado = email;
+
+          // Vai para a etapa 2
+          this.etapaAtual = 2;
+
         } else {
           this.emailValidado = false;
-          this.erroEmail = 'Não foi possível validar este endereço de e-mail.'
+
+          this.erroEmail = 'Não foi possível validar este endereço de e-mail.';
         }
       },
 
       error: (erro) => {
-        console.error('Erro na abstract API', erro);
 
-        this.validandoEmail = false; 
+        console.error(
+          'Erro na Abstract API:',
+          erro
+        );
+
+        this.validandoEmail = false;
         this.emailValidado = false;
 
-        this.erroEmail = 'Não foi possível verificar o e-mail. Tente novamente.'
+        this.erroEmail =
+          'Não foi possível verificar o e-mail. Tente novamente.';
       }
+
     });
   }
 
@@ -229,6 +284,16 @@ export class Cadastro {
   // =========================
 
   cadastrar(): void {
+    if ( !this.emailValidado || this.emailFormControl.value !== this.ultimoEmailValidado ) {
+      this.dialog.openDialog({
+        title: 'E-mail não validado',
+        message: 'Verifique seu e-mail antes de concluir o cadastro.'
+      });
+
+      this.etapaAtual = 1;
+
+      return;
+    }
 
     // Não deixa cadastrar se a segunda etapa estiver inválida
     if (!this.etapa2Valida()) {
