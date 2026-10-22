@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Dialog } from '../../../shared/components/dialog/dialog';
@@ -21,9 +21,10 @@ import { EmailReputationService } from '../../../core/services/email-reputation.
   styleUrl: './cadastro.css',
 })
 export class Cadastro {
-  validandoEmail = false;
-  emailValidado = false;
-  erroEmail = "";
+  
+  validandoEmail = signal(false);
+  emailValidado = signal(false);
+  erroEmail = signal<string | null>(null);
 
   private ultimoEmailValidado = "";
 
@@ -227,16 +228,16 @@ export class Cadastro {
       return;
     }
 
-    this.validandoEmail = true;
-    this.emailValidado = false;
-    this.erroEmail = '';
+    this.validandoEmail.set(true);
+    this.emailValidado.set(false);
+    this.erroEmail.set(null);
 
     this.emailReputationService.verificar(email).subscribe({
 
       next: (resultado) => {
         console.log('RESPOSTA DA ABSTRACT:', resultado);
 
-        this.validandoEmail = false;
+        this.validandoEmail.set(false);
 
         const entregavel = resultado.email_deliverability.status === 'deliverable';
 
@@ -247,8 +248,10 @@ export class Cadastro {
         const smtpValido = resultado.email_deliverability.is_smtp_valid;
 
         if ( entregavel && formatoValido && mxValido && smtpValido ) {
-          this.emailValidado = true;
-          this.erroEmail = '';
+          console.log("teste1");
+          this.emailValidado.set(true);
+          
+          this.erroEmail.set(null);
 
           this.ultimoEmailValidado = email;
 
@@ -256,9 +259,11 @@ export class Cadastro {
           this.etapaAtual = 2;
 
         } else {
-          this.emailValidado = false;
-
-          this.erroEmail = 'Não foi possível validar este endereço de e-mail.';
+          
+          this.emailValidado.set(false);
+          
+          this.erroEmail.set('Não foi possível validar este endereço de e-mail.');
+          console.log("teste2");
         }
       },
 
@@ -269,11 +274,10 @@ export class Cadastro {
           erro
         );
 
-        this.validandoEmail = false;
-        this.emailValidado = false;
+        this.validandoEmail.set(false);
+        this.emailValidado.set(false);
 
-        this.erroEmail =
-          'Não foi possível verificar o e-mail. Tente novamente.';
+        this.erroEmail.set('Não foi possível verificar o e-mail. Tente novamente.');
       }
 
     });

@@ -141,9 +141,9 @@
                 </mat-error>
               }
 
-              @if (erroEmail) {
+              @if (erroEmail()) {
                 <mat-error>
-                  {{ erroEmail }}
+                  {{ erroEmail() }}
                 </mat-error>
               }
 
@@ -206,10 +206,10 @@
                 mat-flat-button
                 class="btn-principal"
                 type="button"
-                [disabled]="!etapa1Valida() || validandoEmail"
+                [disabled]="!etapa1Valida() || validandoEmail()"
                 (click)="proximaEtapa()"
               >
-                @if (validandoEmail) {
+                @if (validandoEmail()) {
                   Verificando...
                 } @else {
                   Próximo
