@@ -1,9 +1,6 @@
 <form [formGroup]="form">
-
   <div class="cadastro-page">
-
     <div class="cadastro-container">
-
       <!-- ========================================= -->
       <!-- LADO ESQUERDO - IMAGEM -->
       <!-- ========================================= -->
@@ -21,52 +18,30 @@
         <img src="/icons/logo-site-gym-branco.svg" alt="" class="logo-icon" />
       </aside>
 
-
       <!-- ========================================= -->
       <!-- LADO DIREITO - FORMULÁRIO -->
       <!-- ========================================= -->
 
       <div class="cadastro-form">
-
-
         <!-- ========================================= -->
         <!-- INDICADOR DAS ETAPAS -->
         <!-- ========================================= -->
 
         <div class="steps">
+          <div class="step" [class.active]="etapaAtual === 1">1</div>
 
-          <div
-            class="step"
-            [class.active]="etapaAtual === 1"
-          >
-            1
-          </div>
+          <div class="step-line" [class.completed]="etapaAtual === 2"></div>
 
-          <div
-            class="step-line"
-            [class.completed]="etapaAtual === 2"
-          ></div>
-
-          <div
-            class="step"
-            [class.active]="etapaAtual === 2"
-          >
-            2
-          </div>
-
+          <div class="step" [class.active]="etapaAtual === 2">2</div>
         </div>
-
 
         <!-- ========================================= -->
         <!-- ETAPA 1 - CONTA -->
         <!-- ========================================= -->
 
         @if (etapaAtual === 1) {
-
           <div class="etapa">
-
             <h1>Crie Sua Conta Gym Hub</h1>
-
 
             <!-- NOME -->
 
@@ -88,13 +63,17 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Nome Completo</mat-label>
-              <input matInput formControlName="nome" type="text" placeholder="Ex: João Silva" required>
+              <input
+                matInput
+                formControlName="nome"
+                type="text"
+                placeholder="Ex: João Silva"
+                required
+              />
               <!--@if (.hasError('required')) {
                 <mat-error>Nome é <strong>obrigatório</strong></mat-error>
             }-->
             </mat-form-field>
-
-
 
             <!-- EMAIL -->
 
@@ -115,7 +94,6 @@
             </div>-->
 
             <mat-form-field appearance="outline">
-
               <mat-label>Email</mat-label>
 
               <input
@@ -124,29 +102,21 @@
                 type="email"
                 placeholder="seu@email.com"
                 required
-              >
+              />
 
-              @if (
-                (emailFormControl.hasError('email') &&
-                !emailFormControl.hasError('required'))
-              ) {
-                <mat-error>
-                  Informe um email válido
-                </mat-error>
+              @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+                <mat-error> Informe um email válido </mat-error>
               }
 
               @if (emailFormControl.hasError('required')) {
-                <mat-error>
-                  Email é <strong>obrigatório</strong>
-                </mat-error>
+                <mat-error> Email é <strong>obrigatório</strong> </mat-error>
               }
 
-              @if (erroEmail()) {
+              @if (possuiErroEmail() === true) {
                 <mat-error>
                   {{ erroEmail() }}
                 </mat-error>
               }
-
             </mat-form-field>
 
             <!-- SENHA -->
@@ -169,8 +139,17 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Senha</mat-label>
-              <input matInput formControlName="senha" type="password" placeholder="********" required>
-              @if (passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')) {
+              <input
+                matInput
+                formControlName="senha"
+                type="password"
+                placeholder="********"
+                required
+              />
+              @if (
+                passwordFormControl.hasError('minlength') &&
+                !passwordFormControl.hasError('required')
+              ) {
                 <mat-error>A senha deve ter no mínimo 8 caracteres</mat-error>
               }
               @if (passwordFormControl.hasError('required')) {
@@ -180,25 +159,22 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Confirmar senha</mat-label>
-              <input matInput formControlName="confirmarSenha" type="password" placeholder="********" required>
+              <input
+                matInput
+                formControlName="confirmarSenha"
+                type="password"
+                placeholder="********"
+                required
+              />
               @if (confirmarSenhaFormControl.hasError('required')) {
-                <mat-error>
-                  Confirme sua senha
-                </mat-error>
+                <mat-error> Confirme sua senha </mat-error>
               }
             </mat-form-field>
-
 
             <!-- BOTÕES -->
 
             <div class="acoes">
-
-              <button
-                mat-stroked-button
-                class="btn-voltar"
-                type="button"
-                routerLink="/login"
-              >
+              <button mat-stroked-button class="btn-voltar" type="button" routerLink="/login">
                 Voltar
               </button>
 
@@ -215,51 +191,33 @@
                   Próximo
                 }
               </button>
-
             </div>
-
           </div>
-
         }
-
 
         <!-- ========================================= -->
         <!-- ETAPA 2 - ACADEMIA -->
         <!-- ========================================= -->
 
         @if (etapaAtual === 2) {
-
           <div class="etapa">
-
             <h1>Perfil da Academia</h1>
-
 
             <!-- ================================= -->
             <!-- UPLOAD DA LOGO -->
             <!-- ================================= -->
 
             <div class="logo-upload">
-
               <label for="logo">
-
                 <div class="upload-circle">
-
                   <span>☁</span>
-
                 </div>
-
               </label>
 
               <span>Logo da Academia</span>
 
-              <input
-                id="logo"
-                type="file"
-                accept="image/*"
-              />
-
+              <input id="logo" type="file" accept="image/*" />
             </div>
-
 
             <!-- NOME DA ACADEMIA -->
 
@@ -281,12 +239,11 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Nome da Academia</mat-label>
-              <input matInput formControlName="nomeAcademia" type="text" placeholder="" required>
+              <input matInput formControlName="nomeAcademia" type="text" placeholder="" required />
               <!--@if (.hasError('required')) {
                 <mat-error>Nome é <strong>obrigatório</strong></mat-error>
             }-->
             </mat-form-field>
-
 
             <!-- CNPJ -->
 
@@ -308,7 +265,14 @@
 
             <mat-form-field appearance="outline">
               <mat-label>CNPJ</mat-label>
-              <input matInput id="cnpj" type="text" placeholder="CNPJ" formControlName="cnpj" required />
+              <input
+                matInput
+                id="cnpj"
+                type="text"
+                placeholder="CNPJ"
+                formControlName="cnpj"
+                required
+              />
             </mat-form-field>
 
             <!-- TELEFONE -->
@@ -330,9 +294,14 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Telefone</mat-label>
-              <input matInput id="telefone" type="tel" placeholder="Telefone" formControlName="telefone"/>
+              <input
+                matInput
+                id="telefone"
+                type="tel"
+                placeholder="Telefone"
+                formControlName="telefone"
+              />
             </mat-form-field>
-
 
             <!-- ENDEREÇO -->
 
@@ -354,22 +323,22 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Endereço</mat-label>
-              <input matInput id="endereco" type="text" placeholder="Endereço" formControlName="endereco" required/>
+              <input
+                matInput
+                id="endereco"
+                type="text"
+                placeholder="Endereço"
+                formControlName="endereco"
+                required
+              />
             </mat-form-field>
-
 
             <!-- ================================= -->
             <!-- BOTÕES -->
             <!-- ================================= -->
 
             <div class="acoes">
-
-              <button
-                mat-stroked-button
-                class="btn-voltar"
-                type="button"
-                (click)="voltar()"
-              >
+              <button mat-stroked-button class="btn-voltar" type="button" (click)="voltar()">
                 Voltar
               </button>
               <button
@@ -381,17 +350,10 @@
               >
                 Cadastrar
               </button>
-
             </div>
-
           </div>
-
         }
-
       </div>
-
     </div>
-
   </div>
-
 </form>

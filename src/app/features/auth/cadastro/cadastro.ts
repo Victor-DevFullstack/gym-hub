@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Dialog } from '../../../shared/components/dialog/dialog';
@@ -13,26 +13,29 @@ import { EmailReputationService } from '../../../core/services/email-reputation.
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, ReactiveFormsModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css',
 })
 export class Cadastro {
-  
   validandoEmail = signal(false);
   emailValidado = signal(false);
   erroEmail = signal<string | null>(null);
+  possuiErroEmail = computed(() => (this.erroEmail() === null ? false : true));
 
-  private ultimoEmailValidado = "";
+  private ultimoEmailValidado = '';
 
   private emailReputationService = inject(EmailReputationService);
 
   // Controla qual página do cadastro está sendo exibida
   etapaAtual = 1;
-
 
   // =========================
   // CAMPOS DO FORMULÁRIO
@@ -40,36 +43,24 @@ export class Cadastro {
 
   emailFormControl = new FormControl('', {
     nonNullable: true,
-    validators: [
-      Validators.required,
-      Validators.email
-    ],
+    validators: [Validators.required, Validators.email],
   });
 
   passwordFormControl = new FormControl('', {
     nonNullable: true,
-    validators: [
-      Validators.required,
-      Validators.minLength(8)
-    ],
+    validators: [Validators.required, Validators.minLength(8)],
   });
 
   confirmarSenhaFormControl = new FormControl('', {
     nonNullable: true,
-    validators: [
-      Validators.required
-    ],
+    validators: [Validators.required],
   });
 
-
   form = new FormGroup({
-
     // Página 1
     nome: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required
-      ]
+      validators: [Validators.required],
     }),
 
     email: this.emailFormControl,
@@ -78,20 +69,15 @@ export class Cadastro {
 
     confirmarSenha: this.confirmarSenhaFormControl,
 
-
     // Página 2
     nomeAcademia: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required
-      ]
+      validators: [Validators.required],
     }),
 
     cnpj: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required
-      ]
+      validators: [Validators.required],
     }),
 
     telefone: new FormControl('', {
@@ -100,13 +86,9 @@ export class Cadastro {
 
     endereco: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required
-      ]
+      validators: [Validators.required],
     }),
-
   });
-
 
   // =========================
   // INJEÇÕES
@@ -115,7 +97,6 @@ export class Cadastro {
   usuarioService = inject(UsuarioService);
   dialog = inject(Dialog);
   private router = inject(Router);
-
 
   // =========================
   // VALIDAÇÃO DA PÁGINA 1
@@ -132,33 +113,26 @@ export class Cadastro {
   }*/
 
   etapa1Valida(): boolean {
-
     return (
       this.form.controls.nome.valid &&
       this.form.controls.email.valid &&
       this.form.controls.senha.valid &&
       this.form.controls.confirmarSenha.valid &&
-      this.form.controls.senha.value ===
-        this.form.controls.confirmarSenha.value
+      this.form.controls.senha.value === this.form.controls.confirmarSenha.value
     );
-
   }
-
 
   // =========================
   // VALIDAÇÃO DA PÁGINA 2
   // =========================
 
   etapa2Valida(): boolean {
-
     return (
       this.form.controls.nomeAcademia.valid &&
       this.form.controls.cnpj.valid &&
       this.form.controls.endereco.valid
     );
-
   }
-
 
   // =========================
   // IR PARA PÁGINA 2
@@ -206,20 +180,16 @@ export class Cadastro {
   // =========================
 
   voltar(): void {
-
     if (this.etapaAtual === 2) {
       this.etapaAtual = 1;
     }
-
   }
-
 
   //==========================
   //VERIFICAR EMAIL
   //==========================
 
   verificarEmail(): void {
-
     const email = this.emailFormControl.value.trim();
 
     // Validação do Angular
@@ -233,7 +203,6 @@ export class Cadastro {
     this.erroEmail.set(null);
 
     this.emailReputationService.verificar(email).subscribe({
-
       next: (resultado) => {
         console.log('RESPOSTA DA ABSTRACT:', resultado);
 
@@ -247,39 +216,33 @@ export class Cadastro {
 
         const smtpValido = resultado.email_deliverability.is_smtp_valid;
 
-        if ( entregavel && formatoValido && mxValido && smtpValido ) {
-          console.log("teste1");
+        if (entregavel && formatoValido && mxValido && smtpValido) {
           this.emailValidado.set(true);
-          
+
           this.erroEmail.set(null);
 
           this.ultimoEmailValidado = email;
 
           // Vai para a etapa 2
           this.etapaAtual = 2;
-
         } else {
-          
           this.emailValidado.set(false);
-          
+
           this.erroEmail.set('Não foi possível validar este endereço de e-mail.');
-          console.log("teste2");
+          console.log(this.possuiErroEmail());
+
+          this.emailFormControl.setErrors({ emailReputation: true });
         }
       },
 
       error: (erro) => {
-
-        console.error(
-          'Erro na Abstract API:',
-          erro
-        );
+        console.error('Erro na Abstract API:', erro);
 
         this.validandoEmail.set(false);
         this.emailValidado.set(false);
 
         this.erroEmail.set('Não foi possível verificar o e-mail. Tente novamente.');
-      }
-
+      },
     });
   }
 
@@ -288,10 +251,10 @@ export class Cadastro {
   // =========================
 
   cadastrar(): void {
-    if ( !this.emailValidado || this.emailFormControl.value !== this.ultimoEmailValidado ) {
+    if (!this.emailValidado || this.emailFormControl.value !== this.ultimoEmailValidado) {
       this.dialog.openDialog({
         title: 'E-mail não validado',
-        message: 'Verifique seu e-mail antes de concluir o cadastro.'
+        message: 'Verifique seu e-mail antes de concluir o cadastro.',
       });
 
       this.etapaAtual = 1;
@@ -304,14 +267,11 @@ export class Cadastro {
       return;
     }
 
-
     const dadosForm = this.form.getRawValue();
 
     const id = crypto.randomUUID();
 
-
     const { cadastrou, message } = this.usuarioService.cadastrar({
-
       id,
 
       nome: dadosForm.nome,
@@ -325,46 +285,34 @@ export class Cadastro {
       role: 'proprietario',
 
       academiaId: id,
-
     });
-
 
     // =========================
     // ERRO
     // =========================
 
     if (!cadastrou) {
-
       this.dialog.openDialog({
         title: 'Erro no cadastro',
-        message
+        message,
       });
-
     }
-
 
     // =========================
     // SUCESSO
     // =========================
-
     else {
-
       this.dialog
         .openDialog({
           title: 'Sucesso',
           message,
-          confirmDialog: true
+          confirmDialog: true,
         })
         .subscribe((irParaLogin) => {
-
           if (irParaLogin) {
             this.router.navigate(['/login']);
           }
-
         });
-
     }
-
   }
-
 }
