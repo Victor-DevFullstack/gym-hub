@@ -171,7 +171,7 @@ export class Cadastro {
 
       return;
     }
-
+    
     this.verificarEmail();
   }
 
@@ -201,6 +201,25 @@ export class Cadastro {
     this.validandoEmail.set(true);
     this.emailValidado.set(false);
     this.erroEmail.set(null);
+
+    const {emailExiste, message} = this.usuarioService.verificarEmailExistente(email)
+
+    // =========================
+    // ERRO
+    // =========================
+
+    if (emailExiste) {
+      this.dialog.openDialog({
+        title: 'Erro no cadastro',
+        message,
+      });
+
+      this.validandoEmail.set(false);
+      this.emailValidado.set(false);
+      this.erroEmail.set(null);
+
+      return
+    }
 
     this.emailReputationService.verificar(email).subscribe({
       next: (resultado) => {

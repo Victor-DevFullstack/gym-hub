@@ -52,10 +52,23 @@ export class UsuarioService {
     return this.usuarios().filter((user) => user.role === cargo);
   }
 
-  cadastrar(usuario: UsuarioType): { cadastrou: boolean; message: string } {
+  verificarEmailExistente(email:string): { emailExiste: boolean; message: string } {
     const emailJaExiste = this.usuarios().some(
-      (u) => u.email.toLowerCase() === usuario.email.toLowerCase(),
+      (u) => u.email.toLowerCase() === email.toLowerCase(),
     );
+
+    if (emailJaExiste) {
+      return { emailExiste: true, message: 'Já existe um usuário com esse email' };
+    }
+
+    return {
+      emailExiste: false,
+      message: '',
+    };
+  }
+
+  cadastrar(usuario: UsuarioType): { cadastrou: boolean; message: string } {
+    const emailJaExiste = this.verificarEmailExistente(usuario.email);
 
     if (emailJaExiste) {
       return { cadastrou: false, message: 'Já existe um usuário com esse email' };
@@ -130,7 +143,9 @@ export class UsuarioService {
     return this.cancelamentos().filter((c) => c.academiaId === academiaId);
   }
   login(email: string, senha: string): { user?: UsuarioType } {
-    const user = this.usuarios().find((u) => u.email.toLowerCase() === email.toLowerCase() && u.senha === senha);
+    const user = this.usuarios().find(
+      (u) => u.email.toLowerCase() === email.toLowerCase() && u.senha === senha,
+    );
 
     return user ? { user } : {};
   }
