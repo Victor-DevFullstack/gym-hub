@@ -1,6 +1,5 @@
 import { effect, Injectable, signal } from '@angular/core';
 import { Role, UsuarioType } from '../../shared/types/usuario';
-import { gerarDadosSeed } from './usuario-seed';
 import { CHAVE_TREINOS } from './treino.service';
 
 export interface CancelamentoAluno {
@@ -26,7 +25,6 @@ export class UsuarioService {
   }
 
   constructor() {
-    this.seedDadosDemo();
 
     effect(() => {
       localStorage.setItem(this.chave, JSON.stringify(this.usuarios()));
@@ -35,17 +33,6 @@ export class UsuarioService {
     effect(() => {
       localStorage.setItem(this.chaveCancelamentos, JSON.stringify(this.cancelamentos()));
     });
-  }
-
-  private seedDadosDemo(): void {
-    if (localStorage.getItem(this.chave) !== null) {
-      return;
-    }
-
-    const { usuarios, cancelamentos, treinos } = gerarDadosSeed();
-    this.usuarios.set(usuarios);
-    this.cancelamentos.set(cancelamentos);
-    localStorage.setItem(CHAVE_TREINOS, JSON.stringify(treinos));
   }
 
   listarPorCargo(cargo: Role): UsuarioType[] {
