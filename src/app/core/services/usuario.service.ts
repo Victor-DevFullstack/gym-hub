@@ -53,10 +53,11 @@ export class UsuarioService {
   }
 
   verificarEmailExistente(email:string): { emailExiste: boolean; message: string } {
+    
     const emailJaExiste = this.usuarios().some(
       (u) => u.email.toLowerCase() === email.toLowerCase(),
     );
-
+    
     if (emailJaExiste) {
       return { emailExiste: true, message: 'Já existe um usuário com esse email' };
     }
@@ -69,8 +70,8 @@ export class UsuarioService {
 
   cadastrar(usuario: UsuarioType): { cadastrou: boolean; message: string } {
     const emailJaExiste = this.verificarEmailExistente(usuario.email);
-
-    if (emailJaExiste) {
+    
+    if (emailJaExiste.emailExiste) {      
       return { cadastrou: false, message: 'Já existe um usuário com esse email' };
     }
 
