@@ -43,8 +43,11 @@ export class Header {
   protected saudacao = computed(() => {
     const h = new Date().getHours();
     const periodo = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
-    return this.primeiroNome() ? `${periodo}, ${this.primeiroNome()} 👋` : `${periodo} 👋`;
+    return this.primeiroNome() ? `${periodo}, ${this.primeiroNome()} ` : `${periodo} `;
   });
+  //O header está sem a saudação com o emoji de mão acenando, pois o emoji não está aparecendo corretamente no layout.
+  //Para colocar o emoji, use a linha abaixo no código acima.
+  //👋 return this.primeiroNome() ? `${periodo}, ${this.primeiroNome()} 👋` : `${periodo} 👋`;
   protected atalhoBusca = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘ K' : 'Ctrl K';
 
   alternarMenu(menu: Exclude<MenuAberto, null>, event: Event): void {
