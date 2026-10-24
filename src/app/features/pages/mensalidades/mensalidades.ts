@@ -35,7 +35,7 @@ export class Mensalidades {
       return alunosDaAcademia.filter((aluno) => aluno.id === usuarioLogado.id);
     }
 
-    return alunosDaAcademia;
+    return alunosDaAcademia.filter((aluno) => calcularStatusMensalidade((aluno as AlunoType).dataDeVencimento) !== 'Pago');
   });
 
   protected readonly filtro = signal('');

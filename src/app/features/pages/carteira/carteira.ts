@@ -13,6 +13,8 @@ import { KpiCard, KpiData } from '../../cards/kpi-card/kpi-card';
 
 const TOM_STATUS: Record<StatusMensalidade, string> = { Pago: 'green', Pendente: 'amber', Atrasado: 'red' };
 
+type Visao = 'pendentes' | 'todas' | 'pagas';
+
 interface LinhaCarteira {
   id: string;
   nome: string;
@@ -40,6 +42,12 @@ export class Carteira {
   });
 
   protected readonly filtro = signal('');
+  protected readonly visao = signal<Visao>('pendentes');
+  protected readonly visoes: { key: Visao; label: string }[] = [
+    { key: 'pendentes', label: 'Pendentes' },
+    { key: 'pagas', label: 'Pagas' },
+    { key: 'todas', label: 'Todas' },
+  ];
   protected readonly iniciais = iniciais;
   protected readonly tomDoAvatar = tomDoAvatar;
 
@@ -78,9 +86,21 @@ export class Carteira {
 
   protected readonly linhasFiltradas = computed(() => {
     const f = this.filtro().trim().toLowerCase();
-    if (!f) return this.linhas();
-    return this.linhas().filter((l) => [l.nome, l.plano, l.valor, l.vencimento, l.status].some((v) => v.toLowerCase().includes(f)));
+    const v = this.visao();
+    const porStatus = this.linhas().filter((l) =>
+      v === 'todas' ? true : v === 'pagas' ? l.status === 'Pago' : l.status !== 'Pago',
+    );
+    if (!f) return porStatus;
+    return porStatus.filter((l) => [l.nome, l.plano, l.valor, l.vencimento, l.status].some((x) => x.toLowerCase().includes(f)));
   });
+
+  protected readonly tudoEmDia = computed(
+    () => this.visao() === 'pendentes' && !this.filtro().trim() && !this.linhasFiltradas().length,
+  );
+
+  protected definirVisao(v: Visao): void {
+    this.visao.set(v);
+  }
 
   protected readonly semAlunos = computed(() => this.alunos().length === 0);
 

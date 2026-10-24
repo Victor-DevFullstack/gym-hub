@@ -542,3 +542,39 @@
 @media (max-width: 1099px) { .gh .kpi-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gh .kpi-grid--4 > app-kpi-card:last-child .kpi { grid-column: auto; } }
 @media (max-width: 699px) { .gh .kpi-grid--4 { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 899px) { .gh .settings { grid-template-columns: minmax(0, 1fr); } .gh .settings-nav { flex-direction: row; overflow-x: auto; } .gh .settings-nav__link { flex-shrink: 0; white-space: nowrap; } .gh .form-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Ajustes de responsividade (telas pequenas) ---------- */
+@media (max-width: 699px) {
+  .gh .sidebar { width: min(280px, 85vw); }
+  .gh .topbar, .gh .topbar__actions { gap: var(--sp-2); }
+  .gh .hello { flex: 1; }
+  .gh .hello__title { overflow: hidden; text-overflow: ellipsis; font-size: 1rem; }
+
+  /* Menus abertos ocupam a largura da tela (antes vazavam para fora à esquerda) */
+  .gh .menu { position: static; }
+  .gh .dropdown, .gh .dropdown--wide {
+    left: var(--sp-4); right: var(--sp-4); width: auto; min-width: 0; transform-origin: top center;
+    max-height: calc(100dvh - var(--header-h) - 24px); overflow-y: auto;
+  }
+
+  .gh .page-head__tools { width: 100%; }
+  .gh .page-head__tools > .btn { flex: 1; justify-content: center; }
+  .gh .card__head { flex-wrap: wrap; padding: var(--sp-4) var(--sp-4) 0; }
+  .gh .card__head .segmented, .gh .table-filter { width: 100%; }
+  .gh .card__body { padding-inline: var(--sp-4); }
+  .gh .table { min-width: 520px; }
+  .gh .table-wrap { -webkit-overflow-scrolling: touch; }
+
+  .gh .info-list > div { flex-direction: column; gap: 2px; }
+  .gh .info-list dd { text-align: left; }
+  .gh .plan-highlight { flex-wrap: wrap; }
+  .gh .plan-highlight .badge { margin-left: 0; }
+  .gh .form-actions { flex-wrap: wrap; }
+  .gh .form-actions .btn { flex: 1; justify-content: center; }
+  .gh .form-status { width: 100%; }
+}
+@media (max-width: 399px) {
+  .gh .page { padding: var(--sp-3); }
+  .gh .topbar { padding: 0 var(--sp-3); }
+  .gh .kpi--featured .kpi__value { font-size: 2rem; }
+}

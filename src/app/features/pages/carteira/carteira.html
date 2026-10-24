@@ -16,9 +16,14 @@
     <div class="card__head">
       <div>
         <h3 class="card__title" id="mens-t">Mensalidades</h3>
-        <p class="card__sub">Situação de cada aluno</p>
+        <p class="card__sub">Por padrão, só as pendentes e atrasadas</p>
       </div>
       @if (!semAlunos()) {
+        <div class="segmented" role="group" aria-label="Situação">
+          @for (v of visoes; track v.key) {
+            <button type="button" [attr.aria-pressed]="v.key === visao()" (click)="definirVisao(v.key)">{{ v.label }}</button>
+          }
+        </div>
         <div class="table-filter">
           <span class="search__icon" aria-hidden="true"><app-icon name="search" /></span>
           <input type="search" placeholder="Filtrar por nome, plano…" aria-label="Filtrar mensalidades" autocomplete="off" (input)="aplicarFiltro($event)" />
@@ -63,6 +68,8 @@
             </tbody>
           </table>
         </div>
+      } @else if (tudoEmDia()) {
+        <app-empty-state icon="partyPopper" tone="green" title="Tudo em dia!" text="Nenhuma mensalidade pendente ou atrasada no momento." />
       } @else {
         <app-empty-state icon="search" tone="blue" title="Sem resultados" text="Nenhuma mensalidade corresponde ao filtro digitado." />
       }

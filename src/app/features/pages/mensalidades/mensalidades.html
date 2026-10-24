@@ -21,7 +21,7 @@
     </div>
     <div class="card__body--flush">
       @if (!total()) {
-        <app-empty-state icon="creditCard" tone="blue" title="Nenhuma mensalidade por aqui" text="Quando houver alunos cadastrados, as mensalidades aparecem nesta lista." />
+        <app-empty-state icon="creditCard" tone="blue" title="Nenhuma mensalidade pendente" text="Quando houver mensalidades pendentes ou atrasadas, elas aparecem nesta lista." />
       } @else if (filtradas().length) {
         <div class="table-wrap">
           <table class="table">
