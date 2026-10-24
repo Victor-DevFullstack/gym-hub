@@ -1,11 +1,17 @@
-<h2>Academia</h2>
-<p>Informaçoes da academia</p>
+<section class="card" aria-labelledby="end-t">
+  <div class="card__head">
+    <div>
+      <h3 class="card__title" id="end-t">Academia</h3>
+      <p class="card__sub">Informações da academia</p>
+    </div>
+  </div>
 
-<mat-card class="container-card">
-    <mat-card-content class="conteudo-card">
-        <p>Nome: </p>
-        <p>Endereço: </p>
-        <p>Telefone: </p>
-        <p>E-mail: </p>
-    </mat-card-content>
-</mat-card>
+  <div class="card__body">
+    <dl class="info-list">
+      <div><dt>Nome</dt><dd>{{ usuario()?.nomeAcademia || 'Não informado' }}</dd></div>
+      <div><dt>Endereço</dt><dd>Não informado</dd></div>
+      <div><dt>Telefone</dt><dd>Não informado</dd></div>
+      <div><dt>E-mail</dt><dd>Não informado</dd></div>
+    </dl>
+  </div>
+</section>

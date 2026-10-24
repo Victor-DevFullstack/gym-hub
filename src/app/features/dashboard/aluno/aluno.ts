@@ -1,66 +1,50 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { Header } from '../../../shared/components/header/header';
-import { RouterOutlet } from '@angular/router';
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, computed, inject } from '@angular/core';
+
 import { AuthService } from '../../../core/services/auth.service';
-import { DashboardCard } from '../../cards/dashboard-card/dashboard-card';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { AlunoType } from '../../../shared/types/usuario';
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { tituloCase } from '../../../shared/utils/data.utils';
+import { formatarData } from '../../../shared/utils/mensalidade.utils';
+import { KpiCard, KpiData } from '../../cards/kpi-card/kpi-card';
 
 @Component({
   selector: 'app-aluno',
-  imports: [Header, RouterOutlet, Sidebar, MatCardModule, MatIconModule, DashboardCard, TitleCasePipe, DatePipe],
+  imports: [KpiCard],
   templateUrl: './aluno.html',
-  styleUrl: './aluno.css',
 })
 export class Aluno {
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
 
-  private readonly usuarioLogado = signal(this.authService.getUsuarioLogado());
-
-  getAlunoLogado(): AlunoType | null {
-    const usuario = this.usuarioLogado();
+  protected readonly aluno = computed<AlunoType | null>(() => {
+    const usuario = this.authService.usuarioLogado();
     return usuario?.role === 'aluno' ? usuario : null;
+  });
+
+  private estaPago(): string {
+    const venc = this.aluno()?.dataDeVencimento;
+    if (!venc) return 'Sem plano';
+    return new Date() > new Date(venc) ? 'Atrasado' : 'Pago';
   }
 
-  estaPago() {
-    const dataVencimento = this.getAlunoLogado()?.dataDeVencimento;
-
-    if (!dataVencimento) {
-      return 'Sem plano';
-    } else {
-      return new Date() > new Date(dataVencimento) ? 'Atrasado' : 'Pago';
-    }
+  private planoAtivo(): string {
+    const venc = this.aluno()?.dataDeVencimento;
+    if (!venc) return 'Sem plano';
+    return new Date() > new Date(venc) ? 'Plano inativo' : 'Plano ativo';
   }
 
-  planoAtivo() {
-    const dataVencimento = this.getAlunoLogado()?.dataDeVencimento;
-
-    if (!dataVencimento) {
-      return 'Sem plano';
-    }
-
-    return new Date() > new Date(dataVencimento) ? 'Plano inativo' : 'Plano ativo';
+  private personal(): string {
+    const personal = this.aluno()?.personal;
+    if (!personal || personal === 'sem-personal') return 'Sem personal';
+    return this.usuarioService.buscarPorId(personal as unknown as string)?.nome ?? 'Sem personal';
   }
 
-  getPersonal() {
-    const personal = this.getAlunoLogado()?.personal;
-
-    if (!personal || personal === "sem-personal") {
-      return "Sem personal"
-    }
-
-    const professor = this.usuarioService.buscarPorId(personal as unknown as string);
-    return professor?.nome ?? "Sem personal"
-  }
-
-  constructor() {
-    effect(() => {
-      console.log(this.usuarioLogado());
-    });
-  }
+  protected readonly kpis = computed<KpiData[]>(() => {
+    const a = this.aluno();
+        return [
+      { key: 'plano', label: 'Plano atual', icon: 'users', tone: 'blue', format: 'int', value: 0, delta: null, plain: true, text: a?.plano ? tituloCase(a.plano) : 'Sem plano', note: this.planoAtivo() },
+      { key: 'venc', label: 'Próximo vencimento', icon: 'clock', tone: 'amber', format: 'int', value: 0, delta: null, plain: true, text: formatarData(a?.dataDeVencimento ?? null), note: this.estaPago() },
+      { key: 'personal', label: 'Personal', icon: 'dumbbell', tone: 'purple', format: 'int', value: 0, delta: null, plain: true, text: this.personal(), note: '' },
+    ];
+  });
 }

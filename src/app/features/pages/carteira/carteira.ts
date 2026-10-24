@@ -1,88 +1,90 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
+
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
-import { AlunoType, UsuarioType } from '../../../shared/types/usuario';
+import { AlunoType } from '../../../shared/types/usuario';
 import { formatarValorPlano, VALOR_POR_PLANO } from '../../../shared/constants/plano.constants';
-import {
-  calcularStatusMensalidade,
-  formatarData,
-  StatusMensalidade,
-} from '../../../shared/utils/mensalidade.utils';
-import { DashboardCard } from '../../cards/dashboard-card/dashboard-card';
+import { calcularStatusMensalidade, formatarData, StatusMensalidade } from '../../../shared/utils/mensalidade.utils';
+import { iniciais, tomDoAvatar } from '../../../shared/utils/data.utils';
+import { Icon } from '../../../shared/components/icon/icon';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { KpiCard, KpiData } from '../../cards/kpi-card/kpi-card';
+
+const TOM_STATUS: Record<StatusMensalidade, string> = { Pago: 'green', Pendente: 'amber', Atrasado: 'red' };
+
+interface LinhaCarteira {
+  id: string;
+  nome: string;
+  plano: string;
+  valor: string;
+  vencimento: string;
+  status: StatusMensalidade;
+  tom: string;
+}
 
 @Component({
   selector: 'app-carteira',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe, DashboardCard],
+  imports: [TitleCasePipe, Icon, EmptyState, KpiCard],
   templateUrl: './carteira.html',
-  styleUrl: './carteira.css',
 })
 export class Carteira {
-  displayedColumns: string[] = ['nome', 'plano', 'valor', 'vencimento', 'status'];
-
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
 
-  private proprietarioLogado = this.authService.getUsuarioLogado();
+  private academiaId = this.authService.getUsuarioLogado()?.academiaId;
 
   private alunos = computed<AlunoType[]>(() => {
-    const academiaId = this.proprietarioLogado?.academiaId;
-    if (!academiaId) {
-      return [];
-    }
-    return this.usuarioService.listarPorAcademia(academiaId, 'aluno') as AlunoType[];
+    if (!this.academiaId) return [];
+    return this.usuarioService.listarPorAcademia(this.academiaId, 'aluno') as AlunoType[];
   });
 
-  dataSource = new MatTableDataSource<UsuarioType>();
+  protected readonly filtro = signal('');
+  protected readonly iniciais = iniciais;
+  protected readonly tomDoAvatar = tomDoAvatar;
 
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.alunos();
-    });
+  private contar(status: StatusMensalidade): number {
+    return this.alunos().filter((a) => calcularStatusMensalidade(a.dataDeVencimento) === status).length;
   }
 
-  readonly receitaMensal = computed(() => {
-    const total = this.alunos().reduce(
-      (soma, aluno) => soma + (aluno.plano ? VALOR_POR_PLANO[aluno.plano] : 0),
-      0,
-    );
-    return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  });
-
-  readonly totalPagos = computed(() => this.contarPorStatus('Pago'));
-  readonly totalPendentes = computed(() => this.contarPorStatus('Pendente'));
-  readonly totalAtrasados = computed(() => this.contarPorStatus('Atrasado'));
-
-  readonly taxaInadimplencia = computed(() => {
+  protected readonly kpis = computed<KpiData[]>(() => {
     const total = this.alunos().length;
-    if (total === 0) {
-      return '0%';
-    }
-    return `${((this.totalAtrasados() / total) * 100).toFixed(1)}%`;
+    const receita = this.alunos().reduce((s, a) => s + (a.plano ? VALOR_POR_PLANO[a.plano] : 0), 0);
+    const atrasados = this.contar('Atrasado');
+    const taxa = total === 0 ? '0%' : `${((atrasados / total) * 100).toFixed(1)}%`;
+
+    return [
+      { key: 'receita', label: 'Receita mensal', icon: 'banknote', tone: 'purple', format: 'brl', value: receita, delta: null, plain: true, note: 'soma dos planos dos alunos' },
+      { key: 'emdia', label: 'Alunos em dia', icon: 'checkCheck', tone: 'green', format: 'int', value: this.contar('Pago'), delta: null, plain: true, note: 'mensalidades em dia' },
+      { key: 'pendentes', label: 'Pendentes', icon: 'clock', tone: 'amber', format: 'int', value: this.contar('Pendente'), delta: null, plain: true, note: 'vencem em até 7 dias' },
+      { key: 'inadimplencia', label: 'Inadimplência', icon: 'alert', tone: 'red', format: 'int', value: atrasados, delta: null, plain: true, note: `${taxa} dos alunos` },
+    ];
   });
 
-  private contarPorStatus(status: StatusMensalidade): number {
-    return this.alunos().filter((aluno) => calcularStatusMensalidade(aluno.dataDeVencimento) === status).length;
-  }
+  private linhas = computed<LinhaCarteira[]>(() =>
+    this.alunos().map((a) => {
+      const status = calcularStatusMensalidade(a.dataDeVencimento);
+      return {
+        id: a.id,
+        nome: a.nome,
+        plano: a.plano ?? '',
+        valor: a.plano ? formatarValorPlano(a.plano) : 'Gratuita',
+        vencimento: formatarData(a.dataDeVencimento),
+        status,
+        tom: TOM_STATUS[status],
+      };
+    }),
+  );
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  protected readonly linhasFiltradas = computed(() => {
+    const f = this.filtro().trim().toLowerCase();
+    if (!f) return this.linhas();
+    return this.linhas().filter((l) => [l.nome, l.plano, l.valor, l.vencimento, l.status].some((v) => v.toLowerCase().includes(f)));
+  });
 
-  getValor(usuario: UsuarioType): string {
-    const aluno = usuario as AlunoType;
-    return aluno.plano ? formatarValorPlano(aluno.plano) : 'Gratuita';
-  }
+  protected readonly semAlunos = computed(() => this.alunos().length === 0);
 
-  getVencimento(usuario: UsuarioType): string {
-    return formatarData((usuario as AlunoType).dataDeVencimento);
-  }
-
-  getStatus(usuario: UsuarioType): StatusMensalidade {
-    return calcularStatusMensalidade((usuario as AlunoType).dataDeVencimento);
+  protected aplicarFiltro(event: Event): void {
+    this.filtro.set((event.target as HTMLInputElement).value);
   }
 }

@@ -1,24 +1,56 @@
-<aside class="sidebar">
-
-  <div class="logo">
-    <img src="/icons/logo-site-gym-branco.svg" alt="Notificações" class="logo-icon" />
+<aside class="sidebar" id="sidebar" [class.is-open]="layout.drawerAberto()" aria-label="Navegação principal">
+  <div class="sidebar__top">
+    <a class="brand" routerLink="/dashboard" aria-label="Gym Hub">
+      <span class="brand__full" aria-hidden="true">Gym <span>Hub</span></span>
+      <span class="brand__short" aria-hidden="true">G<span>H</span></span>
+    </a>
+    <button class="sidebar__close" type="button" aria-label="Fechar menu" (click)="layout.fecharDrawer()">
+      <app-icon name="x" />
+    </button>
   </div>
 
-  <nav>
-
-    <a routerLink="/dashboard">
-      <img src="/icons/dashboard.svg" alt="Notificações" class="icon-dashboard" />
-
-      Dashboard
-    </a>
-
-    @for (label of visibleItems; track $index) {
-      <a routerLink="{{label.route}}">
-        <img src="{{label.icon}}" alt="Notificações" class="{{label.class}}" />
-
-        {{label.label}}
-      </a>
-    }
+  <nav aria-label="Seções">
+    <ul class="nav">
+      <li>
+        <a
+          class="nav__link"
+          routerLink="/dashboard"
+          title="Dashboard"
+          routerLinkActive
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="layout.fecharDrawer()"
+        >
+          <app-icon name="layoutDashboard" /><span class="nav__label">Dashboard</span>
+        </a>
+      </li>
+      @for (item of visibleItems(); track item.label) {
+        <li>
+          <a
+            class="nav__link"
+            [routerLink]="item.route"
+            [title]="item.label"
+            routerLinkActive
+            ariaCurrentWhenActive="page"
+            (click)="layout.fecharDrawer()"
+          >
+            <app-icon [name]="item.icon" /><span class="nav__label">{{ item.label }}</span>
+          </a>
+        </li>
+      }
+    </ul>
   </nav>
 
+  <div class="sidebar__bottom">
+    <button
+      class="collapse-btn"
+      type="button"
+      [attr.aria-expanded]="!layout.recolhida()"
+      [attr.aria-label]="layout.recolhida() ? 'Expandir menu' : 'Recolher menu'"
+      (click)="layout.alternarRecolhida()"
+    >
+      <app-icon name="chevronsLeft" /><span class="collapse-btn__label">Recolher menu</span>
+    </button>
+  </div>
 </aside>
+<div class="scrim" [class.is-visible]="layout.drawerAberto()" (click)="layout.fecharDrawer()"></div>

@@ -1,0 +1,70 @@
+<div class="chart-host" #host>
+  @if (geo(); as g) {
+    <svg
+      class="chart"
+      [attr.width]="g.W"
+      [attr.height]="g.H"
+      [attr.viewBox]="'0 0 ' + g.W + ' ' + g.H"
+      role="img"
+      [attr.aria-label]="'Gráfico de área com a receita dos últimos ' + rows().length + ' meses'"
+    >
+      <defs>
+        <linearGradient [attr.id]="gradId" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" style="stop-color: var(--purple); stop-opacity: 0.32" />
+          <stop offset="1" style="stop-color: var(--purple); stop-opacity: 0" />
+        </linearGradient>
+      </defs>
+      <g class="grid axis">
+        @for (tk of g.ticks; track $index) {
+          <line [attr.x1]="g.m.l" [attr.x2]="g.W - g.m.r" [attr.y1]="tk.y" [attr.y2]="tk.y" />
+          <text [attr.x]="g.m.l - 10" [attr.y]="tk.y + 4" text-anchor="end">{{ tk.label }}</text>
+        }
+      </g>
+      <g class="axis">
+        @for (r of rows(); track $index) {
+          <text [attr.x]="g.pts[$index][0]" [attr.y]="g.H - 8" text-anchor="middle">{{ r.label }}</text>
+        }
+      </g>
+      <path [attr.d]="g.area" [attr.fill]="'url(#' + gradId + ')'" />
+      <path class="area-line" [attr.d]="g.line" />
+      @for (p of g.pts; track $index) {
+        <circle class="dot" [attr.cx]="p[0]" [attr.cy]="p[1]" r="4" />
+      }
+      @let t = tip();
+      <line
+        class="hover-line"
+        [attr.x1]="t ? t.x : 0"
+        [attr.x2]="t ? t.x : 0"
+        [attr.y1]="g.m.t"
+        [attr.y2]="g.base"
+        [style.opacity]="t ? 1 : 0"
+      />
+      <circle class="hover-dot" r="6" [attr.cx]="t ? t.x : 0" [attr.cy]="t ? t.y : 0" [style.opacity]="t ? 1 : 0" />
+      <rect
+        class="hit"
+        x="0"
+        y="0"
+        [attr.width]="g.W"
+        [attr.height]="g.H"
+        fill="transparent"
+        (pointermove)="onMove($event)"
+        (pointerleave)="hover.set(null)"
+      />
+    </svg>
+    @let tp = tip();
+    <div class="tooltip" role="presentation" [class.is-visible]="!!tp" [style.left.px]="tp?.left" [style.top.px]="tp?.top">
+      @if (tp) {
+        <strong>{{ tp.label }}</strong><br />{{ tp.value }}
+      }
+    </div>
+    <table class="sr-only">
+      <caption>Receita por mês</caption>
+      <thead><tr><th>Mês</th><th>Receita</th></tr></thead>
+      <tbody>
+        @for (r of rows(); track $index) {
+          <tr><td>{{ r.label }}</td><td>{{ fmtBRL(r.value) }}</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

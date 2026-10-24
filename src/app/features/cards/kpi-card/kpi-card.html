@@ -1,0 +1,47 @@
+@let k = kpi();
+<article class="card card--hover kpi tone-{{ k.tone }}" [class.kpi--featured]="k.featured" [attr.aria-label]="k.label">
+  <div class="kpi__head">
+    <span class="kpi__icon"><app-icon [name]="k.icon" [size]="20" /></span>
+    <span class="kpi__label">{{ k.label }}</span>
+  </div>
+
+  <ng-template #valorTpl>
+    <div class="kpi__value">{{ valor() }}</div>
+    <div class="kpi__meta">
+      @if (k.plain) {
+        <span>{{ k.note }}</span>
+      } @else if (noData()) {
+        <span>Sem dados no período</span>
+      } @else if (goodZero()) {
+        <span class="delta delta--good">Ótimo</span><span>{{ k.zeroText }}</span>
+      } @else if (delta(); as d) {
+        <span class="delta delta--{{ d.cls }}">
+          <i aria-hidden="true">{{ d.glyph }}</i><span class="sr-only">{{ d.sr }}</span>{{ d.texto }}
+        </span>
+        @if (compare()) {
+          <span>{{ compare() }}</span>
+        }
+      }
+    </div>
+  </ng-template>
+
+  @if (k.featured) {
+    <div><ng-container [ngTemplateOutlet]="valorTpl" /></div>
+    <div class="kpi__chart"><app-sparkline [series]="k.series" [empty]="noData() || goodZero()" /></div>
+    @if (noData()) {
+      <div class="kpi__empty-cta">
+        <span>Cadastre o primeiro aluno para acompanhar a receita.</span>
+        <a class="btn btn--light btn--sm" routerLink="/dashboard/alunos">
+          <app-icon name="userPlus" [size]="16" />Cadastrar aluno
+        </a>
+      </div>
+    }
+  } @else {
+    <div class="kpi__body">
+      <div><ng-container [ngTemplateOutlet]="valorTpl" /></div>
+      @if (k.series && k.series.length > 1) {
+        <app-sparkline [series]="k.series" [empty]="noData() || goodZero()" />
+      }
+    </div>
+  }
+</article>

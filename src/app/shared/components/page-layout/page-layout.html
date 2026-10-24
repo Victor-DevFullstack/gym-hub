@@ -1,16 +1,13 @@
+<div class="gh" [class.is-collapsed]="layout.recolhida()">
+  <a class="skip-link" href="#main" (click)="$event.preventDefault(); conteudo.focus()">Pular para o conteúdo</a>
 
-<section class="app">
-  <app-sidebar class="sidebar"></app-sidebar>
-  
-  <app-header class="header"></app-header>
-  
-  <div class="main">
-  
-  
-  
-    <main class="content">
-      <router-outlet></router-outlet>
+  <app-sidebar />
+
+  <div class="shell-main">
+    <app-header />
+
+    <main class="page" id="main" #conteudo tabindex="-1">
+      <router-outlet />
     </main>
-  
   </div>
-</section>
+</div>

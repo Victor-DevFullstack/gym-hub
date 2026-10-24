@@ -1,22 +1,15 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { TitleCasePipe } from '@angular/common';
+
 import { AuthService } from '../../../../core/services/auth.service';
 import { UsuarioService } from '../../../../core/services/usuario.service';
 import { Dialog } from '../../dialog/dialog';
+import { iniciais } from '../../../utils/data.utils';
 
 @Component({
   selector: 'app-account',
-  imports: [
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-  ],
+  imports: [ReactiveFormsModule, TitleCasePipe],
   templateUrl: './account.html',
   styleUrl: './account.css',
 })
@@ -24,6 +17,10 @@ export class Account {
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private dialog = inject(Dialog);
+
+  protected usuario = this.authService.usuarioLogado;
+  protected iniciaisUsuario = computed(() => iniciais(this.usuario()?.nome ?? '?'));
+  protected salvo = signal(false);
 
   form = new FormGroup({
     nome: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -34,9 +31,7 @@ export class Account {
   });
 
   constructor() {
-    // Sempre que o usuarioLogado (signal) mudar — seja por esse mesmo
-    // componente salvando, seja por qualquer outro lugar do app — o
-    // formulário se atualiza sozinho, sem precisar recarregar a página.
+    // Sempre que o usuarioLogado (signal) mudar, o formulário se atualiza sozinho.
     effect(() => {
       const usuario = this.authService.usuarioLogado();
       this.form.patchValue(
@@ -53,6 +48,7 @@ export class Account {
     const usuarioLogado = this.authService.usuarioLogado();
 
     if (this.form.invalid || !usuarioLogado) {
+      this.form.markAllAsTouched();
       return;
     }
 
@@ -67,6 +63,7 @@ export class Account {
     }
 
     this.authService.usuarioLogado.set(usuarioAtualizado);
-    //this.dialog.openDialog({ title: 'Sucesso', message: 'Dados atualizados com sucesso.' });
+    this.form.markAsPristine();
+    this.salvo.set(true);
   }
 }

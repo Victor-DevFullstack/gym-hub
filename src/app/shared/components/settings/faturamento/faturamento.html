@@ -1,49 +1,57 @@
-<section class="container">
-  <mat-card>
-    <mat-card-content>
-      <h2>Faturamento e assinatura</h2>
+<section class="card" aria-labelledby="fat-t">
+  <div class="card__head">
+    <div>
+      <h3 class="card__title" id="fat-t">Faturamento e assinatura</h3>
+      <p class="card__sub">Seu plano e o histórico de cobranças</p>
+    </div>
+    @if (aluno) {
+      <button class="btn btn--ghost btn--sm" type="button" (click)="atualizarPagamento()">
+        <app-icon name="creditCard" [size]="16" />Atualizar forma de pagamento
+      </button>
+    }
+  </div>
 
-      @if (aluno) {
-        <div class="plano-atual">
-          <mat-icon color="primary">check_circle</mat-icon>
-          <div>
-            <span class="label">Plano atual</span>
-            <p class="plano-nome">{{ nomePlano }}</p>
-            <span class="vencimento">Vence em {{ vencimento }} · {{ status }}</span>
-          </div>
+  <div class="card__body">
+    @if (aluno) {
+      <div class="plan-highlight">
+        <span class="plan-highlight__icon"><app-icon name="checkCircle" [size]="28" /></span>
+        <div>
+          <small>Plano atual</small>
+          <strong>{{ nomePlano }}</strong>
+          <small>Vence em {{ vencimento }}</small>
         </div>
+        <span class="badge tone-{{ tom[status] }}">{{ status }}</span>
+      </div>
 
-        <table mat-table [dataSource]="historico">
-          <ng-container matColumnDef="data">
-            <th mat-header-cell *matHeaderCellDef>Data</th>
-            <td mat-cell *matCellDef="let item">{{ item.data }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="descricao">
-            <th mat-header-cell *matHeaderCellDef>Descrição</th>
-            <td mat-cell *matCellDef="let item">{{ item.descricao }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="valor">
-            <th mat-header-cell *matHeaderCellDef>Valor</th>
-            <td mat-cell *matCellDef="let item">{{ item.valor }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let item">{{ item.status }}</td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Histórico de cobranças</caption>
+          <thead>
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Descrição</th>
+              <th scope="col" style="text-align: right">Valor</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of historico; track $index) {
+              <tr>
+                <td>{{ item.data }}</td>
+                <td>{{ item.descricao }}</td>
+                <td class="num">{{ item.valor }}</td>
+                <td><span class="badge tone-{{ tom[item.status] }}">{{ item.status }}</span></td>
+              </tr>
+            }
+          </tbody>
         </table>
-
-        <button mat-stroked-button color="warn" (click)="atualizarPagamento()">
-          Atualizar forma de pagamento
-        </button>
-      } @else {
-        <p>Este tipo de conta não possui informações de faturamento.</p>
-      }
-    </mat-card-content>
-  </mat-card>
+      </div>
+    } @else {
+      <app-empty-state
+        icon="creditCard" tone="blue"
+        title="Sem informações de faturamento"
+        text="Este tipo de conta não possui informações de faturamento."
+      />
+    }
+  </div>
 </section>

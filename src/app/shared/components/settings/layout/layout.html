@@ -1,14 +1,19 @@
-<section class="container">
-    <section class="left">
-        <app-sidebar-settings></app-sidebar-settings>
+<div class="page-head">
+  <div>
+    <h1>Configurações</h1>
+    <p>Gerencie sua conta e suas preferências</p>
+  </div>
+</div>
 
-        <a (click)="logout()" class="link-logout">
-          <!--<img src="/icons/logout.svg" alt="Sair" class="icon-logout"/>-->
-          <p>Sair da conta</p>
-        </a>
-    </section>
+<div class="settings">
+  <aside class="card settings__nav">
+    <app-sidebar-settings />
+    <button class="btn btn--danger settings__logout" type="button" (click)="logout()">
+      <app-icon name="logOut" [size]="16" />Sair da conta
+    </button>
+  </aside>
 
-    <section class="right">
-        <router-outlet></router-outlet>
-    </section>
-</section>
+  <div class="settings__content">
+    <router-outlet />
+  </div>
+</div>

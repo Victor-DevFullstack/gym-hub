@@ -1,23 +1,47 @@
-<section class="container">
-  <mat-card>
-    <mat-card-content>
-      <h2>Meus dados</h2>
+<section class="card" aria-labelledby="acc-t">
+  <div class="card__head">
+    <div>
+      <h3 class="card__title" id="acc-t">Meus dados</h3>
+      <p class="card__sub">Atualize seu nome e e-mail de acesso</p>
+    </div>
+  </div>
 
-      <form [formGroup]="form" (ngSubmit)="salvar()">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome" />
-        </mat-form-field>
+  <div class="card__body">
+    <div class="profile-head">
+      <span class="avatar avatar--lg" aria-hidden="true">{{ iniciaisUsuario() }}</span>
+      <div>
+        <strong>{{ usuario()?.nome }}</strong>
+        <small>{{ usuario()?.role | titlecase }} · {{ usuario()?.nomeAcademia }}</small>
+      </div>
+    </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" />
-        </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="salvar()" (input)="salvo.set(false)" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="acc-nome">Nome</label>
+          <input id="acc-nome" type="text" formControlName="nome" autocomplete="name"
+                 [class.is-invalid]="form.controls.nome.touched && form.controls.nome.invalid" />
+          @if (form.controls.nome.touched && form.controls.nome.invalid) {
+            <span class="field__error">Informe seu nome.</span>
+          }
+        </div>
 
-        <button mat-stroked-button color="primary" type="submit" [disabled]="form.invalid">
-          Salvar alterações
-        </button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+        <div class="field">
+          <label for="acc-email">E-mail</label>
+          <input id="acc-email" type="email" formControlName="email" autocomplete="email"
+                 [class.is-invalid]="form.controls.email.touched && form.controls.email.invalid" />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <span class="field__error">Informe um e-mail válido.</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-actions">
+        @if (salvo()) {
+          <span class="form-status" role="status">Alterações salvas</span>
+        }
+        <button class="btn btn--primary" type="submit" [disabled]="form.invalid || form.pristine">Salvar alterações</button>
+      </div>
+    </form>
+  </div>
 </section>

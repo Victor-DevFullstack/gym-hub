@@ -1,24 +1,25 @@
 import { Component, inject } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+
 import { AuthService } from '../../../../core/services/auth.service';
 import { Dialog } from '../../dialog/dialog';
+import { Icon } from '../../icon/icon';
+import { EmptyState } from '../../empty-state/empty-state';
 import { AlunoType } from '../../../types/usuario';
 import { formatarValorPlano, LABEL_POR_PLANO } from '../../../constants/plano.constants';
-import { calcularStatusMensalidade, formatarData } from '../../../utils/mensalidade.utils';
+import { calcularStatusMensalidade, formatarData, StatusMensalidade } from '../../../utils/mensalidade.utils';
 
 interface FaturaMock {
   data: string;
   descricao: string;
   valor: string;
-  status: string;
+  status: StatusMensalidade;
 }
+
+const TOM_STATUS: Record<StatusMensalidade, string> = { Pago: 'green', Pendente: 'amber', Atrasado: 'red' };
 
 @Component({
   selector: 'app-faturamento',
-  imports: [MatCardModule, MatTableModule, MatButtonModule, MatIconModule],
+  imports: [Icon, EmptyState],
   templateUrl: './faturamento.html',
   styleUrl: './faturamento.css',
 })
@@ -28,7 +29,7 @@ export class Faturamento {
 
   private usuarioLogado = this.authService.getUsuarioLogado();
 
-  displayedColumns = ['data', 'descricao', 'valor', 'status'];
+  protected readonly tom = TOM_STATUS;
 
   get aluno(): AlunoType | null {
     return this.usuarioLogado?.role === 'aluno' ? this.usuarioLogado : null;
@@ -46,7 +47,7 @@ export class Faturamento {
     return formatarData(this.aluno?.dataDeVencimento ?? null);
   }
 
-  get status() {
+  get status(): StatusMensalidade {
     return calcularStatusMensalidade(this.aluno?.dataDeVencimento ?? null);
   }
 

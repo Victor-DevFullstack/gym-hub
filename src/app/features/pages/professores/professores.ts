@@ -1,11 +1,9 @@
-import { Component, signal, effect, inject, computed } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Icon } from '../../../shared/components/icon/icon';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { iniciais, tomDoAvatar } from '../../../shared/utils/data.utils';
+import { Component, signal, inject, computed } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Role, UsuarioType } from '../../../shared/types/usuario';
-import { TitleCasePipe, NgClass } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
@@ -14,13 +12,10 @@ import { Dialog } from '../../../shared/components/dialog/dialog';
 
 @Component({
   selector: 'app-professores',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe, NgClass],
+  imports: [Icon, EmptyState],
   templateUrl: './professores.html',
-  styleUrl: './professores.css',
 })
 export class Professores {
-  displayedColumns: string[] = ['nome', 'email', 'editar'];
-
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
@@ -33,17 +28,21 @@ export class Professores {
     return this.usuarioService.listarPorAcademia(academiaId, 'professor');
   });
 
-  dataSource = new MatTableDataSource<UsuarioType>();
+  protected readonly filtro = signal('');
+  protected readonly iniciais = iniciais;
+  protected readonly tomDoAvatar = tomDoAvatar;
 
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.professores();
-    });
-  }
+  protected readonly total = computed(() => this.professores().length);
+
+  protected readonly filtrados = computed(() => {
+    const f = this.filtro().trim().toLowerCase();
+    const lista = this.professores();
+    if (!f) return lista;
+    return lista.filter((u) => u.nome.toLowerCase().includes(f) || u.email.toLowerCase().includes(f));
+  });
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filtro.set((event.target as HTMLInputElement).value);
   }
 
   abrirDialog(usuario?: UsuarioType): void {
@@ -90,13 +89,10 @@ export class Professores {
         }
       }
 
-      this.dataSource.data = [...this.dataSource.data];
     });
   }
 
   deletarUsuario(usuario: UsuarioType) {
-    console.log(usuario);
-
     this.usuarioService.deletar(usuario);
   }
 }

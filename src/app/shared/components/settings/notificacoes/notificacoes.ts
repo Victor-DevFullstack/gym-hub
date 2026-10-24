@@ -1,13 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-notificacoes',
-  imports: [MatCardModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './notificacoes.html',
   styleUrl: './notificacoes.css',
 })

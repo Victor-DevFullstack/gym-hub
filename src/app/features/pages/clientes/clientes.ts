@@ -1,28 +1,25 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Icon } from '../../../shared/components/icon/icon';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { iniciais, tomDoAvatar, tituloCase } from '../../../shared/utils/data.utils';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { AlunoType, ProfessorType, Role, UsuarioType } from '../../../shared/types/usuario';
-import { TitleCasePipe } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 import { AddAlunoDialog } from '../../../shared/components/add-aluno-dialog/add-aluno-dialog';
 import { DIAS_POR_PLANO } from '../../../shared/constants/plano.constants';
-import { calcularStatusMensalidade } from '../../../shared/utils/mensalidade.utils';
+import { calcularStatusMensalidade, StatusMensalidade } from '../../../shared/utils/mensalidade.utils';
+
+const TOM_STATUS: Record<StatusMensalidade, string> = { Pago: 'green', Pendente: 'amber', Atrasado: 'red' };
 
 @Component({
   selector: 'app-clientes',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
+  imports: [Icon, EmptyState],
   templateUrl: './clientes.html',
-  styleUrl: './clientes.css',
 })
 export class Clientes {
-  displayedColumns: string[] = ['nome', 'email', 'plano', 'personal', 'status', 'editar'];
-
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
@@ -36,17 +33,37 @@ export class Clientes {
     return this.usuarioService.listarPorAcademia(academiaId, 'aluno');
   });
 
-  dataSource = new MatTableDataSource<UsuarioType>();
+  protected readonly filtro = signal('');
+  protected readonly iniciais = iniciais;
+  protected readonly tomDoAvatar = tomDoAvatar;
 
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.alunos();
-    });
-  }
+  protected readonly total = computed(() => this.alunos().length);
+
+  private linhas = computed(() =>
+    this.alunos().map((u) => {
+      const a = u as AlunoType;
+      const status = calcularStatusMensalidade(a.dataDeVencimento);
+      return {
+        usuario: u,
+        id: u.id,
+        nome: u.nome,
+        email: u.email,
+        plano: a.plano ? `Plano ${tituloCase(a.plano)}` : 'Sem plano',
+        personal: this.getPersonal(a.personal as unknown as string)?.nome ?? 'Sem personal',
+        status,
+        tom: TOM_STATUS[status],
+      };
+    }),
+  );
+
+  protected readonly filtradas = computed(() => {
+    const f = this.filtro().trim().toLowerCase();
+    if (!f) return this.linhas();
+    return this.linhas().filter((l) => [l.nome, l.email, l.plano, l.personal, l.status].some((v) => v.toLowerCase().includes(f)));
+  });
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filtro.set((event.target as HTMLInputElement).value);
   }
 
   abrirDialog(usuario?: UsuarioType): void {
@@ -113,7 +130,6 @@ export class Clientes {
         }
       }
 
-      this.dataSource.data = [...this.dataSource.data];
     });
   }
 
@@ -131,8 +147,6 @@ export class Clientes {
   }
 
   deletarUsuario(usuario: UsuarioType) {
-    console.log(usuario);
-
     this.usuarioService.deletar(usuario);
   }
 }

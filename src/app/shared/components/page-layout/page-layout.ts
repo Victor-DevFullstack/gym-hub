@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
 import { Sidebar } from '../sidebar/sidebar';
 import { Header } from '../header/header';
-import { RouterOutlet } from '@angular/router';
+import { LayoutService } from '../../../core/services/layout.service';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-page-layout',
@@ -9,4 +12,8 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './page-layout.html',
   styleUrl: './page-layout.css',
 })
-export class PageLayout {}
+export class PageLayout {
+  protected layout = inject(LayoutService);
+  // Instancia o tema logo ao entrar no dashboard (aplica data-theme no <html>).
+  private theme = inject(ThemeService);
+}

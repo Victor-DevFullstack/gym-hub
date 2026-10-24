@@ -1,33 +1,40 @@
-<section class="container">
-  <mat-card>
-    <mat-card-content>
-      <h2>Privacidade e segurança</h2>
+<section class="card" aria-labelledby="priv-t">
+  <div class="card__head">
+    <div>
+      <h3 class="card__title" id="priv-t">Privacidade e segurança</h3>
+      <p class="card__sub">Controle como seus dados são protegidos e usados</p>
+    </div>
+  </div>
 
-      <div class="item">
-        <span>Autenticação em duas etapas (2FA)</span>
-        <mat-slide-toggle
-          [checked]="autenticacaoDoisFatores()"
-          (change)="autenticacaoDoisFatores.set($event.checked)"
-        ></mat-slide-toggle>
+  <div class="card__body">
+    <div class="setting-row">
+      <div>
+        <strong id="priv-2fa">Autenticação em duas etapas (2FA)</strong>
+        <small>Adiciona uma camada extra de segurança ao entrar</small>
       </div>
+      <button class="switch" type="button" role="switch" aria-labelledby="priv-2fa"
+              [attr.aria-checked]="autenticacaoDoisFatores()"
+              (click)="autenticacaoDoisFatores.set(!autenticacaoDoisFatores())"></button>
+    </div>
 
-      <div class="item">
-        <span>Permissão de compartilhamento de dados</span>
-        <mat-slide-toggle
-          [checked]="compartilhamentoDeDados()"
-          (change)="compartilhamentoDeDados.set($event.checked)"
-        ></mat-slide-toggle>
+    <div class="setting-row">
+      <div>
+        <strong id="priv-share">Compartilhamento de dados</strong>
+        <small>Permite o uso dos seus dados para melhorar o serviço</small>
       </div>
+      <button class="switch" type="button" role="switch" aria-labelledby="priv-share"
+              [attr.aria-checked]="compartilhamentoDeDados()"
+              (click)="compartilhamentoDeDados.set(!compartilhamentoDeDados())"></button>
+    </div>
 
-      <button class="item item-link" (click)="abrirEmBreve('Usuários bloqueados')">
-        <span>Gerenciar usuários bloqueados</span>
-        <mat-icon>chevron_right</mat-icon>
-      </button>
+    <button class="setting-row" type="button" (click)="abrirEmBreve('Usuários bloqueados')">
+      <div><strong>Gerenciar usuários bloqueados</strong></div>
+      <app-icon name="chevronRight" />
+    </button>
 
-      <button class="item item-link" (click)="abrirEmBreve('Senha e histórico de login')">
-        <span>Senha e histórico de login</span>
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </mat-card-content>
-  </mat-card>
+    <button class="setting-row" type="button" (click)="abrirEmBreve('Senha e histórico de login')">
+      <div><strong>Senha e histórico de login</strong></div>
+      <app-icon name="chevronRight" />
+    </button>
+  </div>
 </section>

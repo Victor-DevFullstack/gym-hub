@@ -1,27 +1,24 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Icon } from '../../../shared/components/icon/icon';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { iniciais, tomDoAvatar, tituloCase } from '../../../shared/utils/data.utils';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { AlunoType, Role, UsuarioType } from '../../../shared/types/usuario';
-import { TitleCasePipe } from '@angular/common';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Dialog } from '../../../shared/components/dialog/dialog';
 import { formatarValorPlano } from '../../../shared/constants/plano.constants';
-import { calcularStatusMensalidade, formatarData } from '../../../shared/utils/mensalidade.utils';
+import { calcularStatusMensalidade, formatarData, StatusMensalidade } from '../../../shared/utils/mensalidade.utils';
+
+const TOM_STATUS: Record<StatusMensalidade, string> = { Pago: 'green', Pendente: 'amber', Atrasado: 'red' };
 
 @Component({
   selector: 'app-mensalidades',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, TitleCasePipe],
+  imports: [Icon, EmptyState],
   templateUrl: './mensalidades.html',
-  styleUrl: './mensalidades.css',
 })
 export class Mensalidades {
-  displayedColumns: string[] = ['nome', 'plano','valor', 'vencimento', 'status', ];
-
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
@@ -41,17 +38,35 @@ export class Mensalidades {
     return alunosDaAcademia;
   });
 
-  dataSource = new MatTableDataSource<UsuarioType>();
+  protected readonly filtro = signal('');
+  protected readonly iniciais = iniciais;
+  protected readonly tomDoAvatar = tomDoAvatar;
 
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.mensalidades();
-    });
-  }
+  protected readonly total = computed(() => this.mensalidades().length);
+
+  private linhas = computed(() =>
+    this.mensalidades().map((u) => {
+      const status = this.getStatus(u);
+      return {
+        id: u.id,
+        nome: u.nome,
+        plano: (u as AlunoType).plano ? tituloCase((u as AlunoType).plano as string) : 'Sem plano',
+        valor: this.getValor(u),
+        vencimento: this.getVencimento(u),
+        status,
+        tom: TOM_STATUS[status],
+      };
+    }),
+  );
+
+  protected readonly filtradas = computed(() => {
+    const f = this.filtro().trim().toLowerCase();
+    if (!f) return this.linhas();
+    return this.linhas().filter((l) => [l.nome, l.plano, l.valor, l.vencimento, l.status].some((v) => v.toLowerCase().includes(f)));
+  });
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filtro.set((event.target as HTMLInputElement).value);
   }
 
   getValor(usuario: UsuarioType): string {
@@ -113,7 +128,6 @@ export class Mensalidades {
         }
       }
 
-      this.dataSource.data = [...this.dataSource.data];
     });
   }
 }

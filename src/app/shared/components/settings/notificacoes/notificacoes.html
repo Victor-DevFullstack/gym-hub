@@ -1,54 +1,46 @@
-<section class="container">
-  <mat-card>
-    <mat-card-content>
-      <h2>Central de notificações</h2>
+<section class="card" aria-labelledby="not-t">
+  <div class="card__head">
+    <div>
+      <h3 class="card__title" id="not-t">Central de notificações</h3>
+      <p class="card__sub">Escolha o que você quer receber</p>
+    </div>
+  </div>
 
-      <div class="item">
-        <span>Lembretes de treino</span>
-        <mat-slide-toggle
-          [checked]="lembretesDeTreino()"
-          (change)="lembretesDeTreino.set($event.checked)"
-        ></mat-slide-toggle>
-      </div>
+  <div class="card__body">
+    <div class="setting-row">
+      <div><strong id="n-treino">Lembretes de treino</strong><small>Avisos sobre seus treinos agendados</small></div>
+      <button class="switch" type="button" role="switch" aria-labelledby="n-treino"
+              [attr.aria-checked]="lembretesDeTreino()" (click)="lembretesDeTreino.set(!lembretesDeTreino())"></button>
+    </div>
+    <div class="setting-row">
+      <div><strong id="n-resumo">Resumo de atividades</strong><small>Um resumo periódico da sua rotina</small></div>
+      <button class="switch" type="button" role="switch" aria-labelledby="n-resumo"
+              [attr.aria-checked]="resumoDeAtividades()" (click)="resumoDeAtividades.set(!resumoDeAtividades())"></button>
+    </div>
+    <div class="setting-row">
+      <div><strong id="n-msg">Novas mensagens</strong><small>Quando alguém enviar uma mensagem para você</small></div>
+      <button class="switch" type="button" role="switch" aria-labelledby="n-msg"
+              [attr.aria-checked]="novasMensagens()" (click)="novasMensagens.set(!novasMensagens())"></button>
+    </div>
+    <div class="setting-row">
+      <div><strong id="n-sys">Atualizações do sistema</strong><small>Novidades e melhorias do Gym Hub</small></div>
+      <button class="switch" type="button" role="switch" aria-labelledby="n-sys"
+              [attr.aria-checked]="atualizacoesDoSistema()" (click)="atualizacoesDoSistema.set(!atualizacoesDoSistema())"></button>
+    </div>
 
-      <div class="item">
-        <span>Resumo de atividades</span>
-        <mat-slide-toggle
-          [checked]="resumoDeAtividades()"
-          (change)="resumoDeAtividades.set($event.checked)"
-        ></mat-slide-toggle>
-      </div>
-
-      <div class="item">
-        <span>Novas mensagens</span>
-        <mat-slide-toggle
-          [checked]="novasMensagens()"
-          (change)="novasMensagens.set($event.checked)"
-        ></mat-slide-toggle>
-      </div>
-
-      <div class="item">
-        <span>Atualizações do sistema</span>
-        <mat-slide-toggle
-          [checked]="atualizacoesDoSistema()"
-          (change)="atualizacoesDoSistema.set($event.checked)"
-        ></mat-slide-toggle>
-      </div>
-
-      <div class="quiet-hours">
-        <h3>Horário silencioso</h3>
-        <div class="quiet-hours-inputs">
-          <mat-form-field appearance="outline">
-            <mat-label>Início</mat-label>
-            <input matInput type="time" [ngModel]="silencioInicio()" (ngModelChange)="silencioInicio.set($event)" />
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Fim</mat-label>
-            <input matInput type="time" [ngModel]="silencioFim()" (ngModelChange)="silencioFim.set($event)" />
-          </mat-form-field>
+    <div class="subsection">
+      <h4>Horário silencioso</h4>
+      <p>Nesse período você não recebe notificações.</p>
+      <div class="form-grid">
+        <div class="field">
+          <label for="sil-ini">Início</label>
+          <input id="sil-ini" type="time" [ngModel]="silencioInicio()" (ngModelChange)="silencioInicio.set($event)" />
+        </div>
+        <div class="field">
+          <label for="sil-fim">Fim</label>
+          <input id="sil-fim" type="time" [ngModel]="silencioFim()" (ngModelChange)="silencioFim.set($event)" />
         </div>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
 </section>

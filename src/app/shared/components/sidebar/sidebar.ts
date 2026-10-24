@@ -1,26 +1,23 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { SIDEBAR_ITEMS, SidebarItem } from './sidebar-item.model';
-
+import { SIDEBAR_ITEMS } from './sidebar-item.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { LayoutService } from '../../../core/services/layout.service';
+import { Icon } from '../icon/icon';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive, Icon],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
   private authService = inject(AuthService);
-  usuarioLogado = this.authService.getUsuarioLogado;
+  protected layout = inject(LayoutService);
 
-  visibleItems: SidebarItem[] = [];
-
-  private userService = inject(AuthService);
-
-  constructor() {
-    const cargo = this.userService.getUsuarioLogado()?.role ?? "proprietario";
-    this.visibleItems = SIDEBAR_ITEMS.filter((item) => item.roles.includes(cargo))
-  }
+  protected visibleItems = computed(() => {
+    const cargo = this.authService.usuarioLogado()?.role ?? 'proprietario';
+    return SIDEBAR_ITEMS.filter((item) => item.roles.includes(cargo));
+  });
 }

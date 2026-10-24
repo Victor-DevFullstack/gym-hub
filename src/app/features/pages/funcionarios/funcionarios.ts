@@ -1,11 +1,9 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { UsuarioType } from '../../../shared/types/usuario';
-import { TitleCasePipe } from '@angular/common';
+import { Icon } from '../../../shared/components/icon/icon';
+import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { iniciais, tomDoAvatar } from '../../../shared/utils/data.utils';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
@@ -13,13 +11,10 @@ import { Dialog } from '../../../shared/components/dialog/dialog';
 
 @Component({
   selector: 'app-funcionarios',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule],
+  imports: [Icon, EmptyState],
   templateUrl: './funcionarios.html',
-  styleUrl: './funcionarios.css',
 })
 export class Funcionarios {
-  displayedColumns: string[] = ['nome', 'email', 'editar'];
-
   private matDialog = inject(MatDialog);
   private authService = inject(AuthService);
   private usuarioService = inject(UsuarioService);
@@ -33,17 +28,21 @@ export class Funcionarios {
     return this.usuarioService.listarPorAcademia(academiaId, 'recepcionista');
   });
 
-  dataSource = new MatTableDataSource<UsuarioType>();
+  protected readonly filtro = signal('');
+  protected readonly iniciais = iniciais;
+  protected readonly tomDoAvatar = tomDoAvatar;
 
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.recepcionistas();
-    });
-  }
+  protected readonly total = computed(() => this.recepcionistas().length);
+
+  protected readonly filtrados = computed(() => {
+    const f = this.filtro().trim().toLowerCase();
+    const lista = this.recepcionistas();
+    if (!f) return lista;
+    return lista.filter((u) => u.nome.toLowerCase().includes(f) || u.email.toLowerCase().includes(f));
+  });
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filtro.set((event.target as HTMLInputElement).value);
   }
 
   abrirDialog(usuario?: UsuarioType): void {
@@ -90,13 +89,10 @@ export class Funcionarios {
         }
       }
 
-      this.dataSource.data = [...this.dataSource.data];
     });
   }
 
   deletarUsuario(usuario: UsuarioType) {
-    console.log(usuario);
-
     this.usuarioService.deletar(usuario);
   }
 }

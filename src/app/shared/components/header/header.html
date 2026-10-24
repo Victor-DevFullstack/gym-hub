@@ -1,57 +1,107 @@
-<header class="header">
-  <section class="left">
-    <span
-      >Academia <strong>{{ user()?.nomeAcademia }}</strong></span
-    >
-  </section>
+<header class="topbar">
+  <button
+    class="icon-btn topbar__menu"
+    type="button"
+    aria-label="Abrir menu"
+    aria-controls="sidebar"
+    [attr.aria-expanded]="layout.drawerAberto()"
+    (click)="layout.abrirDrawer()"
+  >
+    <app-icon name="menu" />
+  </button>
 
-  <section class="center">
-    <div class="header-search">
-      <input type="text" placeholder="Buscar..." />
+  <div class="hello">
+    <p class="hello__title">{{ saudacao() }}</p>
+    <p class="hello__sub">Academia <strong>{{ user()?.nomeAcademia }}</strong></p>
+  </div>
+
+  <form class="search" role="search" (submit)="buscar($event)">
+    <span class="search__icon" aria-hidden="true"><app-icon name="search" /></span>
+    <input id="searchInput" type="search" placeholder="Buscar alunos, pagamentos…" aria-label="Buscar" autocomplete="off" />
+    <kbd aria-hidden="true">{{ atalhoBusca }}</kbd>
+  </form>
+
+  <div class="topbar__actions">
+    <!-- NOTIFICAÇÕES -->
+    <div class="menu" data-menu>
+      <button
+        class="icon-btn"
+        type="button"
+        aria-haspopup="true"
+        [attr.aria-expanded]="menuAberto() === 'notif'"
+        [attr.aria-label]="notificacoes().length ? 'Notificações (' + notificacoes().length + ' novas)' : 'Notificações'"
+        (click)="alternarMenu('notif', $event)"
+      >
+        <app-icon name="bell" />
+        @if (notificacoes().length) {
+          <span class="badge-count">{{ notificacoes().length }}</span>
+        }
+      </button>
+      <div
+        class="dropdown dropdown--wide"
+        [class.is-open]="menuAberto() === 'notif'"
+        role="menu"
+        aria-label="Notificações"
+        (keydown)="navegarPorTeclado($event)"
+      >
+        <div class="dropdown__label"><strong>Notificações</strong></div>
+        @for (n of notificacoes(); track $index) {
+          <div class="notif tone-{{ n.tom }}" role="menuitem" tabindex="0">
+            <span class="notif__icon"><app-icon [name]="n.icone" [size]="18" /></span>
+            <div>
+              <p>{{ n.texto }}</p>
+              <small>{{ n.tempo }}</small>
+            </div>
+          </div>
+        } @empty {
+          <app-empty-state icon="bell" tone="blue" title="Tudo em dia" text="Você não tem notificações novas." />
+        }
+      </div>
     </div>
-  </section>
 
-  <!-- EXIBIR NOTIFICAÇÕES -->
-
-  <section class="right">
-    <button class="notification" (click)="exibirNotificacoes()">
-      <img src="/icons/bell.svg" alt="Notificações" class="bell-icon" />
-    </button>
-
-    @if (notificacoesAbertas()) {
-      <div class="notificacao-popup">
-        <h3>Notificações</h3>
-
-        <span class="notificacao-data">
-          {{ dataAtual }}
+    <!-- USUÁRIO -->
+    <div class="menu" data-menu>
+      <button
+        class="user-btn"
+        type="button"
+        aria-haspopup="true"
+        [attr.aria-expanded]="menuAberto() === 'user'"
+        aria-label="Menu do usuário"
+        (click)="alternarMenu('user', $event)"
+      >
+        <span class="avatar avatar--lg" aria-hidden="true">{{ iniciaisUsuario() }}</span>
+        <span class="user-btn__text">
+          <span class="user-btn__name">{{ user()?.nome }}</span>
+          <span class="user-btn__role">{{ user()?.role | titlecase }}</span>
         </span>
-
-        <p>Nenhuma nova notificação.</p>
-
-        <small>Tudo está em dia!</small>
-
-        <button class="fecharNotificacoes" (click)="exibirNotificacoes()">Fechar</button>
-      </div>
-    }
-
-    <!-- CONFIGURAÇÕES DO USUÁRIO -->
-
-    <a routerLink="configuracoes/conta" class="link">
-      <div class="profile">
-        <div class="profile-letter">
-          {{ user()?.nome?.slice(0, 1) }}
+        <app-icon name="chevronDown" [size]="16" />
+      </button>
+      <div
+        class="dropdown"
+        [class.is-open]="menuAberto() === 'user'"
+        role="menu"
+        aria-label="Menu do usuário"
+        (keydown)="navegarPorTeclado($event)"
+      >
+        <div class="dropdown__label">
+          <strong>{{ user()?.nome }}</strong><span>{{ user()?.role | titlecase }}</span>
         </div>
-
-        <div class="profile-info">
-          <span class="profile-name">
-            {{ user()?.nome }}
-          </span>
-
-          <span class="profile-role">
-            {{ user()?.role | titlecase }}
-          </span>
-        </div>
+        <div class="dropdown__sep" role="separator"></div>
+        <button class="dropdown__item" role="menuitem" type="button" (click)="navegar('/dashboard/configuracoes/conta')">
+          <app-icon name="user" [size]="18" />Perfil
+        </button>
+        <button class="dropdown__item" role="menuitem" type="button" (click)="navegar('/dashboard/configuracoes/conta')">
+          <app-icon name="sliders" [size]="18" />Configurações
+        </button>
+        <button class="dropdown__item" role="menuitem" type="button" (click)="theme.alternar()">
+          <app-icon [name]="theme.tema() === 'dark' ? 'sun' : 'moon'" [size]="18" />
+          {{ theme.tema() === 'dark' ? 'Modo claro' : 'Modo escuro' }}
+        </button>
+        <div class="dropdown__sep" role="separator"></div>
+        <button class="dropdown__item dropdown__item--danger" role="menuitem" type="button" (click)="sair()">
+          <app-icon name="logOut" [size]="18" />Sair
+        </button>
       </div>
-    </a>
-  </section>
+    </div>
+  </div>
 </header>

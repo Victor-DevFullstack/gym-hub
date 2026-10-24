@@ -1,0 +1,65 @@
+<div class="chart-host" #host>
+  @if (geo(); as g) {
+    @let t = tip();
+    <svg
+      class="chart"
+      [attr.width]="g.W"
+      [attr.height]="g.H"
+      [attr.viewBox]="'0 0 ' + g.W + ' ' + g.H"
+      role="img"
+      aria-label="Gráfico de barras: novas matrículas e cancelamentos por mês"
+    >
+      <rect
+        class="hover-band"
+        rx="8"
+        [attr.y]="g.m.t"
+        [attr.height]="g.base - g.m.t"
+        [attr.width]="g.gw"
+        [attr.x]="t ? t.bandX : 0"
+        [style.opacity]="t ? 1 : 0"
+      />
+      <g class="grid axis">
+        @for (tk of g.ticks; track $index) {
+          <line [attr.x1]="g.m.l" [attr.x2]="g.W - g.m.r" [attr.y1]="tk.y" [attr.y2]="tk.y" />
+          <text [attr.x]="g.m.l - 8" [attr.y]="tk.y + 4" text-anchor="end">{{ tk.label }}</text>
+        }
+      </g>
+      <g class="axis">
+        @for (gr of g.groups; track $index) {
+          @if (gr.inPath) {
+            <path class="bar-in" [attr.d]="gr.inPath" />
+          }
+          @if (gr.outPath) {
+            <path class="bar-out" [attr.d]="gr.outPath" />
+          }
+          <text [attr.x]="gr.cx" [attr.y]="g.H - 8" text-anchor="middle">{{ gr.label }}</text>
+        }
+      </g>
+      <rect
+        class="hit"
+        x="0"
+        y="0"
+        [attr.width]="g.W"
+        [attr.height]="g.H"
+        fill="transparent"
+        (pointermove)="onMove($event)"
+        (pointerleave)="hover.set(null)"
+      />
+    </svg>
+    <div class="tooltip" role="presentation" [class.is-visible]="!!t" [style.left.px]="t?.left" [style.top.px]="t?.top">
+      @if (t) {
+        <strong>{{ t.row.label }}</strong><br />Matrículas: {{ t.row.enrollments }}<br />Cancelamentos:
+        {{ t.row.cancellations }}
+      }
+    </div>
+    <table class="sr-only">
+      <caption>Novas matrículas e cancelamentos por mês</caption>
+      <thead><tr><th>Mês</th><th>Novas matrículas</th><th>Cancelamentos</th></tr></thead>
+      <tbody>
+        @for (r of rows(); track $index) {
+          <tr><td>{{ r.label }}</td><td>{{ r.enrollments }}</td><td>{{ r.cancellations }}</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

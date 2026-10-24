@@ -1,13 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
+
 import { Dialog } from '../../dialog/dialog';
+import { Icon } from '../../icon/icon';
 
 @Component({
   selector: 'app-privacidade',
-  imports: [MatCardModule, MatSlideToggleModule, MatListModule, MatIconModule],
+  imports: [Icon],
   templateUrl: './privacidade.html',
   styleUrl: './privacidade.css',
 })

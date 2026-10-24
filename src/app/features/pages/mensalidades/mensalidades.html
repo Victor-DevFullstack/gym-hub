@@ -1,52 +1,55 @@
-
-<section class="top-dashboard">
-  <section class="dashboard-title">
-    <h2>Mensalidades pendentes</h2>
+<div class="page-head">
+  <div>
+    <h1>Mensalidades pendentes</h1>
     <p>Boletos aguardando pagamento ou em atraso</p>
+  </div>
+</div>
+
+<div class="grid-3">
+  <section class="card span-3" aria-labelledby="men-t">
+    <div class="card__head">
+      <div>
+        <h3 class="card__title" id="men-t">Mensalidades</h3>
+        <p class="card__sub">Situação de cada mensalidade</p>
+      </div>
+      @if (total()) {
+        <div class="table-filter">
+          <span class="search__icon" aria-hidden="true"><app-icon name="search" /></span>
+          <input type="search" placeholder="Filtrar por nome, plano…" aria-label="Filtrar" autocomplete="off" (input)="applyFilter($event)" />
+        </div>
+      }
+    </div>
+    <div class="card__body--flush">
+      @if (!total()) {
+        <app-empty-state icon="creditCard" tone="blue" title="Nenhuma mensalidade por aqui" text="Quando houver alunos cadastrados, as mensalidades aparecem nesta lista." />
+      } @else if (filtradas().length) {
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">Mensalidades</caption>
+            <thead>
+              <tr><th scope="col">Nome</th><th scope="col">Plano</th><th scope="col" style="text-align: right">Valor</th><th scope="col">Vencimento</th><th scope="col">Status</th></tr>
+            </thead>
+            <tbody>
+              @for (l of filtradas(); track l.id) {
+                <tr>
+                  <td>
+                    <div class="cell-user">
+                      <span class="avatar tone-{{ tomDoAvatar(l.nome) }}" aria-hidden="true">{{ iniciais(l.nome) }}</span>
+                      <div><strong>{{ l.nome }}</strong></div>
+                    </div>
+                  </td>
+                  <td>{{ l.plano }}</td>
+                  <td class="num">{{ l.valor }}</td>
+                  <td>{{ l.vencimento }}</td>
+                  <td><span class="badge tone-{{ l.tom }}">{{ l.status }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <app-empty-state icon="search" tone="blue" title="Sem resultados" text="Nada corresponde ao filtro digitado." />
+      }
+    </div>
   </section>
-</section>
-
-<section class="mensalidades-table">
-  <mat-form-field appearance="outline">
-    <mat-label>Filtro</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Maria" #input />
-  </mat-form-field>
-
-  <table mat-table [dataSource]="dataSource" class="mat-shadow-2">
-    <ng-container matColumnDef="nome">
-      <th mat-header-cell *matHeaderCellDef class="th-inicio">Nome</th>
-      <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
-    </ng-container>
-    
-    <ng-container matColumnDef="plano">
-      <th mat-header-cell *matHeaderCellDef>Plano</th>
-      <td mat-cell *matCellDef="let element">{{ element.plano | titlecase }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="valor">
-      <th mat-header-cell *matHeaderCellDef>Valor</th>
-      <td mat-cell *matCellDef="let element">{{ getValor(element) }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="vencimento">
-      <th mat-header-cell *matHeaderCellDef>Vencimento</th>
-      <td mat-cell *matCellDef="let element">{{ getVencimento(element) }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef class="th-fim">Status</th>
-      <td mat-cell *matCellDef="let element" [class]="'status-' + getStatus(element).toLowerCase()">
-        {{ getStatus(element) }}
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">Sem resultados para "{{ input.value }}"</td>
-    </tr>
-  </table>
-</section>
-
+</div>

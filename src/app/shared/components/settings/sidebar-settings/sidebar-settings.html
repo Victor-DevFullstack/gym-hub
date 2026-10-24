@@ -1,12 +1,7 @@
-<aside class="sidebar">
-  <nav>
-    @for (label of visibleItems; track $index) {
-      <a routerLink="{{label.route}}">
-        <img src="{{label.icon}}" alt="Notificações" class="{{label.class}}" />
-
-        {{label.label}}
-      </a>
-    }
-  </nav>
-
-</aside>
+<nav class="settings-nav" aria-label="Configurações">
+  @for (item of items; track item.route) {
+    <a class="settings-nav__link" [routerLink]="item.route" routerLinkActive ariaCurrentWhenActive="page">
+      <app-icon [name]="item.icon" />{{ item.label }}
+    </a>
+  }
+</nav>

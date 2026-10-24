@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
+import { Component, inject } from '@angular/core';
+
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-endereco',
-  imports: [MatCardModule],
   templateUrl: './endereco.html',
   styleUrl: './endereco.css',
 })
-export class Endereco {}
+export class Endereco {
+  protected usuario = inject(AuthService).usuarioLogado;
+}

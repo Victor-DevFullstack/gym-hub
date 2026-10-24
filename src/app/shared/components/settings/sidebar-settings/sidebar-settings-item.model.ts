@@ -1,41 +1,15 @@
-import { Role } from "../../../types/usuario";
+import { IconName } from '../../icon/icons';
 
 export interface SidebarItem {
   label: string;
-  icon: string;
+  icon: IconName;
   route: string;
-  class: string;
 }
 
 export const SIDEBAR_SETTINGS_ITEMS: SidebarItem[] = [
-  {
-    label: 'Conta',
-    icon: '/icons/person-fill.svg',
-    route: 'conta',
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Privacidade',
-    icon: '/icons/lock.svg',
-    route: 'privacidade',
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Notificações',
-    icon: '/icons/bell-gray.svg',
-    route: 'notificacoes',
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Faturamento',
-    icon: '/icons/cartao.svg',
-    route: 'faturamento',
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Endereço',
-    icon: '/icons/marker.svg',
-    route: 'endereco',
-    class: 'icons-sidebar',
-  },
+  { label: 'Conta', icon: 'user', route: 'conta' },
+  { label: 'Privacidade', icon: 'lock', route: 'privacidade' },
+  { label: 'Notificações', icon: 'bell', route: 'notificacoes' },
+  { label: 'Faturamento', icon: 'creditCard', route: 'faturamento' },
+  { label: 'Endereço', icon: 'mapPin', route: 'endereco' },
 ];

@@ -1,56 +1,213 @@
-<section class="dashboard-title">
-    <h2>Visão Geral</h2>
-    <p>Resumo da academia {{usuarioLogado()?.nomeAcademia}}</p>
-</section>
+<div class="page-head">
+  <div>
+    <h1>Visão Geral</h1>
+    <p>Resumo da academia {{ usuarioLogado()?.nomeAcademia }}</p>
+  </div>
+  <div class="page-head__tools">
+    <div class="segmented" role="group" aria-label="Período">
+      @for (p of periodos; track p.key) {
+        <button type="button" [attr.aria-pressed]="p.key === periodo()" (click)="definirPeriodo(p.key)">
+          {{ p.label }}
+        </button>
+      }
+    </div>
+  </div>
+</div>
 
-<section class="dashboard-container">
-  <app-dashboard-card
-    titulo="Alunos ativos"
-    classtitulo="title1"
-    classsubtitle="subtitle1"
-    conteudo="{{ alunosAtivos() }}"
-    src="/icons/people-blue.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Novos alunos"
-    classtitulo="title2"
-    classsubtitle="subtitle2"
-    conteudo="{{ novosAlunos() }}"
-    src="/icons/person-black.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Receita no mês"
-    classtitulo="title3"
-    classsubtitle="subtitle3"
-    conteudo="{{ receitaMensal() }}"
-    src="/icons/cash-stack.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Pagamentos em dia"
-    classtitulo="title4"
-    idImg="check-all"
-    classsubtitle="subtitle-green2"
-    conteudo="{{ alunosEmDia() }}"
-    src="/icons/check-all.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Matrículas canceladas"
-    classtitulo="title5"
-    classsubtitle="subtitle-black"
-    conteudo="{{ matriculasCanceladas() }}"
-    src="/icons/people-blue.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Taxa de cancelamento"
-    classtitulo="title6"
-    classsubtitle="subtitle6"
-    conteudo="{{ taxaDeCancelamento() }}"
-    src="/icons/arrow-repeat.svg"
-    classImg="card-icon"
-  />
-</section>
+@if (gymVazia()) {
+  <section class="welcome" aria-label="Boas-vindas">
+    <span class="welcome__icon"><app-icon name="partyPopper" [size]="26" /></span>
+    <div>
+      <h2>Bem-vindo ao Gym Hub, {{ primeiroNome() }}!</h2>
+      <p>Sua academia ainda não tem movimento. Comece cadastrando o primeiro aluno.</p>
+    </div>
+    <a class="btn btn--primary" routerLink="/dashboard/alunos">
+      <app-icon name="userPlus" [size]="16" />Cadastrar primeiro aluno
+    </a>
+  </section>
+}
+
+<div class="kpi-grid">
+  @for (kpi of kpis(); track kpi.key) {
+    <app-kpi-card [kpi]="kpi" [compare]="compare()" [gymEmpty]="gymVazia()" />
+  }
+</div>
+
+<div class="grid-3">
+  <section class="card span-2" aria-labelledby="rev-t">
+    <div class="card__head">
+      <div>
+        <h3 class="card__title" id="rev-t">Receita nos últimos 6 meses</h3>
+        <p class="card__sub">Valor dos planos contratados por mês</p>
+      </div>
+    </div>
+    <div class="card__body">
+      @if (receitaVazia()) {
+        <app-empty-state
+          icon="trendingUp" tone="purple" [chart]="true"
+          title="Sem receita registrada ainda"
+          text="Assim que você cadastrar alunos com plano, a evolução da receita aparece aqui."
+          actionLabel="Cadastrar aluno" route="/dashboard/alunos"
+        />
+      } @else {
+        <app-area-chart [rows]="historicoReceita()" />
+      }
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="enr-t">
+    <div class="card__head">
+      <div>
+        <h3 class="card__title" id="enr-t">Matrículas vs cancelamentos</h3>
+        <p class="card__sub">Últimos 6 meses</p>
+      </div>
+      <div class="legend">
+        <span><i style="--c: var(--green)"></i>Matrículas</span>
+        <span><i style="--c: var(--red)"></i>Cancelamentos</span>
+      </div>
+    </div>
+    <div class="card__body">
+      @if (matriculasVazias()) {
+        <app-empty-state
+          icon="barChart" tone="blue" [chart]="true"
+          title="Nada para comparar"
+          text="Cadastre alunos para acompanhar matrículas e cancelamentos."
+          actionLabel="Cadastrar aluno" route="/dashboard/alunos"
+        />
+      } @else {
+        <app-bar-chart [rows]="matriculas()" />
+      }
+    </div>
+  </section>
+</div>
+
+<div class="grid-3">
+  <section class="card span-2" aria-labelledby="stu-t">
+    <div class="card__head">
+      <div>
+        <h3 class="card__title" id="stu-t">Últimos alunos cadastrados</h3>
+        <p class="card__sub">Novas matrículas mais recentes</p>
+      </div>
+      @if (ultimosAlunos().length) {
+        <a class="link-btn" routerLink="/dashboard/alunos">Ver todos</a>
+      }
+    </div>
+    <div class="card__body--flush">
+      @if (ultimosAlunos().length) {
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">Últimos alunos cadastrados</caption>
+            <thead>
+              <tr><th scope="col">Aluno</th><th scope="col">Cadastro</th><th scope="col">Status</th></tr>
+            </thead>
+            <tbody>
+              @for (a of ultimosAlunos(); track a.id) {
+                <tr>
+                  <td>
+                    <div class="cell-user">
+                      <span class="avatar tone-{{ tomDoAvatar(a.nome) }}" aria-hidden="true">{{ iniciais(a.nome) }}</span>
+                      <div><strong>{{ a.nome }}</strong><small>{{ a.plano }}</small></div>
+                    </div>
+                  </td>
+                  <td>{{ a.cadastro }}</td>
+                  <td><span class="badge tone-{{ a.statusTom }}">{{ a.statusTexto }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <app-empty-state
+          icon="users" tone="blue"
+          title="Você ainda não tem alunos cadastrados"
+          text="Cadastre seu primeiro aluno para começar a acompanhar matrículas e pagamentos."
+          actionLabel="Cadastrar primeiro aluno" route="/dashboard/alunos"
+        />
+      }
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="act-t">
+    <div class="card__head">
+      <div>
+        <h3 class="card__title" id="act-t">Ações rápidas</h3>
+        <p class="card__sub">Atalhos para o dia a dia</p>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="action action--primary tone-green" routerLink="/dashboard/alunos">
+        <span class="action__icon"><app-icon name="userPlus" /></span>
+        <span><span class="action__title">Cadastrar aluno</span><span class="action__sub">Nova matrícula em poucos cliques</span></span>
+        <app-icon name="arrowRight" [size]="18" />
+      </a>
+      <a class="action tone-purple" routerLink="/dashboard/mensalidades">
+        <span class="action__icon"><app-icon name="creditCard" /></span>
+        <span><span class="action__title">Registrar pagamento</span><span class="action__sub">Baixa manual de mensalidade</span></span>
+        <app-icon name="arrowRight" [size]="18" />
+      </a>
+      <a class="action tone-blue" routerLink="/dashboard/funcionarios">
+        <span class="action__icon"><app-icon name="user" /></span>
+        <span><span class="action__title">Adicionar recepcionista</span><span class="action__sub">Dê acesso à sua equipe</span></span>
+        <app-icon name="arrowRight" [size]="18" />
+      </a>
+    </div>
+  </section>
+</div>
+
+<div class="grid-3">
+  <section class="card span-3" aria-labelledby="pay-t">
+    <div class="card__head">
+      <div>
+        <h3 class="card__title" id="pay-t">Pagamentos pendentes e atrasados</h3>
+        <p class="card__sub">Mensalidades que precisam de atenção</p>
+      </div>
+      @if (pagamentos().length) {
+        <a class="link-btn" routerLink="/dashboard/mensalidades">Ver todos</a>
+      }
+    </div>
+    <div class="card__body--flush">
+      @if (pagamentos().length) {
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="sr-only">Pagamentos pendentes e atrasados</caption>
+            <thead>
+              <tr>
+                <th scope="col">Aluno</th>
+                <th scope="col">Vencimento</th>
+                <th scope="col" style="text-align: right">Valor</th>
+                <th scope="col">Situação</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of pagamentos(); track p.id) {
+                <tr>
+                  <td>
+                    <div class="cell-user">
+                      <span class="avatar tone-{{ tomDoAvatar(p.nome) }}" aria-hidden="true">{{ iniciais(p.nome) }}</span>
+                      <div><strong>{{ p.nome }}</strong><small>{{ p.plano }}</small></div>
+                    </div>
+                  </td>
+                  <td>{{ p.vencimento }}</td>
+                  <td class="num">{{ fmtBRL(p.valor) }}</td>
+                  <td><span class="badge tone-{{ p.tom }}">{{ p.situacao }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else if (gymVazia()) {
+        <app-empty-state
+          icon="creditCard" tone="amber"
+          title="Nenhum pagamento por aqui"
+          text="Quando houver mensalidades pendentes ou atrasadas, elas aparecem nesta lista."
+        />
+      } @else {
+        <app-empty-state
+          icon="partyPopper" tone="green"
+          title="Tudo em dia!"
+          text="Nenhum pagamento pendente ou atrasado no momento."
+        />
+      }
+    </div>
+  </section>
+</div>

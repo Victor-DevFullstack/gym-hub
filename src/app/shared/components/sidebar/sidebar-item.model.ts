@@ -1,68 +1,20 @@
 import { Role } from '../../types/usuario';
+import { IconName } from '../icon/icons';
 
 export interface SidebarItem {
   label: string;
-  icon: string;
+  icon: IconName;
   route: string;
   roles: Role[];
-  class: string;
 }
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
-  {
-    label: 'Recepcionistas',
-    icon: '/icons/person.svg',
-    route: '/dashboard/funcionarios',
-    roles: ['proprietario'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Carteira',
-    icon: '/icons/wallet.svg',
-    route: '/dashboard/carteira',
-    roles: ['proprietario'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Alunos',
-    icon: '/icons/people.svg',
-    route: 'alunos',
-    roles: ['recepcionista'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Professores e Personais',
-    icon: '/icons/person-arms-up.svg',
-    route: 'professores',
-    roles: ['recepcionista'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Mensalidades',
-    icon: '/icons/wallet.svg',
-    route: 'mensalidades',
-    roles: ['recepcionista'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Treino',
-    icon: '/icons/peso2.svg',
-    route: 'treino',
-    roles: ['aluno'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Pagamentos',
-    icon: '/icons/wallet.svg',
-    route: 'mensalidades',
-    roles: ['aluno'],
-    class: 'icons-sidebar',
-  },
-  {
-    label: 'Meu plano',
-    icon: '/icons/wallet.svg',
-    route: 'meu-plano',
-    roles: ['aluno'],
-    class: 'icons-sidebar',
-  },
+  { label: 'Recepcionistas', icon: 'user', route: '/dashboard/funcionarios', roles: ['proprietario'] },
+  { label: 'Carteira', icon: 'wallet', route: '/dashboard/carteira', roles: ['proprietario'] },
+  { label: 'Alunos', icon: 'users', route: 'alunos', roles: ['recepcionista'] },
+  { label: 'Professores e Personais', icon: 'dumbbell', route: 'professores', roles: ['recepcionista'] },
+  { label: 'Mensalidades', icon: 'wallet', route: 'mensalidades', roles: ['recepcionista'] },
+  { label: 'Treino', icon: 'dumbbell', route: 'treino', roles: ['aluno'] },
+  { label: 'Pagamentos', icon: 'wallet', route: 'mensalidades', roles: ['aluno'] },
+  { label: 'Meu plano', icon: 'creditCard', route: 'meu-plano', roles: ['aluno'] },
 ];

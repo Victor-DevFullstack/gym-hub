@@ -1,33 +1,12 @@
-<section class="dashboard-title">
-  <h2>Visão Geral</h2>
-  <p>Resumo da academia {{ getAlunoLogado()?.nomeAcademia }}</p>
-</section>
+<div class="page-head">
+  <div>
+    <h1>Visão Geral</h1>
+    <p>Resumo da academia {{ aluno()?.nomeAcademia }}</p>
+  </div>
+</div>
 
-<section class="dashboard-container">
-  <app-dashboard-card
-    titulo="Plano atual"
-    classtitulo="title1"
-    classsubtitle="subtitle-black"
-    conteudo="{{ getAlunoLogado()?.plano | titlecase }}"
-    subTexto="{{ planoAtivo() }}"
-    src="/icons/people-blue.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Proximo vencimento"
-    classtitulo="title2"
-    classsubtitle="subtitle2"
-    conteudo="{{ getAlunoLogado()?.dataDeVencimento | date: 'dd/MM/yyyy' }}"
-    subTexto="{{ estaPago() }}"
-    src="/icons/person-black.svg"
-    classImg="card-icon"
-  />
-  <app-dashboard-card
-    titulo="Personal"
-    classtitulo="title3"
-    classsubtitle="subtitle3"
-    conteudo="{{ getPersonal() }}"
-    src="/icons/cash-stack.svg"
-    classImg="card-icon"
-  />
-</section>
+<div class="kpi-grid">
+  @for (kpi of kpis(); track kpi.key) {
+    <app-kpi-card [kpi]="kpi" />
+  }
+</div>
