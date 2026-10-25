@@ -37,7 +37,7 @@
   <section class="card span-2" aria-labelledby="rev-t">
     <div class="card__head">
       <div>
-        <h3 class="card__title" id="rev-t">Receita nos últimos 6 meses</h3>
+        <h3 class="card__title" id="rev-t">Contratações nos últimos 6 meses</h3>
         <p class="card__sub">Valor dos planos contratados por mês</p>
       </div>
     </div>
@@ -45,8 +45,8 @@
       @if (receitaVazia()) {
         <app-empty-state
           icon="trendingUp" tone="purple" [chart]="true"
-          title="Sem receita registrada ainda"
-          text="Assim que você cadastrar alunos com plano, a evolução da receita aparece aqui."
+          title="Sem contratações registradas ainda"
+          text="Assim que você cadastrar alunos com plano, a evolução das contratações aparece aqui."
           actionLabel="Cadastrar aluno" route="/dashboard/alunos"
         />
       } @else {

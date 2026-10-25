@@ -5,7 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { AlunoType } from '../../../shared/types/usuario';
 import { LABEL_POR_PLANO, VALOR_POR_PLANO } from '../../../shared/constants/plano.constants';
-import { calcularStatusMensalidade } from '../../../shared/utils/mensalidade.utils';
+import { calcularStatusMensalidade, receitaDoMes } from '../../../shared/utils/mensalidade.utils';
 import { addDias, dataCurta, inicioDoDia, iniciais, mesCurto, relPassado, tomDoAvatar } from '../../../shared/utils/data.utils';
 import { ChartRow, EnrollmentRow, fmtBRL } from '../../../shared/utils/chart.utils';
 import { Icon } from '../../../shared/components/icon/icon';
@@ -151,7 +151,7 @@ export class Proprietario {
 
     const ativos = alunos.length;
     const emDia = alunos.filter((a) => calcularStatusMensalidade(a.dataDeVencimento) === 'Pago').length;
-    const receita = alunos.reduce((s, a) => s + (a.plano ? VALOR_POR_PLANO[a.plano] : 0), 0);
+    const receita = receitaDoMes(alunos);
 
     const novos = Proprietario.contar(datasContrato, ini, fim);
     const novosAnt = Proprietario.contar(datasContrato, ant, ini);
@@ -163,8 +163,8 @@ export class Proprietario {
     return [
       {
         key: 'revenue', label: 'Receita no mês', icon: 'banknote', tone: 'purple', format: 'brl',
-        value: receita, delta: null, featured: true,
-        series: this.historicoReceita().map((r) => r.value),
+        value: receita, delta: null, featured: true, plain: true,
+        note: 'Mensalidades pagas neste mês',
       },
       { key: 'active', label: 'Alunos ativos', icon: 'users', tone: 'blue', format: 'int', value: ativos, delta: null },
       {

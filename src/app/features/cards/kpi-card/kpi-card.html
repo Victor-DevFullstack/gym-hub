@@ -27,7 +27,9 @@
 
   @if (k.featured) {
     <div><ng-container [ngTemplateOutlet]="valorTpl" /></div>
-    <div class="kpi__chart"><app-sparkline [series]="k.series" [empty]="noData() || goodZero()" /></div>
+    @if (k.series && k.series.length > 1) {
+      <div class="kpi__chart"><app-sparkline [series]="k.series" [empty]="noData() || goodZero()" /></div>
+    }
     @if (noData()) {
       <div class="kpi__empty-cta">
         <span>Cadastre o primeiro aluno para acompanhar a receita.</span>

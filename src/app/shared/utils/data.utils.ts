@@ -47,3 +47,8 @@ export function tomDoAvatar(s: string): string {
 export function tituloCase(s: string): string {
   return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s;
 }
+
+/** Minúsculas e sem acentos, para buscas ("joao" encontra "João"). */
+export function normalizar(s: string): string {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}

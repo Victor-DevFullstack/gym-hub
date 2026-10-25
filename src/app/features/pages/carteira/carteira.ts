@@ -1,11 +1,13 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { AlunoType } from '../../../shared/types/usuario';
-import { formatarValorPlano, VALOR_POR_PLANO } from '../../../shared/constants/plano.constants';
-import { calcularStatusMensalidade, formatarData, StatusMensalidade } from '../../../shared/utils/mensalidade.utils';
+import { formatarValorPlano } from '../../../shared/constants/plano.constants';
+import { calcularStatusMensalidade, formatarData, receitaDoMes, StatusMensalidade } from '../../../shared/utils/mensalidade.utils';
 import { iniciais, tomDoAvatar } from '../../../shared/utils/data.utils';
 import { Icon } from '../../../shared/components/icon/icon';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
@@ -42,6 +44,14 @@ export class Carteira {
   });
 
   protected readonly filtro = signal('');
+
+  // Busca global do topo abre a página já filtrada (?q=...).
+  private route = inject(ActivatedRoute);
+  private qParam = toSignal(this.route.queryParamMap);
+  private aplicaQ = effect(() => {
+    const q = this.qParam()?.get('q');
+    if (q !== null && q !== undefined) this.filtro.set(q);
+  });
   protected readonly visao = signal<Visao>('pendentes');
   protected readonly visoes: { key: Visao; label: string }[] = [
     { key: 'pendentes', label: 'Pendentes' },
@@ -57,12 +67,12 @@ export class Carteira {
 
   protected readonly kpis = computed<KpiData[]>(() => {
     const total = this.alunos().length;
-    const receita = this.alunos().reduce((s, a) => s + (a.plano ? VALOR_POR_PLANO[a.plano] : 0), 0);
+    const receita = receitaDoMes(this.alunos());
     const atrasados = this.contar('Atrasado');
     const taxa = total === 0 ? '0%' : `${((atrasados / total) * 100).toFixed(1)}%`;
 
     return [
-      { key: 'receita', label: 'Receita mensal', icon: 'banknote', tone: 'purple', format: 'brl', value: receita, delta: null, plain: true, note: 'soma dos planos dos alunos' },
+      { key: 'receita', label: 'Receita mensal', icon: 'banknote', tone: 'purple', format: 'brl', value: receita, delta: null, plain: true, note: 'mensalidades pagas neste mês' },
       { key: 'emdia', label: 'Alunos em dia', icon: 'checkCheck', tone: 'green', format: 'int', value: this.contar('Pago'), delta: null, plain: true, note: 'mensalidades em dia' },
       { key: 'pendentes', label: 'Pendentes', icon: 'clock', tone: 'amber', format: 'int', value: this.contar('Pendente'), delta: null, plain: true, note: 'vencem em até 7 dias' },
       { key: 'inadimplencia', label: 'Inadimplência', icon: 'alert', tone: 'red', format: 'int', value: atrasados, delta: null, plain: true, note: `${taxa} dos alunos` },

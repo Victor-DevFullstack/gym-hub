@@ -20,7 +20,7 @@
       @if (total()) {
         <div class="table-filter">
           <span class="search__icon" aria-hidden="true"><app-icon name="search" /></span>
-          <input type="search" placeholder="Filtrar por nome ou e-mail…" aria-label="Filtrar recepcionistas" autocomplete="off" (input)="applyFilter($event)" />
+          <input type="search" placeholder="Filtrar por nome ou e-mail…" aria-label="Filtrar recepcionistas" autocomplete="off" [value]="filtro()" (input)="applyFilter($event)" />
         </div>
       }
     </div>

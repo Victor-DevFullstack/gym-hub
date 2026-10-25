@@ -1,7 +1,9 @@
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Icon } from '../../../shared/components/icon/icon';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { iniciais, tomDoAvatar, tituloCase } from '../../../shared/utils/data.utils';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlunoType, ProfessorType, Role, UsuarioType } from '../../../shared/types/usuario';
 import { UsuarioDialog } from '../../../shared/components/usuario-dialog/usuario-dialog';
@@ -34,6 +36,14 @@ export class Clientes {
   });
 
   protected readonly filtro = signal('');
+
+  // Busca global do topo abre a página já filtrada (?q=...).
+  private route = inject(ActivatedRoute);
+  private qParam = toSignal(this.route.queryParamMap);
+  private aplicaQ = effect(() => {
+    const q = this.qParam()?.get('q');
+    if (q !== null && q !== undefined) this.filtro.set(q);
+  });
   protected readonly iniciais = iniciais;
   protected readonly tomDoAvatar = tomDoAvatar;
 

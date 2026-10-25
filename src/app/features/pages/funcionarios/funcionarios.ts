@@ -1,4 +1,6 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioType } from '../../../shared/types/usuario';
 import { Icon } from '../../../shared/components/icon/icon';
@@ -29,6 +31,14 @@ export class Funcionarios {
   });
 
   protected readonly filtro = signal('');
+
+  // Busca global do topo abre a página já filtrada (?q=...).
+  private route = inject(ActivatedRoute);
+  private qParam = toSignal(this.route.queryParamMap);
+  private aplicaQ = effect(() => {
+    const q = this.qParam()?.get('q');
+    if (q !== null && q !== undefined) this.filtro.set(q);
+  });
   protected readonly iniciais = iniciais;
   protected readonly tomDoAvatar = tomDoAvatar;
 
