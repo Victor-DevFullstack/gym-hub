@@ -34,9 +34,10 @@
   --focus: #087A55;
 
   /* Sidebar */
-  --sidebar-bg: #1F232B;
-  --sidebar-hover: rgba(255, 255, 255, .06);
-  --sidebar-text: #AEB5C2;
+  --sidebar-bg: #FFFFFF;
+  --sidebar-hover: rgba(16, 24, 40, .06);
+  --sidebar-text: #5B6472;
+  --sidebar-strong: #101828;
   --sidebar-w: 264px;
   --sidebar-w-collapsed: 76px;
   --header-h: 72px;
@@ -66,6 +67,9 @@
   --brand-soft: rgba(34, 211, 155, .14);
   --focus: #3DE0AB;
   --sidebar-bg: #171A20;
+  --sidebar-hover: rgba(255, 255, 255, .06);
+  --sidebar-text: #AEB5C2;
+  --sidebar-strong: #FFFFFF;
   --bg: #12151A;
   --surface: #1B1F27;
   --surface-2: #222733;
@@ -104,7 +108,7 @@
 .gh app-icon, .gh app-sparkline, .gh app-empty-state, .gh app-kpi-card { display: contents; }
 .gh app-area-chart, .gh app-bar-chart { display: block; }
 .gh :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
-.gh .sidebar :focus-visible { outline-color: var(--brand); }
+.gh .sidebar :focus-visible { outline-color: var(--brand-strong); }
 .gh .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .gh .skip-link {
   position: fixed; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: var(--r-sm);
@@ -120,15 +124,15 @@
 .sidebar {
   position: fixed; inset: 0 auto 0 0; z-index: 40; width: var(--sidebar-w);
   display: flex; flex-direction: column; padding: var(--sp-5) var(--sp-3);
-  background: var(--sidebar-bg); color: var(--sidebar-text);
+  background: var(--sidebar-bg); color: var(--sidebar-text); border-right: 1px solid var(--line);
   transition: width var(--t-base) var(--ease), transform var(--t-base) var(--ease);
 }
 .sidebar__top { display: flex; align-items: center; justify-content: space-between; }
 .brand {
   display: flex; align-items: center; height: 48px; padding: 0 var(--sp-3);
-  font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; color: #fff; white-space: nowrap;
+  font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; color: var(--sidebar-strong); white-space: nowrap;
 }
-.brand > span > span { color: var(--brand); }  /* só "Hub" fica verde */
+.brand > span > span { color: var(--brand-strong); }  /* só "Hub" fica verde */
 .brand__short { display: none; }
 .nav { list-style: none; padding: 0; margin: var(--sp-6) 0 0; display: flex; flex-direction: column; gap: var(--sp-1); }
 .nav__link {
@@ -136,9 +140,9 @@
   padding: 0 var(--sp-3); border-radius: var(--r-md); font-weight: 500; white-space: nowrap;
   color: var(--sidebar-text); transition: background var(--t-fast), color var(--t-fast);
 }
-.nav__link:hover { background: var(--sidebar-hover); color: #fff; }
-.nav__link[aria-current="page"] { background: rgba(34, 211, 155, .12); color: #fff; }
-.nav__link[aria-current="page"] svg { color: var(--brand); }
+.nav__link:hover { background: var(--sidebar-hover); color: var(--sidebar-strong); }
+.nav__link[aria-current="page"] { background: rgba(34, 211, 155, .14); color: var(--sidebar-strong); }
+.nav__link[aria-current="page"] svg { color: var(--brand-strong); }
 .nav__link[aria-current="page"]::before {
   content: ""; position: absolute; left: calc(var(--sp-3) * -1); top: 10px; bottom: 10px; width: 4px;
   border-radius: 0 4px 4px 0; background: var(--brand);
@@ -149,10 +153,10 @@
   border-radius: var(--r-md); color: var(--sidebar-text); font-size: var(--fs-sm); font-weight: 500;
   transition: background var(--t-fast), color var(--t-fast);
 }
-.collapse-btn:hover { background: var(--sidebar-hover); color: #fff; }
+.collapse-btn:hover { background: var(--sidebar-hover); color: var(--sidebar-strong); }
 .collapse-btn svg { transition: transform var(--t-base) var(--ease); }
 .sidebar__close { display: none; color: var(--sidebar-text); width: 40px; height: 40px; border-radius: var(--r-sm); place-items: center; }
-.sidebar__close:hover { background: var(--sidebar-hover); color: #fff; }
+.sidebar__close:hover { background: var(--sidebar-hover); color: var(--sidebar-strong); }
 .scrim {
   position: fixed; inset: 0; z-index: 35; background: rgba(10, 12, 16, .55);
   opacity: 0; pointer-events: none; transition: opacity var(--t-base);
@@ -330,7 +334,7 @@
 .chart .bar-in { fill: var(--green); }
 .chart .bar-out { fill: var(--red); }
 .tooltip {
-  position: absolute; z-index: 3; padding: 8px 12px; border-radius: 10px; background: var(--sidebar-bg); color: #fff;
+  position: absolute; z-index: 3; padding: 8px 12px; border-radius: 10px; background: #1F232B; color: #fff;
   font-size: var(--fs-xs); line-height: 1.5; white-space: nowrap; pointer-events: none; box-shadow: var(--shadow-md);
   opacity: 0; transform: translate(-50%, -100%); transition: opacity var(--t-fast);
 }
