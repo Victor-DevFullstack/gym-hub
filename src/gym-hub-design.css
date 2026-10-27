@@ -626,3 +626,54 @@
   }
   .gh .search.mobile-open .sr-results.is-open { display: block; }
 }
+
+/* ---------- Diálogos de cadastro (renderizados no overlay do Material, fora de .gh) ---------- */
+.mat-mdc-dialog-container:has(.dlg) {
+  --mat-dialog-container-color: var(--surface);
+  --mat-dialog-container-shape: 20px;
+  --mat-dialog-container-max-width: 560px;
+  --mat-dialog-container-min-width: min(560px, 100vw - 32px);
+}
+.dlg { display: flex; flex-direction: column; max-height: calc(100dvh - 48px); font-family: var(--font-sans); color: var(--text); background: var(--surface); }
+.dlg, .dlg * { box-sizing: border-box; }
+.dlg__head { display: flex; align-items: flex-start; gap: 14px; padding: 22px 24px 14px; }
+.dlg__icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; background: var(--brand-soft); color: var(--brand-strong); }
+.dlg__title { margin: 0; font-size: 1.125rem; font-weight: 700; letter-spacing: -.01em; text-transform: capitalize; }
+.dlg__sub { margin: 2px 0 0; font-size: .8125rem; color: var(--text-muted); }
+.dlg__x { margin-left: auto; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: var(--text-muted); background: none; border: 0; cursor: pointer; }
+.dlg__x:hover { background: var(--surface-2); color: var(--text); }
+.dlg__body { display: grid; gap: 16px; padding: 6px 24px 8px; overflow-y: auto; }
+.dlg-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.dlg-field > label, .dlg-field__lab { font-size: .8125rem; font-weight: 600; }
+.dlg-field small { font-size: .75rem; color: var(--text-muted); }
+.dlg-field__err { font-size: .75rem; color: var(--red); }
+.dlg input, .dlg select {
+  width: 100%; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--text); font: inherit; font-size: .875rem;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.dlg input:focus, .dlg select:focus { outline: none; background: var(--surface); border-color: var(--brand-strong); box-shadow: 0 0 0 4px rgba(34, 211, 155, .22); }
+.dlg-field.is-bad input, .dlg-field.is-bad select { border-color: var(--red); }
+.dlg-pw { position: relative; }
+.dlg-pw input { padding-right: 78px; }
+.dlg-pw button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 6px 10px; border: 0; border-radius: 8px; background: none; font: inherit; font-size: .75rem; font-weight: 600; color: var(--brand-strong); cursor: pointer; }
+.dlg-plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.dlg-plan { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; text-align: left; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); color: var(--text); font: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
+.dlg-plan:hover { border-color: var(--brand-strong); }
+.dlg-plan b { font-size: .875rem; }
+.dlg-plan span { font-size: .75rem; color: var(--text-muted); }
+.dlg-plan strong { margin-top: 4px; font-size: 1rem; }
+.dlg-plan[aria-checked="true"] { border-color: var(--brand-strong); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-strong); }
+.dlg-field.is-bad .dlg-plan { border-color: var(--red); }
+.dlg-sum { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--surface-2); font-size: .8125rem; color: var(--text-muted); }
+.dlg-sum b { color: var(--text); }
+.dlg__foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; padding: 16px 24px 22px; border-top: 1px solid var(--line); }
+.dlg .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; border: 0; font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; }
+.dlg .btn--primary { background: var(--brand); color: var(--on-brand); }
+.dlg .btn--primary:hover { filter: brightness(.95); }
+.dlg .btn--ghost { border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+.dlg .btn--ghost:hover { background: var(--surface-2); }
+@media (max-width: 600px) {
+  .dlg__head, .dlg__body, .dlg__foot { padding-inline: 18px; }
+  .dlg__foot .btn { flex: 1; }
+}
